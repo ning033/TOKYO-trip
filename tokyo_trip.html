@@ -758,8 +758,54 @@
       background: linear-gradient(135deg, #f7fafc 0%, #eef2f7 100%);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 16px 20px;
       text-align: left;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .hotel-card .hotel-toggle {
+      width: 100%;
+      padding: 14px 18px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: inherit;
+      text-align: left;
+      transition: background 0.15s ease;
+    }
+    .hotel-card .hotel-toggle:hover { background: rgba(44, 95, 141, 0.05); }
+    .hotel-card .hotel-toggle .ht-icon { font-size: 20px; }
+    .hotel-card .hotel-toggle .ht-label {
+      flex: 1;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+    }
+    .hotel-card .hotel-toggle .ht-hint {
+      font-size: 11px;
+      color: var(--ink-mute);
+      margin-right: 8px;
+    }
+    .hotel-card .hotel-toggle .ht-arrow {
+      transition: transform 0.3s ease;
+      font-size: 11px;
+      color: var(--ink-mute);
+    }
+    .hotel-card.open .hotel-toggle .ht-arrow { transform: rotate(180deg); }
+    .hotel-card .hotel-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .hotel-card.open .hotel-content { max-height: 600px; }
+    .hotel-card .hotel-content-inner {
+      padding: 0 18px 16px 18px;
+      border-top: 1px dashed var(--line);
+      padding-top: 14px;
+      margin-top: 0;
     }
     .hotel-card .hotel-header {
       display: flex;
@@ -963,30 +1009,134 @@
       display: inline-block;
     }
 
-    /* Transit summary */
+    /* Transit summary (collapsible) */
     .transit-summary {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 18px 22px;
       margin-bottom: 20px;
       box-shadow: var(--shadow-sm);
+      overflow: hidden;
     }
-    .transit-summary h3 {
+    .transit-summary > h3 {
       font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--ink-mute);
-      margin-bottom: 14px;
+      padding: 18px 22px 12px;
       display: flex;
       align-items: center;
       gap: 8px;
+      border-bottom: 1px solid var(--line-soft);
     }
-    .transit-summary h3::before {
+    .transit-summary > h3::before {
       content: '🚇';
       font-size: 16px;
     }
+
+    /* Day flow diagram (animated route overview) */
+    .day-flow {
+      padding: 16px 18px 4px;
+      background: linear-gradient(180deg, #fafbfc 0%, white 100%);
+    }
+    .day-flow .flow-title {
+      font-size: 11px;
+      color: var(--ink-mute);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .day-flow .flow-svg-wrap {
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+    .day-flow svg {
+      display: block;
+      min-width: 100%;
+    }
+    .day-flow .flow-node {
+      stroke-width: 3;
+      fill: white;
+      transition: all 0.3s ease;
+    }
+    .day-flow .flow-node.start,
+    .day-flow .flow-node.end {
+      stroke-width: 4;
+    }
+    .day-flow .flow-line {
+      stroke-width: 3;
+      stroke-dasharray: 6 4;
+      animation: dash-flow 1.5s linear infinite;
+      fill: none;
+    }
+    .day-flow .flow-label {
+      font-family: 'Outfit', 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      fill: var(--ink);
+      text-anchor: middle;
+    }
+    .day-flow .flow-label-jp {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 10px;
+      fill: var(--ink-mute);
+      text-anchor: middle;
+    }
+    .day-flow .flow-time {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      fill: var(--accent);
+      font-weight: 600;
+      text-anchor: middle;
+    }
+
+    /* Transit list collapsible toggle */
+    .transit-list-toggle {
+      width: 100%;
+      padding: 12px 22px;
+      background: white;
+      border: none;
+      border-top: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      text-align: left;
+      transition: background 0.15s ease;
+    }
+    .transit-list-toggle:hover { background: var(--accent-soft); }
+    .transit-list-toggle .tlt-arrow {
+      transition: transform 0.3s ease;
+      font-size: 11px;
+    }
+    .transit-summary.list-open .transit-list-toggle {
+      background: var(--accent-soft);
+      border-bottom-color: var(--accent);
+    }
+    .transit-summary.list-open .transit-list-toggle .tlt-arrow {
+      transform: rotate(180deg);
+    }
+    .transit-list-wrap {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .transit-summary.list-open .transit-list-wrap {
+      max-height: 1500px;
+    }
+    .transit-list-inner {
+      padding: 18px 22px;
+    }
+
     .transit-list {
       display: flex;
       flex-direction: column;
@@ -1338,50 +1488,56 @@
         <span>住宿：淺草</span>
       </div>
 
-      <!-- Hotel Card -->
-      <div class="hotel-card">
-        <div class="hotel-header">
-          <span class="hotel-icon">🏨</span>
-          <span class="hotel-label">ACCOMMODATION</span>
-        </div>
-        <div class="hotel-name">淺草田原町站前 APA 飯店</div>
-        <div class="hotel-name-jp">APA Hotel Asakusa Tawaramachi Ekimae ・ アパホテル〈浅草 田原町駅前〉</div>
+      <!-- Hotel Card (collapsible) -->
+      <div class="hotel-card open" id="hotelCard">
+        <button class="hotel-toggle" onclick="document.getElementById('hotelCard').classList.toggle('open')">
+          <span class="ht-icon">🏨</span>
+          <span class="ht-label">ACCOMMODATION ・ 淺草田原町站前 APA 飯店</span>
+          <span class="ht-hint">點擊收合</span>
+          <span class="ht-arrow">▼</span>
+        </button>
+        <div class="hotel-content">
+          <div class="hotel-content-inner">
+            <div class="hotel-name">淺草田原町站前 APA 飯店</div>
+            <div class="hotel-name-jp">APA Hotel Asakusa Tawaramachi Ekimae ・ アパホテル〈浅草 田原町駅前〉</div>
 
-        <div class="hotel-info">
-          <div class="hotel-info-item">
-            <span class="hi-icon">📍</span>
-            <div>
-              <span class="hi-label">地址 / 住所</span>
-              <span class="hi-value">〒111-0035 東京都台東区西浅草 1-2-3</span>
+            <div class="hotel-info">
+              <div class="hotel-info-item">
+                <span class="hi-icon">📍</span>
+                <div>
+                  <span class="hi-label">地址 / 住所</span>
+                  <span class="hi-value">〒111-0035 東京都台東区西浅草 1-2-3</span>
+                </div>
+              </div>
+              <div class="hotel-info-item">
+                <span class="hi-icon">📞</span>
+                <div>
+                  <span class="hi-label">電話</span>
+                  <a class="hi-value" href="tel:+81570080111">+81 570-080-111</a>
+                </div>
+              </div>
+              <div class="hotel-info-item">
+                <span class="hi-icon">🕒</span>
+                <div>
+                  <span class="hi-label">入住 / 退房</span>
+                  <span class="hi-value">Check-in 15:00 ・ Check-out 10:00</span>
+                </div>
+              </div>
+              <div class="hotel-info-item">
+                <span class="hi-icon">🚇</span>
+                <div>
+                  <span class="hi-label">最近車站</span>
+                  <span class="hi-value">銀座線・田原町站 1 分鐘</span>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="hotel-info-item">
-            <span class="hi-icon">📞</span>
-            <div>
-              <span class="hi-label">電話</span>
-              <a class="hi-value" href="tel:+81570080111">+81 570-080-111</a>
-            </div>
-          </div>
-          <div class="hotel-info-item">
-            <span class="hi-icon">🕒</span>
-            <div>
-              <span class="hi-label">入住 / 退房</span>
-              <span class="hi-value">Check-in 15:00 ・ Check-out 10:00</span>
-            </div>
-          </div>
-          <div class="hotel-info-item">
-            <span class="hi-icon">🚇</span>
-            <div>
-              <span class="hi-label">最近車站</span>
-              <span class="hi-value">銀座線・田原町站 1 分鐘</span>
-            </div>
-          </div>
-        </div>
 
-        <div class="hotel-actions">
-          <a class="hotel-btn" href="https://www.google.com/maps/search/?api=1&query=APA+Hotel+Asakusa+Tawaramachi+Ekimae" target="_blank">📍 Google Maps</a>
-          <a class="hotel-btn" href="https://www.google.com/maps/dir/?api=1&destination=APA+Hotel+Asakusa+Tawaramachi+Ekimae" target="_blank">🧭 路線導航</a>
-          <a class="hotel-btn" href="https://www.apahotel.com/" target="_blank">🌐 apahotel.com</a>
+            <div class="hotel-actions">
+              <a class="hotel-btn" href="https://www.google.com/maps/search/?api=1&query=APA+Hotel+Asakusa+Tawaramachi+Ekimae" target="_blank">📍 Google Maps</a>
+              <a class="hotel-btn" href="https://www.google.com/maps/dir/?api=1&destination=APA+Hotel+Asakusa+Tawaramachi+Ekimae" target="_blank">🧭 路線導航</a>
+              <a class="hotel-btn" href="https://www.apahotel.com/" target="_blank">🌐 apahotel.com</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1421,7 +1577,47 @@
       <!-- Transit Summary -->
       <div class="transit-summary">
         <h3>交通搭乘資訊・本日路線</h3>
-        <div class="transit-list">
+        <div class="day-flow">
+          <div class="flow-title">🗺️ 本日行程動畫流程圖 ・ 機場 → 淺草 → 晴空塔</div>
+          <div class="flow-svg-wrap">
+            <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg">
+          <!-- lines -->
+          <line class="flow-line" x1="80" y1="55" x2="280" y2="55" stroke="#1e7ed6"/>
+          <line class="flow-line" x1="280" y1="55" x2="480" y2="55" stroke="#ff9500"/>
+          <line class="flow-line" x1="480" y1="55" x2="640" y2="55" stroke="#1d70b8"/>
+          <!-- nodes -->
+          <circle class="flow-node start" cx="80" cy="55" r="14" stroke="#1e7ed6"/>
+          <circle class="flow-node" cx="280" cy="55" r="12" stroke="#ff9500"/>
+          <circle class="flow-node" cx="480" cy="55" r="12" stroke="#1d70b8"/>
+          <circle class="flow-node end" cx="640" cy="55" r="14" stroke="#1d70b8"/>
+          <!-- icons -->
+          <text x="80" y="60" text-anchor="middle" font-size="14">🛫</text>
+          <text x="280" y="60" text-anchor="middle" font-size="13">🏨</text>
+          <text x="480" y="60" text-anchor="middle" font-size="13">🚇</text>
+          <text x="640" y="60" text-anchor="middle" font-size="14">🗼</text>
+          <!-- labels -->
+          <text class="flow-label" x="80" y="92">成田機場</text>
+          <text class="flow-label-jp" x="80" y="106">成田空港</text>
+          <text class="flow-label" x="280" y="92">淺草飯店</text>
+          <text class="flow-label-jp" x="280" y="106">APA 浅草</text>
+          <text class="flow-label" x="480" y="92">淺草站</text>
+          <text class="flow-label-jp" x="480" y="106">浅草駅</text>
+          <text class="flow-label" x="640" y="92">晴空塔</text>
+          <text class="flow-label-jp" x="640" y="106">スカイツリー</text>
+          <!-- times -->
+          <text class="flow-time" x="180" y="44">~60 分</text>
+          <text class="flow-time" x="380" y="44">步行 8 分</text>
+          <text class="flow-time" x="560" y="44">3 分</text>
+        </svg>
+          </div>
+        </div>
+        <button class="transit-list-toggle" onclick="this.closest('.transit-summary').classList.toggle('list-open')">
+          <span>🚇 今日乘車資訊（點擊展開詳細路線、時間、票價）</span>
+          <span class="tlt-arrow">▼</span>
+        </button>
+        <div class="transit-list-wrap">
+          <div class="transit-list-inner">
+            <div class="transit-list">
           <div class="transit-row">
             <div class="tr-icon">🛫</div>
             <div class="tr-route">
@@ -1462,7 +1658,9 @@
             </div>
             <div class="tr-cost">¥3,060</div>
           </div>
+          </div>
         </div>
+      </div>
       </div>
 
       <div class="itinerary">
@@ -1641,7 +1839,42 @@
       <!-- Transit Summary -->
       <div class="transit-summary">
         <h3>交通搭乘資訊・本日路線</h3>
-        <div class="transit-list">
+        <div class="day-flow">
+          <div class="flow-title">🗺️ 本日行程動畫流程圖 ・ 淺草 → 皇居/Outlet → 新宿</div>
+          <div class="flow-svg-wrap">
+            <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg">
+          <line class="flow-line" x1="80" y1="55" x2="290" y2="55" stroke="#ff9500"/>
+          <line class="flow-line" x1="290" y1="55" x2="500" y2="55" stroke="#e60012"/>
+          <line class="flow-line" x1="500" y1="55" x2="640" y2="55" stroke="#e85298"/>
+          <circle class="flow-node start" cx="80" cy="55" r="14" stroke="#ff9500"/>
+          <circle class="flow-node" cx="290" cy="55" r="12" stroke="#e60012"/>
+          <circle class="flow-node" cx="500" cy="55" r="12" stroke="#e60012"/>
+          <circle class="flow-node end" cx="640" cy="55" r="14" stroke="#e85298"/>
+          <text x="80" y="60" text-anchor="middle" font-size="13">🏨</text>
+          <text x="290" y="60" text-anchor="middle" font-size="13">👑</text>
+          <text x="500" y="60" text-anchor="middle" font-size="13">⛩️</text>
+          <text x="640" y="60" text-anchor="middle" font-size="13">🏨</text>
+          <text class="flow-label" x="80" y="92">淺草</text>
+          <text class="flow-label-jp" x="80" y="106">浅草</text>
+          <text class="flow-label" x="290" y="92">皇居</text>
+          <text class="flow-label-jp" x="290" y="106">皇居 / Outlet</text>
+          <text class="flow-label" x="500" y="92">新宿</text>
+          <text class="flow-label-jp" x="500" y="106">花園神社</text>
+          <text class="flow-label" x="640" y="92">回淺草</text>
+          <text class="flow-label-jp" x="640" y="106">浅草 帰宅</text>
+          <text class="flow-time" x="185" y="44">G線 22分</text>
+          <text class="flow-time" x="395" y="44">M線 20分</text>
+          <text class="flow-time" x="570" y="44">25 分</text>
+        </svg>
+          </div>
+        </div>
+        <button class="transit-list-toggle" onclick="this.closest('.transit-summary').classList.toggle('list-open')">
+          <span>🚇 今日乘車資訊（點擊展開詳細路線、時間、票價）</span>
+          <span class="tlt-arrow">▼</span>
+        </button>
+        <div class="transit-list-wrap">
+          <div class="transit-list-inner">
+            <div class="transit-list">
           <div class="transit-row">
             <div class="tr-icon">🚇</div>
             <div class="tr-route">
@@ -1682,7 +1915,9 @@
             </div>
             <div class="tr-cost">¥700</div>
           </div>
+          </div>
         </div>
+      </div>
       </div>
 
       <!-- Dual Route Choice -->
@@ -1900,52 +2135,6 @@
         <div class="day-jp">お台場 ・ 池袋 ・ 秋葉原 ・ 動漫朝聖之旅</div>
         <div class="day-summary">鋼彈基地 → 池袋寶可夢中心 → 秋葉原步行者天國（週日限定 13:00-18:00）→ 世界のラジオ会館</div>
       </div>
-
-      <!-- Transit Summary -->
-      <div class="transit-summary">
-        <h3>交通搭乘資訊・本日主要路線（推薦方案 B）</h3>
-        <div class="transit-list">
-          <div class="transit-row">
-            <div class="tr-icon">🚇</div>
-            <div class="tr-route">
-              <span class="tr-from-to">淺草 → 台場</span>
-              <span class="tr-detail">都營淺草線淺草 → 新橋 → 百合海鷗號（ゆりかもめ）→ 台場・約 35 分鐘</span>
-            </div>
-            <div class="tr-cost">¥580</div>
-          </div>
-          <div class="transit-row">
-            <div class="tr-icon">🚇</div>
-            <div class="tr-route">
-              <span class="tr-from-to">台場 → 池袋</span>
-              <span class="tr-detail">百合海鷗號 → 新橋 → JR 山手線 → 池袋・約 40 分鐘</span>
-            </div>
-            <div class="tr-cost">¥480</div>
-          </div>
-          <div class="transit-row">
-            <div class="tr-icon">🚇</div>
-            <div class="tr-route">
-              <span class="tr-from-to">池袋 → 秋葉原</span>
-              <span class="tr-detail">JR 山手線（外回り）・約 18 分鐘</span>
-            </div>
-            <div class="tr-cost">¥210</div>
-          </div>
-          <div class="transit-row">
-            <div class="tr-icon">🚇</div>
-            <div class="tr-route">
-              <span class="tr-from-to">秋葉原 → 淺草（回飯店）</span>
-              <span class="tr-detail">東京 Metro 銀座線・約 8 分鐘</span>
-            </div>
-            <div class="tr-cost">¥210</div>
-          </div>
-          <div class="transit-row transit-total">
-            <div class="tr-icon">💰</div>
-            <div class="tr-route">
-              <span class="tr-from-to">交通合計（單人・方案 B）</span>
-              <span class="tr-detail" style="color: rgba(255,255,255,0.7);">方案 C 約 ¥1,860</span>
-            </div>
-            <div class="tr-cost">¥1,480</div>
-          </div>
-        </div>
       </div>
 
       <!-- Lottery Alert -->
@@ -2017,7 +2206,97 @@
 
       <!-- Plan A -->
       <div class="plan-panel" id="planA">
-        <div class="itinerary">
+        
+      <!-- Transit Summary for planA -->
+      <div class="transit-summary">
+        <h3>交通搭乘資訊・方案 A 路線（早場 10:00-12:00）</h3>
+        <div class="day-flow">
+          <div class="flow-title">🗺️ 方案 A 流程圖 ・ 早場 10:00 鋼彈</div>
+          <div class="flow-svg-wrap">
+            <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg">
+          <line class="flow-line" x1="60" y1="55" x2="220" y2="55" stroke="#e85298"/>
+          <line class="flow-line" x1="220" y1="55" x2="390" y2="55" stroke="#00b2e5"/>
+          <line class="flow-line" x1="390" y1="55" x2="540" y2="55" stroke="#9acd32"/>
+          <line class="flow-line" x1="540" y1="55" x2="680" y2="55" stroke="#ff9500"/>
+          <circle class="flow-node start" cx="60" cy="55" r="14" stroke="#e85298"/>
+          <circle class="flow-node" cx="220" cy="55" r="12" stroke="#00b2e5"/>
+          <circle class="flow-node" cx="390" cy="55" r="12" stroke="#9acd32"/>
+          <circle class="flow-node" cx="540" cy="55" r="12" stroke="#9acd32"/>
+          <circle class="flow-node end" cx="680" cy="55" r="14" stroke="#ff9500"/>
+          <text x="60" y="60" text-anchor="middle" font-size="13">🏨</text>
+          <text x="220" y="60" text-anchor="middle" font-size="13">🤖</text>
+          <text x="390" y="60" text-anchor="middle" font-size="13">⚡</text>
+          <text x="540" y="60" text-anchor="middle" font-size="13">🎮</text>
+          <text x="680" y="60" text-anchor="middle" font-size="13">🏨</text>
+          <text class="flow-label" x="60" y="92">淺草 08:30</text>
+          <text class="flow-label-jp" x="60" y="106">浅草</text>
+          <text class="flow-label" x="220" y="92">台場 10:00</text>
+          <text class="flow-label-jp" x="220" y="106">鋼彈基地</text>
+          <text class="flow-label" x="390" y="92">池袋 13:30</text>
+          <text class="flow-label-jp" x="390" y="106">寶可夢中心</text>
+          <text class="flow-label" x="540" y="92">秋葉原 16:00</text>
+          <text class="flow-label-jp" x="540" y="106">封街全程</text>
+          <text class="flow-label" x="680" y="92">回淺草 21:30</text>
+          <text class="flow-label-jp" x="680" y="106">浅草</text>
+          <text class="flow-time" x="140" y="44">40 分</text>
+          <text class="flow-time" x="305" y="44">50 分</text>
+          <text class="flow-time" x="465" y="44">18 分</text>
+          <text class="flow-time" x="610" y="44">15 分</text>
+        </svg>
+          </div>
+        </div>
+        <button class="transit-list-toggle" onclick="this.closest('.transit-summary').classList.toggle('list-open')">
+          <span>🚇 今日乘車資訊（點擊展開詳細路線、時間、票價）</span>
+          <span class="tlt-arrow">▼</span>
+        </button>
+        <div class="transit-list-wrap">
+          <div class="transit-list-inner">
+            <div class="transit-list">
+              <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">淺草 → 台場</span>
+              <span class="tr-detail">都營淺草線 → 新橋 → 百合海鷗號 → 台場・約 35 分</span>
+            </div>
+            <div class="tr-cost">¥580</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">台場 → 池袋</span>
+              <span class="tr-detail">百合海鷗號 → 新橋 → JR 山手線 → 池袋・約 40 分</span>
+            </div>
+            <div class="tr-cost">¥480</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">池袋 → 秋葉原</span>
+              <span class="tr-detail">JR 山手線（內回り）・約 18 分</span>
+            </div>
+            <div class="tr-cost">¥210</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">秋葉原 → 淺草</span>
+              <span class="tr-detail">東京 Metro 銀座線・約 8 分</span>
+            </div>
+            <div class="tr-cost">¥210</div>
+          </div>
+          <div class="transit-row transit-total">
+            <div class="tr-icon">💰</div>
+            <div class="tr-route">
+              <span class="tr-from-to">交通合計（方案 A）</span>
+              <span class="tr-detail" style="color: rgba(255,255,255,0.7);">早場・封街全程體驗</span>
+            </div>
+            <div class="tr-cost">¥1,480</div>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<div class="itinerary">
           <div class="item">
             <div class="item-time">
               <div class="time">08:30-09:30</div>
@@ -2414,7 +2693,97 @@
 
       <!-- Plan B (Recommended) -->
       <div class="plan-panel active" id="planB">
-        <div class="itinerary">
+        
+      <!-- Transit Summary for planB -->
+      <div class="transit-summary">
+        <h3>交通搭乘資訊・方案 B 路線（中午場 12:00-14:00 ⭐推薦）</h3>
+        <div class="day-flow">
+          <div class="flow-title">🗺️ 方案 B 流程圖 ・ 中午場 12:00 鋼彈（推薦）</div>
+          <div class="flow-svg-wrap">
+            <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg">
+          <line class="flow-line" x1="60" y1="55" x2="220" y2="55" stroke="#e85298"/>
+          <line class="flow-line" x1="220" y1="55" x2="390" y2="55" stroke="#00b2e5"/>
+          <line class="flow-line" x1="390" y1="55" x2="540" y2="55" stroke="#9acd32"/>
+          <line class="flow-line" x1="540" y1="55" x2="680" y2="55" stroke="#ff9500"/>
+          <circle class="flow-node start" cx="60" cy="55" r="14" stroke="#e85298"/>
+          <circle class="flow-node" cx="220" cy="55" r="12" stroke="#00b2e5"/>
+          <circle class="flow-node" cx="390" cy="55" r="12" stroke="#9acd32"/>
+          <circle class="flow-node" cx="540" cy="55" r="12" stroke="#9acd32"/>
+          <circle class="flow-node end" cx="680" cy="55" r="14" stroke="#ff9500"/>
+          <text x="60" y="60" text-anchor="middle" font-size="13">🏨</text>
+          <text x="220" y="60" text-anchor="middle" font-size="13">🤖</text>
+          <text x="390" y="60" text-anchor="middle" font-size="13">⚡</text>
+          <text x="540" y="60" text-anchor="middle" font-size="13">🎮</text>
+          <text x="680" y="60" text-anchor="middle" font-size="13">🏨</text>
+          <text class="flow-label" x="60" y="92">淺草 09:30</text>
+          <text class="flow-label-jp" x="60" y="106">浅草</text>
+          <text class="flow-label" x="220" y="92">台場 12:00</text>
+          <text class="flow-label-jp" x="220" y="106">鋼彈+午餐</text>
+          <text class="flow-label" x="390" y="92">池袋 15:00</text>
+          <text class="flow-label-jp" x="390" y="106">寶可夢中心</text>
+          <text class="flow-label" x="540" y="92">秋葉原 17:00</text>
+          <text class="flow-label-jp" x="540" y="106">封街黃金時段</text>
+          <text class="flow-label" x="680" y="92">回淺草 21:00</text>
+          <text class="flow-label-jp" x="680" y="106">浅草</text>
+          <text class="flow-time" x="140" y="44">40 分</text>
+          <text class="flow-time" x="305" y="44">50 分</text>
+          <text class="flow-time" x="465" y="44">18 分</text>
+          <text class="flow-time" x="610" y="44">15 分</text>
+        </svg>
+          </div>
+        </div>
+        <button class="transit-list-toggle" onclick="this.closest('.transit-summary').classList.toggle('list-open')">
+          <span>🚇 今日乘車資訊（點擊展開詳細路線、時間、票價）</span>
+          <span class="tlt-arrow">▼</span>
+        </button>
+        <div class="transit-list-wrap">
+          <div class="transit-list-inner">
+            <div class="transit-list">
+              <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">淺草 → 台場</span>
+              <span class="tr-detail">都營淺草線 → 新橋 → 百合海鷗號 → 台場・約 35 分</span>
+            </div>
+            <div class="tr-cost">¥580</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">台場 → 池袋</span>
+              <span class="tr-detail">百合海鷗號 → 新橋 → JR 山手線 → 池袋・約 40 分</span>
+            </div>
+            <div class="tr-cost">¥480</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">池袋 → 秋葉原</span>
+              <span class="tr-detail">JR 山手線（內回り）・約 18 分</span>
+            </div>
+            <div class="tr-cost">¥210</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">秋葉原 → 淺草</span>
+              <span class="tr-detail">東京 Metro 銀座線・約 8 分</span>
+            </div>
+            <div class="tr-cost">¥210</div>
+          </div>
+          <div class="transit-row transit-total">
+            <div class="tr-icon">💰</div>
+            <div class="tr-route">
+              <span class="tr-from-to">交通合計（方案 B ⭐推薦）</span>
+              <span class="tr-detail" style="color: rgba(255,255,255,0.7);">動線最順、節奏不趕</span>
+            </div>
+            <div class="tr-cost">¥1,480</div>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<div class="itinerary">
           <div class="item">
             <div class="item-time">
               <div class="time">09:30-10:30</div>
@@ -2812,7 +3181,97 @@
 
       <!-- Plan C -->
       <div class="plan-panel" id="planC">
-        <div class="itinerary">
+        
+      <!-- Transit Summary for planC -->
+      <div class="transit-summary">
+        <h3>交通搭乘資訊・方案 C 路線（晚場 15:00-17:00）</h3>
+        <div class="day-flow">
+          <div class="flow-title">🗺️ 方案 C 流程圖 ・ 晚場 15:00 鋼彈（先池袋→秋葉→台場）</div>
+          <div class="flow-svg-wrap">
+            <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg">
+          <line class="flow-line" x1="60" y1="55" x2="220" y2="55" stroke="#9acd32"/>
+          <line class="flow-line" x1="220" y1="55" x2="390" y2="55" stroke="#9acd32"/>
+          <line class="flow-line" x1="390" y1="55" x2="540" y2="55" stroke="#00b2e5"/>
+          <line class="flow-line" x1="540" y1="55" x2="680" y2="55" stroke="#e85298"/>
+          <circle class="flow-node start" cx="60" cy="55" r="14" stroke="#9acd32"/>
+          <circle class="flow-node" cx="220" cy="55" r="12" stroke="#9acd32"/>
+          <circle class="flow-node" cx="390" cy="55" r="12" stroke="#9acd32"/>
+          <circle class="flow-node" cx="540" cy="55" r="12" stroke="#00b2e5"/>
+          <circle class="flow-node end" cx="680" cy="55" r="14" stroke="#e85298"/>
+          <text x="60" y="60" text-anchor="middle" font-size="13">🏨</text>
+          <text x="220" y="60" text-anchor="middle" font-size="13">⚡</text>
+          <text x="390" y="60" text-anchor="middle" font-size="13">🎮</text>
+          <text x="540" y="60" text-anchor="middle" font-size="13">🤖</text>
+          <text x="680" y="60" text-anchor="middle" font-size="13">🏨</text>
+          <text class="flow-label" x="60" y="92">淺草 10:00</text>
+          <text class="flow-label-jp" x="60" y="106">浅草</text>
+          <text class="flow-label" x="220" y="92">池袋 11:00</text>
+          <text class="flow-label-jp" x="220" y="106">寶可夢中心</text>
+          <text class="flow-label" x="390" y="92">秋葉原 14:00</text>
+          <text class="flow-label-jp" x="390" y="106">封街濃縮</text>
+          <text class="flow-label" x="540" y="92">台場 15:00</text>
+          <text class="flow-label-jp" x="540" y="106">鋼彈+夜景</text>
+          <text class="flow-label" x="680" y="92">回淺草 20:30</text>
+          <text class="flow-label-jp" x="680" y="106">浅草</text>
+          <text class="flow-time" x="140" y="44">25 分</text>
+          <text class="flow-time" x="305" y="44">18 分</text>
+          <text class="flow-time" x="465" y="44">30 分</text>
+          <text class="flow-time" x="610" y="44">40 分</text>
+        </svg>
+          </div>
+        </div>
+        <button class="transit-list-toggle" onclick="this.closest('.transit-summary').classList.toggle('list-open')">
+          <span>🚇 今日乘車資訊（點擊展開詳細路線、時間、票價）</span>
+          <span class="tlt-arrow">▼</span>
+        </button>
+        <div class="transit-list-wrap">
+          <div class="transit-list-inner">
+            <div class="transit-list">
+              <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">淺草 → 池袋</span>
+              <span class="tr-detail">銀座線 → 上野 → JR 山手線 → 池袋・約 25 分</span>
+            </div>
+            <div class="tr-cost">¥390</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">池袋 → 秋葉原</span>
+              <span class="tr-detail">JR 山手線（內回り）・約 18 分</span>
+            </div>
+            <div class="tr-cost">¥210</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">秋葉原 → 台場</span>
+              <span class="tr-detail">JR 山手線 → 新橋 → 百合海鷗號 → 台場・約 30 分</span>
+            </div>
+            <div class="tr-cost">¥680</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">台場 → 淺草</span>
+              <span class="tr-detail">百合海鷗號 → 新橋 → 都營淺草線 → 淺草・約 40 分</span>
+            </div>
+            <div class="tr-cost">¥580</div>
+          </div>
+          <div class="transit-row transit-total">
+            <div class="tr-icon">💰</div>
+            <div class="tr-route">
+              <span class="tr-from-to">交通合計（方案 C）</span>
+              <span class="tr-detail" style="color: rgba(255,255,255,0.7);">含實物大鋼彈夜間點燈</span>
+            </div>
+            <div class="tr-cost">¥1,860</div>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<div class="itinerary">
           <div class="item">
             <div class="item-time">
               <div class="time">10:00-11:00</div>
@@ -3162,6 +3621,96 @@
 
       <!-- Plan D: 未中籤備案 -->
       <div class="plan-panel" id="planD">
+      <!-- Transit Summary for planD -->
+      <div class="transit-summary">
+        <h3>交通搭乘資訊・方案 D 路線（未中籤備案）</h3>
+        <div class="day-flow">
+          <div class="flow-title">🗺️ 方案 D 流程圖 ・ 未中籤備案（同 B 路線、店外鋼彈）</div>
+          <div class="flow-svg-wrap">
+            <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg">
+          <line class="flow-line" x1="60" y1="55" x2="220" y2="55" stroke="#e85298"/>
+          <line class="flow-line" x1="220" y1="55" x2="390" y2="55" stroke="#00b2e5"/>
+          <line class="flow-line" x1="390" y1="55" x2="540" y2="55" stroke="#9acd32"/>
+          <line class="flow-line" x1="540" y1="55" x2="680" y2="55" stroke="#ff9500"/>
+          <circle class="flow-node start" cx="60" cy="55" r="14" stroke="#e85298"/>
+          <circle class="flow-node" cx="220" cy="55" r="12" stroke="#00b2e5"/>
+          <circle class="flow-node" cx="390" cy="55" r="12" stroke="#9acd32"/>
+          <circle class="flow-node" cx="540" cy="55" r="12" stroke="#9acd32"/>
+          <circle class="flow-node end" cx="680" cy="55" r="14" stroke="#ff9500"/>
+          <text x="60" y="60" text-anchor="middle" font-size="13">🏨</text>
+          <text x="220" y="60" text-anchor="middle" font-size="13">😢</text>
+          <text x="390" y="60" text-anchor="middle" font-size="13">⚡</text>
+          <text x="540" y="60" text-anchor="middle" font-size="13">🎮</text>
+          <text x="680" y="60" text-anchor="middle" font-size="13">🏨</text>
+          <text class="flow-label" x="60" y="92">淺草 10:00</text>
+          <text class="flow-label-jp" x="60" y="106">浅草</text>
+          <text class="flow-label" x="220" y="92">台場 11:00</text>
+          <text class="flow-label-jp" x="220" y="106">店外鋼彈</text>
+          <text class="flow-label" x="390" y="92">池袋 14:30</text>
+          <text class="flow-label-jp" x="390" y="106">寶可夢中心+</text>
+          <text class="flow-label" x="540" y="92">秋葉原 17:00</text>
+          <text class="flow-label-jp" x="540" y="106">封街+延伸</text>
+          <text class="flow-label" x="680" y="92">回淺草 21:30</text>
+          <text class="flow-label-jp" x="680" y="106">浅草</text>
+          <text class="flow-time" x="140" y="44">40 分</text>
+          <text class="flow-time" x="305" y="44">50 分</text>
+          <text class="flow-time" x="465" y="44">18 分</text>
+          <text class="flow-time" x="610" y="44">15 分</text>
+        </svg>
+          </div>
+        </div>
+        <button class="transit-list-toggle" onclick="this.closest('.transit-summary').classList.toggle('list-open')">
+          <span>🚇 今日乘車資訊（點擊展開詳細路線、時間、票價）</span>
+          <span class="tlt-arrow">▼</span>
+        </button>
+        <div class="transit-list-wrap">
+          <div class="transit-list-inner">
+            <div class="transit-list">
+              <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">淺草 → 台場</span>
+              <span class="tr-detail">都營淺草線 → 新橋 → 百合海鷗號 → 台場・約 35 分</span>
+            </div>
+            <div class="tr-cost">¥580</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">台場 → 池袋</span>
+              <span class="tr-detail">百合海鷗號 → 新橋 → JR 山手線 → 池袋・約 40 分</span>
+            </div>
+            <div class="tr-cost">¥480</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">池袋 → 秋葉原</span>
+              <span class="tr-detail">JR 山手線（內回り）・約 18 分</span>
+            </div>
+            <div class="tr-cost">¥210</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">秋葉原 → 淺草</span>
+              <span class="tr-detail">東京 Metro 銀座線・約 8 分</span>
+            </div>
+            <div class="tr-cost">¥210</div>
+          </div>
+          <div class="transit-row transit-total">
+            <div class="tr-icon">💰</div>
+            <div class="tr-route">
+              <span class="tr-from-to">交通合計（方案 D 備案）</span>
+              <span class="tr-detail" style="color: rgba(255,255,255,0.7);">節奏最悠閒</span>
+            </div>
+            <div class="tr-cost">¥1,480</div>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
         <div class="lottery-alert"
           style="background: linear-gradient(135deg, #fdf2f0 0%, #fae5e1 100%); border-color: var(--warn);">
           <div class="alert-header" style="border-bottom-color: var(--warn);">
@@ -3535,7 +4084,42 @@
       <!-- Transit Summary -->
       <div class="transit-summary">
         <h3>交通搭乘資訊・本日路線</h3>
-        <div class="transit-list">
+        <div class="day-flow">
+          <div class="flow-title">🗺️ 本日行程動畫流程圖 ・ 明治神宮 → 表參道</div>
+          <div class="flow-svg-wrap">
+            <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg">
+          <line class="flow-line" x1="80" y1="55" x2="280" y2="55" stroke="#ff9500"/>
+          <line class="flow-line" x1="280" y1="55" x2="480" y2="55" stroke="#00bb85"/>
+          <line class="flow-line" x1="480" y1="55" x2="640" y2="55" stroke="#ff9500"/>
+          <circle class="flow-node start" cx="80" cy="55" r="14" stroke="#ff9500"/>
+          <circle class="flow-node" cx="280" cy="55" r="12" stroke="#00bb85"/>
+          <circle class="flow-node" cx="480" cy="55" r="12" stroke="#00bb85"/>
+          <circle class="flow-node end" cx="640" cy="55" r="14" stroke="#ff9500"/>
+          <text x="80" y="60" text-anchor="middle" font-size="13">🏨</text>
+          <text x="280" y="60" text-anchor="middle" font-size="13">⛩️</text>
+          <text x="480" y="60" text-anchor="middle" font-size="13">🛍️</text>
+          <text x="640" y="60" text-anchor="middle" font-size="13">🏨</text>
+          <text class="flow-label" x="80" y="92">淺草</text>
+          <text class="flow-label-jp" x="80" y="106">浅草</text>
+          <text class="flow-label" x="280" y="92">明治神宮</text>
+          <text class="flow-label-jp" x="280" y="106">明治神宮前</text>
+          <text class="flow-label" x="480" y="92">表參道</text>
+          <text class="flow-label-jp" x="480" y="106">竹下通・表参道</text>
+          <text class="flow-label" x="640" y="92">回淺草</text>
+          <text class="flow-label-jp" x="640" y="106">浅草 帰宅</text>
+          <text class="flow-time" x="180" y="44">G+C 35分</text>
+          <text class="flow-time" x="380" y="44">步行 10分</text>
+          <text class="flow-time" x="560" y="44">G線 30分</text>
+        </svg>
+          </div>
+        </div>
+        <button class="transit-list-toggle" onclick="this.closest('.transit-summary').classList.toggle('list-open')">
+          <span>🚇 今日乘車資訊（點擊展開詳細路線、時間、票價）</span>
+          <span class="tlt-arrow">▼</span>
+        </button>
+        <div class="transit-list-wrap">
+          <div class="transit-list-inner">
+            <div class="transit-list">
           <div class="transit-row">
             <div class="tr-icon">🚇</div>
             <div class="tr-route">
@@ -3568,7 +4152,9 @@
             </div>
             <div class="tr-cost">¥520</div>
           </div>
+          </div>
         </div>
+      </div>
       </div>
 
       <div class="itinerary">
@@ -3692,7 +4278,42 @@
       <!-- Transit Summary -->
       <div class="transit-summary">
         <h3>交通搭乘資訊・本日路線</h3>
-        <div class="transit-list">
+        <div class="day-flow">
+          <div class="flow-title">🗺️ 本日行程動畫流程圖 ・ 淺草寺 → 成田機場</div>
+          <div class="flow-svg-wrap">
+            <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg">
+          <line class="flow-line" x1="80" y1="55" x2="280" y2="55" stroke="#666"/>
+          <line class="flow-line" x1="280" y1="55" x2="480" y2="55" stroke="#ff9500"/>
+          <line class="flow-line" x1="480" y1="55" x2="640" y2="55" stroke="#1e7ed6"/>
+          <circle class="flow-node start" cx="80" cy="55" r="14" stroke="#666"/>
+          <circle class="flow-node" cx="280" cy="55" r="12" stroke="#ff9500"/>
+          <circle class="flow-node" cx="480" cy="55" r="12" stroke="#1e7ed6"/>
+          <circle class="flow-node end" cx="640" cy="55" r="14" stroke="#1e7ed6"/>
+          <text x="80" y="60" text-anchor="middle" font-size="13">🏨</text>
+          <text x="280" y="60" text-anchor="middle" font-size="13">⛩️</text>
+          <text x="480" y="60" text-anchor="middle" font-size="13">🚄</text>
+          <text x="640" y="60" text-anchor="middle" font-size="14">🛬</text>
+          <text class="flow-label" x="80" y="92">飯店</text>
+          <text class="flow-label-jp" x="80" y="106">APA 浅草</text>
+          <text class="flow-label" x="280" y="92">淺草寺</text>
+          <text class="flow-label-jp" x="280" y="106">浅草寺</text>
+          <text class="flow-label" x="480" y="92">京成上野</text>
+          <text class="flow-label-jp" x="480" y="106">京成上野</text>
+          <text class="flow-label" x="640" y="92">成田機場</text>
+          <text class="flow-label-jp" x="640" y="106">成田空港</text>
+          <text class="flow-time" x="180" y="44">步行 8分</text>
+          <text class="flow-time" x="380" y="44">G線 5分</text>
+          <text class="flow-time" x="560" y="44">Skyliner 41分</text>
+        </svg>
+          </div>
+        </div>
+        <button class="transit-list-toggle" onclick="this.closest('.transit-summary').classList.toggle('list-open')">
+          <span>🚇 今日乘車資訊（點擊展開詳細路線、時間、票價）</span>
+          <span class="tlt-arrow">▼</span>
+        </button>
+        <div class="transit-list-wrap">
+          <div class="transit-list-inner">
+            <div class="transit-list">
           <div class="transit-row">
             <div class="tr-icon">🚶</div>
             <div class="tr-route">
@@ -3725,7 +4346,9 @@
             </div>
             <div class="tr-cost">¥2,760</div>
           </div>
+          </div>
         </div>
+      </div>
       </div>
 
       <div class="itinerary">
@@ -3835,11 +4458,14 @@
     window.addEventListener('beforeprint', () => {
       document.querySelectorAll('.day-panel, .plan-panel').forEach(p => p.classList.add('active'));
       document.querySelectorAll('.transit-details').forEach(d => d.classList.add('open'));
+      document.querySelectorAll('.transit-summary').forEach(d => d.classList.add('list-open'));
+      document.querySelectorAll('.hotel-card').forEach(d => d.classList.add('open'));
     });
     window.addEventListener('afterprint', () => {
       document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.plan-panel').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.transit-details').forEach(d => d.classList.remove('open'));
+      document.querySelectorAll('.transit-summary').forEach(d => d.classList.remove('list-open'));
       const activeDay = document.querySelector('.day-tab.active');
       const activePlan = document.querySelector('.plan-tab.active');
       if (activeDay) document.getElementById(activeDay.dataset.day).classList.add('active');
