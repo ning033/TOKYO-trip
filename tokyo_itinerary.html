@@ -444,6 +444,103 @@
   .cost-item.total .label { color: rgba(255,255,255,0.65); }
   .cost-item.total .value { color: white; }
 
+  /* Lottery alert box */
+  .lottery-alert {
+    background: linear-gradient(135deg, #fff8e1 0%, #fff3d6 100%);
+    border: 2px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .lottery-alert .alert-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--gold);
+  }
+  .lottery-alert .alert-icon {
+    font-size: 22px;
+  }
+  .lottery-alert .alert-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+  }
+  .lottery-alert .alert-title-jp {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--ink-mute);
+    margin-left: auto;
+  }
+  .lottery-alert .alert-body {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+  .lottery-alert .alert-key {
+    display: inline-block;
+    background: var(--warn);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 0.02em;
+    margin: 2px 0;
+  }
+  .lottery-alert .alert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .lottery-alert .alert-card {
+    background: white;
+    border: 1px solid #e8d9a8;
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+  }
+  .lottery-alert .alert-card .label {
+    font-size: 11px;
+    color: var(--ink-mute);
+    margin-bottom: 4px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .lottery-alert .alert-card .value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .lottery-alert .alert-actions {
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .lottery-alert .alert-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: var(--gold);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.15s ease;
+  }
+  .lottery-alert .alert-btn:hover {
+    background: #a07f3a;
+    transform: translateY(-1px);
+  }
+
   /* Tip box */
   .tip-box {
     margin-top: 16px;
@@ -772,23 +869,69 @@
       <div class="day-summary">鋼彈基地 → 池袋寶可夢中心 → 秋葉原步行者天國（週日限定 13:00-18:00）→ 世界のラジオ会館</div>
     </div>
 
+    <!-- Lottery Alert -->
+    <div class="lottery-alert">
+      <div class="alert-header">
+        <span class="alert-icon">🎫</span>
+        <span class="alert-title">鋼彈基地・事前抽選必讀</span>
+        <span class="alert-title-jp">THE GUNDAM BASE TOKYO ・ 事前入店抽選</span>
+      </div>
+      <div class="alert-body">
+        5/31 為 <strong>事前抽選日</strong>（非當日整理券），必須在出發前完成線上抽籤申請，<strong>中籤才能入店</strong>。當週<strong>沒有設置「通常入店エリア」</strong>（自由入場區），未中籤者無法入店。
+        <div class="alert-grid">
+          <div class="alert-card">
+            <div class="label">申請開放</div>
+            <div class="value">5/18（一）18:00</div>
+          </div>
+          <div class="alert-card">
+            <div class="label">申請截止</div>
+            <div class="value">5/24（日）23:59</div>
+          </div>
+          <div class="alert-card">
+            <div class="label">建議行動</div>
+            <div class="value">5/18 一開放就申請</div>
+          </div>
+          <div class="alert-card">
+            <div class="label">未中籤備案</div>
+            <div class="value">切換至「方案 D」</div>
+          </div>
+        </div>
+        <div style="margin-top: 14px; font-size: 13px;">
+          ⏰ 申請時可選擇<strong>入店時段</strong>，對應下方 ABC 三方案；中籤後再切換到對應方案查看詳細行程。
+        </div>
+        <div class="alert-actions">
+          <a class="alert-btn" href="https://www.gundam-base.net/" target="_blank">
+            🔗 鋼彈基地官網（申請入口）
+          </a>
+          <a class="alert-btn" href="https://www.gundam-base.net/news/" target="_blank" style="background:#666;">
+            📋 最新公告
+          </a>
+        </div>
+      </div>
+    </div>
+
     <!-- Plan sub-tabs -->
     <div class="plan-tabs">
       <button class="plan-tab" data-plan="planA">
         <div class="plan-letter">PLAN A</div>
         <div class="plan-title">早場方案</div>
-        <div class="plan-desc">鋼彈整理券 10:00-12:00</div>
+        <div class="plan-desc">鋼彈抽籤 10:00-12:00</div>
       </button>
       <button class="plan-tab active" data-plan="planB">
         <span class="recommend-badge">⭐ 推薦</span>
         <div class="plan-letter">PLAN B</div>
         <div class="plan-title">中午場方案</div>
-        <div class="plan-desc">鋼彈整理券 12:00-14:00</div>
+        <div class="plan-desc">鋼彈抽籤 12:00-14:00</div>
       </button>
       <button class="plan-tab" data-plan="planC">
         <div class="plan-letter">PLAN C</div>
         <div class="plan-title">晚場方案</div>
-        <div class="plan-desc">鋼彈整理券 15:00-17:00</div>
+        <div class="plan-desc">鋼彈抽籤 15:00-17:00</div>
+      </button>
+      <button class="plan-tab" data-plan="planD" style="border-color: var(--warn);">
+        <div class="plan-letter" style="color: var(--warn);">PLAN D</div>
+        <div class="plan-title">未中籤備案</div>
+        <div class="plan-desc">只看外圍實物大鋼彈</div>
       </button>
     </div>
 
@@ -817,7 +960,7 @@
               <div><div class="item-title">DiverCity・實物大獨角獸鋼彈</div><div class="item-title-jp">ダイバーシティ東京プラザ ・ ユニコーンガンダム立像</div></div>
               <span class="item-tag tag-attraction">景點</span>
             </div>
-            <div class="item-desc">先看戶外實物大獨角獸鋼彈像（免費），等待整理券時段。</div>
+            <div class="item-desc">先看戶外實物大獨角獸鋼彈像（免費），等待抽籤入店時段。</div>
             <div class="item-meta">
               <span class="meta-pill">免費</span>
               <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=DiverCity+Tokyo+Plaza" target="_blank">地圖</a>
@@ -830,10 +973,10 @@
           <div class="item-body">
             <div class="item-header">
               <div><div class="item-title">🎫 THE GUNDAM BASE TOKYO</div><div class="item-title-jp">THE GUNDAM BASE TOKYO（DiverCity 7F）</div></div>
-              <span class="item-tag tag-key">整理券</span>
+              <span class="item-tag tag-key">事前抽籤</span>
             </div>
             <div class="item-desc">DiverCity 7F，全球最大鋼彈專賣店，限定模型、組裝體驗區。</div>
-            <div class="item-note">⚠️ 須事先取得當日整理券（早場 10:00-12:00）</div>
+            <div class="item-note">⚠️ 須事前抽籤中籤（早場 10:00-12:00）<br>申請期間：5/18 18:00 ～ 5/24 23:59</div>
             <div class="item-meta">
               <span class="meta-pill">入場免費</span>
               <span class="meta-pill">購物自費</span>
@@ -994,10 +1137,10 @@
           <div class="item-body">
             <div class="item-header">
               <div><div class="item-title">🎫 THE GUNDAM BASE TOKYO + 午餐</div><div class="item-title-jp">THE GUNDAM BASE TOKYO（DiverCity 7F）</div></div>
-              <span class="item-tag tag-key">整理券</span>
+              <span class="item-tag tag-key">事前抽籤</span>
             </div>
             <div class="item-desc">DiverCity 7F，全球最大鋼彈專賣店。可在 DiverCity 美食街順便用餐。</div>
-            <div class="item-note">⚠️ 須事先取得當日整理券（中午場 12:00-14:00）</div>
+            <div class="item-note">⚠️ 須事前抽籤中籤（中午場 12:00-14:00）<br>申請期間：5/18 18:00 ～ 5/24 23:59</div>
             <div class="item-meta">
               <span class="meta-pill">入場免費</span>
               <span class="meta-pill">午餐 <strong>¥1,500</strong></span>
@@ -1203,10 +1346,10 @@
           <div class="item-body">
             <div class="item-header">
               <div><div class="item-title">🎫 THE GUNDAM BASE TOKYO</div><div class="item-title-jp">THE GUNDAM BASE TOKYO（DiverCity 7F）</div></div>
-              <span class="item-tag tag-key">整理券</span>
+              <span class="item-tag tag-key">事前抽籤</span>
             </div>
             <div class="item-desc">DiverCity 7F，全球最大鋼彈專賣店。（注意：方案 C 因動線關係，秋葉原體驗較濃縮）</div>
-            <div class="item-note">⚠️ 須事先取得當日整理券（晚場 15:00-17:00）</div>
+            <div class="item-note">⚠️ 須事前抽籤中籤（晚場 15:00-17:00）<br>申請期間：5/18 18:00 ～ 5/24 23:59</div>
             <div class="item-meta">
               <span class="meta-pill">入場免費</span>
               <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=THE+GUNDAM+BASE+TOKYO" target="_blank">地圖</a>
@@ -1270,6 +1413,179 @@
 
       <div class="tip-box">
         <strong>方案 C 特色：</strong>適合想看實物大鋼彈夜間點燈 + 燈光秀演出的人。晚場可以悠閒在台場欣賞夜景。代價：秋葉原體驗時間較壓縮（僅 90 分鐘），且交通費略高。
+      </div>
+    </div>
+
+    <!-- Plan D: 未中籤備案 -->
+    <div class="plan-panel" id="planD">
+      <div class="lottery-alert" style="background: linear-gradient(135deg, #fdf2f0 0%, #fae5e1 100%); border-color: var(--warn);">
+        <div class="alert-header" style="border-bottom-color: var(--warn);">
+          <span class="alert-icon">😢</span>
+          <span class="alert-title" style="color: var(--warn);">未中籤備案行程</span>
+          <span class="alert-title-jp">抽選に外れた場合のプラン</span>
+        </div>
+        <div class="alert-body">
+          若鋼彈基地抽籤未中籤，<strong>無法進入店內</strong>，但仍可在 DiverCity 戶外欣賞 <strong>實物大獨角獸鋼彈</strong>（每整點變身演出，免費）。建議把省下來的時間轉移到池袋寶可夢中心或秋葉原。
+        </div>
+      </div>
+
+      <div class="itinerary">
+        <div class="item">
+          <div class="item-time"><div class="time">10:00-11:00</div><div class="duration">60 min</div></div>
+          <div class="item-body">
+            <div class="item-header">
+              <div><div class="item-title">淺草 → 台場</div><div class="item-title-jp">浅草 → お台場</div></div>
+              <span class="item-tag tag-transport">交通</span>
+            </div>
+            <div class="item-desc">都營淺草線 → 新橋 → 百合海鷗號 → 台場（含 30 分緩衝）</div>
+            <div class="item-meta">
+              <span class="meta-pill">車資 <strong>¥580</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-time"><div class="time">11:00-12:00</div><div class="duration">60 min</div></div>
+          <div class="item-body">
+            <div class="item-header">
+              <div><div class="item-title">實物大獨角獸鋼彈像（戶外）+ DiverCity 7F 外圍</div><div class="item-title-jp">ユニコーンガンダム立像 ・ ダイバーシティ</div></div>
+              <span class="item-tag tag-attraction">景點</span>
+            </div>
+            <div class="item-desc">看戶外實物大獨角獸鋼彈（11:00、12:00 整點有變身演出），DiverCity 7F 鋼彈基地店外可拍照、看櫥窗展示。</div>
+            <div class="item-meta">
+              <span class="meta-pill">免費</span>
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=DiverCity+Tokyo+Plaza" target="_blank">地圖</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-time"><div class="time">12:00-13:30</div><div class="duration">90 min</div></div>
+          <div class="item-body">
+            <div class="item-header">
+              <div><div class="item-title">台場午餐 + AQUA CITY 逛街</div><div class="item-title-jp">アクアシティお台場 ・ 昼食</div></div>
+              <span class="item-tag tag-food">午餐</span>
+            </div>
+            <div class="item-desc">DiverCity 美食街、AQUA CITY 商場或台場海濱公園散步。</div>
+            <div class="item-meta">
+              <span class="meta-pill">人均 <strong>¥1,500</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-time"><div class="time">13:30-14:30</div><div class="duration">60 min</div></div>
+          <div class="item-body">
+            <div class="item-header">
+              <div><div class="item-title">台場 → 池袋</div><div class="item-title-jp">お台場 → 池袋</div></div>
+              <span class="item-tag tag-transport">交通</span>
+            </div>
+            <div class="item-desc">百合海鷗號 → 新橋 → JR 山手線 → 池袋（含 30 分緩衝）</div>
+            <div class="item-meta">
+              <span class="meta-pill">車資 <strong>¥480</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-time"><div class="time">14:30-16:30</div><div class="duration">120 min</div></div>
+          <div class="item-body">
+            <div class="item-header">
+              <div><div class="item-title">池袋寶可夢中心 Mega Tokyo + Sunshine City</div><div class="item-title-jp">ポケモンセンターメガトウキョー ・ サンシャインシティ</div></div>
+              <span class="item-tag tag-shopping">購物</span>
+            </div>
+            <div class="item-desc">未中籤多出的時間用來慢慢逛 Sunshine City（含寶可夢中心、Namja Town、水族館、扭蛋專區等）。</div>
+            <div class="item-meta">
+              <span class="meta-pill">入場免費</span>
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=ポケモンセンターメガトウキョー" target="_blank">地圖</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-time"><div class="time">16:30-17:00</div><div class="duration">30 min</div></div>
+          <div class="item-body">
+            <div class="item-header">
+              <div><div class="item-title">池袋 → 秋葉原</div><div class="item-title-jp">池袋 → 秋葉原</div></div>
+              <span class="item-tag tag-transport">交通</span>
+            </div>
+            <div class="item-desc">JR 山手線（含緩衝時間）</div>
+            <div class="item-meta">
+              <span class="meta-pill">車資 <strong>¥210</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-time"><div class="time">17:00-18:00</div><div class="duration">60 min</div></div>
+          <div class="item-body">
+            <div class="item-header">
+              <div><div class="item-title">秋葉原・步行者天國黃金時段</div><div class="item-title-jp">秋葉原 歩行者天国（中央通り）</div></div>
+              <span class="item-tag tag-attraction">封街</span>
+            </div>
+            <div class="item-desc">週日 13:00-18:00 封街徒步，傍晚最熱鬧。</div>
+            <div class="item-meta">
+              <span class="meta-pill">免費</span>
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原中央通り" target="_blank">地圖</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-time"><div class="time">18:00-20:00</div><div class="duration">120 min</div></div>
+          <div class="item-body">
+            <div class="item-header">
+              <div><div class="item-title">世界のラジオ会館 + 秋葉原延伸逛街</div><div class="item-title-jp">秋葉原ラジオ会館 ・ 散策</div></div>
+              <span class="item-tag tag-shopping">逛街</span>
+            </div>
+            <div class="item-desc">未中籤多出的時間可延伸逛 AKIBA カルチャーズZONE、駿河屋、海洋堂、扭蛋會館等。</div>
+            <div class="item-meta">
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原ラジオ会館" target="_blank">ラジオ会館</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-time"><div class="time">20:00-21:30</div><div class="duration">90 min</div></div>
+          <div class="item-body">
+            <div class="item-header">
+              <div><div class="item-title">晚餐（秋葉原）</div><div class="item-title-jp">夕食</div></div>
+              <span class="item-tag tag-food">晚餐</span>
+            </div>
+            <div class="item-desc">拉麵、迴轉壽司、牛丼或女僕咖啡廳擇一</div>
+            <div class="item-meta">
+              <span class="meta-pill">人均 <strong>¥1,200〜2,000</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-time"><div class="time">21:30</div><div class="duration">回程</div></div>
+          <div class="item-body">
+            <div class="item-header">
+              <div><div class="item-title">秋葉原 → 淺草</div><div class="item-title-jp">秋葉原 → 浅草</div></div>
+              <span class="item-tag tag-transport">交通</span>
+            </div>
+            <div class="item-desc">東京 Metro 銀座線</div>
+            <div class="item-meta">
+              <span class="meta-pill">車資 <strong>¥210</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cost-summary">
+        <h3>方案 D · 單日預估費用</h3>
+        <div class="cost-grid">
+          <div class="cost-item"><div class="label">交通</div><div class="value">¥1,480</div></div>
+          <div class="cost-item"><div class="label">午餐</div><div class="value">¥1,500</div></div>
+          <div class="cost-item"><div class="label">晚餐</div><div class="value">¥1,500</div></div>
+          <div class="cost-item total"><div class="label">合計（不含購物）</div><div class="value">¥4,480</div></div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>方案 D 特色：</strong>未中籤備案 — 仍能看到戶外實物大獨角獸鋼彈（每整點變身演出，免費，無需抽籤），把店內的時間轉移到池袋與秋葉原延伸逛街。整體節奏比 ABC 更悠閒。
       </div>
     </div>
   </div>
