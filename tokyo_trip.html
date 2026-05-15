@@ -853,6 +853,399 @@
       border-color: var(--accent);
     }
 
+    /* Dual route plans (for 5/30) */
+    .dual-plans {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 768px) {
+      .dual-plans { grid-template-columns: 1fr; }
+    }
+    .plan-card {
+      background: var(--card);
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+    .plan-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    .plan-card.plan-1 { border-top: 4px solid #b87333; }
+    .plan-card.plan-2 { border-top: 4px solid var(--accent); }
+    .plan-card-header {
+      padding: 14px 18px;
+      background: linear-gradient(180deg, #fafbfc 0%, white 100%);
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .plan-card .plan-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+    .plan-card.plan-1 .plan-badge { background: #fbeed7; color: #b87333; }
+    .plan-card.plan-2 .plan-badge { background: var(--accent-soft); color: var(--accent); }
+    .plan-card .plan-card-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .plan-card .plan-card-title-jp {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: var(--ink-mute);
+      margin-top: 2px;
+    }
+    .plan-card .plan-card-time {
+      font-size: 11px;
+      color: var(--ink-mute);
+      margin-top: 6px;
+      letter-spacing: 0.05em;
+    }
+    .plan-card .plan-card-body {
+      padding: 14px 18px;
+    }
+    .plan-card .plan-card-desc {
+      font-size: 13px;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+    .plan-card .plan-card-note {
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: var(--warn-soft);
+      border-left: 3px solid var(--warn);
+      border-radius: 4px;
+      font-size: 12px;
+      color: var(--warn);
+      line-height: 1.55;
+    }
+    .plan-card .plan-card-meta {
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .dual-divider {
+      text-align: center;
+      margin: 0 0 16px 0;
+      position: relative;
+    }
+    .dual-divider span {
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--ink);
+      color: white;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    .shared-label {
+      margin: 20px 0 12px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      padding: 8px 16px;
+      background: var(--line-soft);
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    /* Transit summary */
+    .transit-summary {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .transit-summary h3 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .transit-summary h3::before {
+      content: '🚇';
+      font-size: 16px;
+    }
+    .transit-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .transit-row {
+      display: grid;
+      grid-template-columns: 60px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 12px;
+      background: #fafbfc;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line-soft);
+      font-size: 13px;
+    }
+    .transit-row .tr-icon {
+      font-size: 16px;
+      text-align: center;
+    }
+    .transit-row .tr-route {
+      color: var(--ink);
+    }
+    .transit-row .tr-route .tr-from-to {
+      font-weight: 600;
+      font-size: 13px;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .transit-row .tr-route .tr-detail {
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+    .transit-row .tr-cost {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .transit-row.transit-total {
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+    }
+    .transit-row.transit-total .tr-route,
+    .transit-row.transit-total .tr-cost {
+      color: white;
+    }
+    .transit-row.transit-total .tr-from-to { font-weight: 600; }
+    @media (max-width: 640px) {
+      .transit-row { grid-template-columns: 40px 1fr auto; }
+    }
+
+    /* Transit details (collapsible per location) */
+    .transit-details {
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: #fafbfc;
+    }
+    .transit-toggle {
+      width: 100%;
+      padding: 10px 14px;
+      background: white;
+      border: none;
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+    .transit-toggle:hover { background: var(--accent-soft); }
+    .transit-toggle .toggle-label { display: flex; align-items: center; gap: 8px; }
+    .transit-toggle .toggle-arrow {
+      transition: transform 0.3s ease;
+      font-size: 11px;
+    }
+    .transit-details.open .transit-toggle {
+      background: var(--accent-soft);
+      border-bottom: 1px solid var(--accent);
+    }
+    .transit-details.open .transit-toggle .toggle-arrow {
+      transform: rotate(180deg);
+    }
+    .transit-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .transit-details.open .transit-content {
+      max-height: 1200px;
+    }
+    .transit-inner {
+      padding: 16px;
+    }
+
+    /* SVG route diagram */
+    .route-diagram {
+      background: white;
+      border-radius: var(--radius-sm);
+      padding: 14px 12px;
+      margin-bottom: 14px;
+      border: 1px solid var(--line-soft);
+      overflow-x: auto;
+    }
+    .route-diagram svg {
+      display: block;
+      min-width: 100%;
+    }
+    .route-diagram .station-line { stroke-width: 4; stroke-linecap: round; }
+    .route-diagram .station-dot { stroke-width: 2.5; fill: white; }
+    .route-diagram .station-dot.transfer {
+      stroke-width: 3.5;
+    }
+    .route-diagram .station-dot.start,
+    .route-diagram .station-dot.end {
+      stroke-width: 4;
+      r: 9;
+    }
+    .route-diagram .station-label {
+      font-family: 'Outfit', 'Noto Sans JP', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      fill: var(--ink);
+      text-anchor: middle;
+    }
+    .route-diagram .station-label-jp {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 9.5px;
+      fill: var(--ink-mute);
+      text-anchor: middle;
+    }
+    .route-diagram .line-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      fill: white;
+      text-anchor: middle;
+    }
+    .route-diagram .line-tag {
+      rx: 3;
+      ry: 3;
+    }
+
+    /* Pulse animation */
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.15); }
+    }
+    .route-diagram .pulse {
+      animation: pulse-dot 1.8s ease-in-out infinite;
+      transform-origin: center;
+              transform-box: fill-box;
+    }
+    @keyframes dash-flow {
+      to { stroke-dashoffset: -16; }
+    }
+    .route-diagram .flow-line {
+      stroke-dasharray: 8 4;
+      animation: dash-flow 1.2s linear infinite;
+    }
+
+    /* Steps list */
+    .route-steps {
+      list-style: none;
+      counter-reset: step;
+      padding: 0;
+      margin: 0;
+    }
+    .route-step {
+      counter-increment: step;
+      position: relative;
+      padding: 0 0 14px 36px;
+      font-size: 13px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+    .route-step:last-child { padding-bottom: 0; }
+    .route-step::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 24px;
+      height: 24px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .route-step.is-transfer::before { background: var(--gold); }
+    .route-step.is-walk::before { background: var(--green); content: '🚶'; font-size: 11px; }
+    .route-step.is-end::before { background: var(--warn); content: '🚪'; font-size: 11px; }
+    .route-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 26px;
+      bottom: 4px;
+      width: 2px;
+      background: var(--line);
+      border-radius: 2px;
+    }
+    .route-step strong { color: var(--ink); font-weight: 600; }
+    .route-step .station-name-jp {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 11px;
+      color: var(--ink-mute);
+      margin-left: 4px;
+    }
+    .route-step .line-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: white;
+      margin: 2px 4px 2px 0;
+    }
+    .route-step .step-detail {
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--ink-mute);
+    }
+
+    /* Route footer summary */
+    .route-footer {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--line);
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .route-footer .rf-item {
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+    .route-footer .rf-item strong {
+      color: var(--ink);
+      font-weight: 600;
+      margin-left: 4px;
+    }
+
     .print-btn {
       position: fixed;
       bottom: 24px;
@@ -1025,6 +1418,53 @@
         <div class="day-summary">機場 → 京成上野 → 銀座線抵達淺草 → 晴空塔吃燒肉（敘敘苑）享受夜景</div>
       </div>
 
+      <!-- Transit Summary -->
+      <div class="transit-summary">
+        <h3>交通搭乘資訊・本日路線</h3>
+        <div class="transit-list">
+          <div class="transit-row">
+            <div class="tr-icon">🛫</div>
+            <div class="tr-route">
+              <span class="tr-from-to">成田機場 → 京成上野</span>
+              <span class="tr-detail">京成 Skyliner（特急列車）・約 41 分鐘</span>
+            </div>
+            <div class="tr-cost">¥2,580</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">上野 → 淺草（飯店 Check-in）</span>
+              <span class="tr-detail">東京 Metro 銀座線・約 5 分鐘</span>
+            </div>
+            <div class="tr-cost">¥180</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">淺草 → 晴空塔（押上）</span>
+              <span class="tr-detail">東武晴空塔線・約 3 分鐘</span>
+            </div>
+            <div class="tr-cost">¥150</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">晴空塔 → 淺草（回飯店）</span>
+              <span class="tr-detail">東武晴空塔線・約 3 分鐘</span>
+            </div>
+            <div class="tr-cost">¥150</div>
+          </div>
+          <div class="transit-row transit-total">
+            <div class="tr-icon">💰</div>
+            <div class="tr-route">
+              <span class="tr-from-to">交通合計（單人）</span>
+              <span class="tr-detail" style="color: rgba(255,255,255,0.7);">含機場接送</span>
+            </div>
+            <div class="tr-cost">¥3,060</div>
+          </div>
+        </div>
+      </div>
+
       <div class="itinerary">
         <div class="item">
           <div class="item-time">
@@ -1040,6 +1480,64 @@
               <span class="item-tag tag-transport">交通</span>
             </div>
             <div class="item-desc">機場 → 京成上野（京成 Skyliner）→ 銀座線 → 淺草站</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・成田機場 → 淺草飯店</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 540 110" xmlns="http://www.w3.org/2000/svg">
+                      <line class="station-line flow-line" x1="50" y1="55" x2="280" y2="55" stroke="#1e7ed6"/>
+                      <line class="station-line flow-line" x1="280" y1="55" x2="490" y2="55" stroke="#ff9500"/>
+                      <rect class="line-tag" x="120" y="35" width="90" height="20" fill="#1e7ed6"/>
+                      <text class="line-label" x="165" y="49">京成 Skyliner</text>
+                      <rect class="line-tag" x="345" y="35" width="80" height="20" fill="#ff9500"/>
+                      <text class="line-label" x="385" y="49">G 銀座線</text>
+                      <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#1e7ed6"/>
+                      <text class="station-label" x="50" y="82">成田機場</text>
+                      <text class="station-label-jp" x="50" y="95">成田空港</text>
+                      <circle class="station-dot transfer" cx="280" cy="55" r="9" stroke="#666"/>
+                      <text class="station-label" x="280" y="82">京成上野</text>
+                      <text class="station-label-jp" x="280" y="95">転乘 ⇄</text>
+                      <circle class="station-dot end pulse" cx="490" cy="55" r="9" stroke="#ff9500"/>
+                      <text class="station-label" x="490" y="82">淺草</text>
+                      <text class="station-label-jp" x="490" y="95">浅草</text>
+                    </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step">
+                      <strong>成田機場第 1/2/3 航廈站<span class="station-name-jp">成田空港駅</span></strong> 出發
+                      <div class="step-detail">入境後跟隨「鐵道」標示至 B1 京成電鐵售票處購票</div>
+                    </li>
+                    <li class="route-step">
+                      搭乘 <span class="line-badge" style="background:#1e7ed6;">京成 Skyliner</span>（特急直達）
+                      <div class="step-detail">約 41 分鐘・全車對號座・¥2,580</div>
+                    </li>
+                    <li class="route-step is-transfer">
+                      於 <strong>京成上野站<span class="station-name-jp">京成上野駅</span></strong> 出站
+                      <div class="step-detail">步行約 3-5 分鐘至東京 Metro <strong>上野站</strong>（指標清楚）</div>
+                    </li>
+                    <li class="route-step">
+                      搭乘 <span class="line-badge" style="background:#ff9500;">G 銀座線</span>（往澀谷方向）
+                      <div class="step-detail">3 站・約 5 分鐘・¥180</div>
+                    </li>
+                    <li class="route-step is-end">
+                      抵達 <strong>淺草站<span class="station-name-jp">浅草駅</span></strong>，步行至 APA 飯店約 8 分鐘（或於前一站「田原町站」下車更近）
+                    </li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 60 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥2,760</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>1 次</strong></span>
+                    <span class="rf-item">🎟️ Skyliner 建議線上預訂</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="item-meta">
               <span class="meta-pill">京成 Skyliner <strong>¥2,580</strong></span>
               <span class="meta-pill">銀座線 <strong>¥180</strong></span>
@@ -1061,6 +1559,49 @@
               <span class="item-tag tag-food">晚餐</span>
             </div>
             <div class="item-desc">在敘敘苑享用高級燒肉，邊俯瞰東京夜景。建議事先預約。</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・淺草 → 東京晴空塔</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 480 110" xmlns="http://www.w3.org/2000/svg">
+                      <line class="station-line flow-line" x1="50" y1="55" x2="430" y2="55" stroke="#1d70b8"/>
+                      <rect class="line-tag" x="200" y="35" width="80" height="20" fill="#1d70b8"/>
+                      <text class="line-label" x="240" y="49">東武晴空塔線</text>
+                      <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#1d70b8"/>
+                      <text class="station-label" x="50" y="82">淺草</text>
+                      <text class="station-label-jp" x="50" y="95">浅草</text>
+                      <circle class="station-dot end pulse" cx="430" cy="55" r="9" stroke="#1d70b8"/>
+                      <text class="station-label" x="430" y="82">押上</text>
+                      <text class="station-label-jp" x="430" y="95">スカイツリー</text>
+                    </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step">
+                      <strong>淺草站<span class="station-name-jp">浅草駅</span></strong> 出發
+                      <div class="step-detail">從 APA 飯店步行至淺草站約 5 分鐘</div>
+                    </li>
+                    <li class="route-step">
+                      搭乘 <span class="line-badge" style="background:#1d70b8;">TS 東武晴空塔線</span>（往東武動物公園方向）
+                      <div class="step-detail">1 站・約 3 分鐘</div>
+                    </li>
+                    <li class="route-step is-end">
+                      抵達 <strong>東京晴空塔站<span class="station-name-jp">とうきょうスカイツリー駅</span></strong>，出站即達晴空塔
+                    </li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 10 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥150</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>無</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="item-meta">
               <span class="meta-pill">人均 <strong>¥8,000〜12,000</strong></span>
               <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=東京スカイツリー+叙々苑"
@@ -1094,50 +1635,149 @@
       <div class="day-header">
         <h2>DAY 2 ・ 5月30日（金）</h2>
         <div class="day-jp">皇居・新宿コース（選択 1 or 2）</div>
-        <div class="day-summary">上午皇居參觀（需排隊）→ 下午新宿花園神社例大祭 → 晚上新宿屋台 & 歌舞伎町</div>
+        <div class="day-summary">上午擇一：Outlet 購物 或 皇居參觀 → 下午新宿花園神社例大祭 → 晚上新宿屋台 & 歌舞伎町</div>
       </div>
 
-      <div class="itinerary">
-        <div class="item">
-          <div class="item-time">
-            <div class="time">上午</div>
-            <div class="duration">Option 1</div>
-          </div>
-          <div class="item-body">
-            <div class="item-header">
-              <div>
-                <div class="item-title">Outlet 購物</div>
-                <div class="item-title-jp">アウトレット</div>
-              </div>
-              <span class="item-tag tag-shopping">購物</span>
+      <!-- Transit Summary -->
+      <div class="transit-summary">
+        <h3>交通搭乘資訊・本日路線</h3>
+        <div class="transit-list">
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">淺草 → Outlet（路線 1）</span>
+              <span class="tr-detail">御殿場：新宿巴士總站搭高速巴士・約 100 分・單程 ¥1,800 ／ 三井 Outlet 木更津：東京站八重洲口巴士・約 50 分・單程 ¥1,500</span>
             </div>
-            <div class="item-desc">可選擇御殿場 Premium Outlets 或三井 Outlet。</div>
+            <div class="tr-cost">¥1,500↑</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">淺草 → 皇居（路線 2）</span>
+              <span class="tr-detail">銀座線淺草 → 大手町站・約 15 分鐘，步行至桔梗門</span>
+            </div>
+            <div class="tr-cost">¥210</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">下午轉新宿（皇居路線後）</span>
+              <span class="tr-detail">大手町 → 丸之內線 → 新宿三丁目・約 12 分鐘</span>
+            </div>
+            <div class="tr-cost">¥210</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">新宿 → 淺草（回飯店）</span>
+              <span class="tr-detail">都營新宿線新宿 → 馬喰横山 → 都營淺草線淺草・約 25 分鐘（或末班車前搭計程車約 ¥3,000）</span>
+            </div>
+            <div class="tr-cost">¥280</div>
+          </div>
+          <div class="transit-row transit-total">
+            <div class="tr-icon">💰</div>
+            <div class="tr-route">
+              <span class="tr-from-to">交通合計（單人・採路線 2）</span>
+              <span class="tr-detail" style="color: rgba(255,255,255,0.7);">不含 Outlet 巴士</span>
+            </div>
+            <div class="tr-cost">¥700</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dual Route Choice -->
+      <div class="dual-divider"><span>上午擇一 ・ 午前のコース選択</span></div>
+      <div class="dual-plans">
+        <!-- Plan 1: Outlet -->
+        <div class="plan-card plan-1">
+          <div class="plan-card-header">
+            <span class="plan-badge">PLAN 1</span>
+            <div class="plan-card-title">Outlet 購物</div>
+            <div class="plan-card-title-jp">アウトレット ショッピング</div>
+            <div class="plan-card-time">⏰ 上午 ~ 中午</div>
+          </div>
+          <div class="plan-card-body">
+            <div class="plan-card-desc">
+              可選擇<strong>御殿場 Premium Outlets</strong>（東京最大、富士山景觀）或<strong>三井 Outlet 木更津</strong>（離東京較近）。建議當天視疲勞程度與想買品牌決定。
+            </div>
+            <div class="plan-card-note">
+              ⏱️ 來回交通約 3-4 小時，建議全天投入；若選此方案，下午新宿行程時間會壓縮。
+            </div>
+            <div class="plan-card-meta">
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=御殿場プレミアム・アウトレット" target="_blank">御殿場 Outlet</a>
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=三井アウトレットパーク木更津" target="_blank">三井木更津</a>
+            </div>
           </div>
         </div>
 
-        <div class="item">
-          <div class="item-time">
-            <div class="time">09:00</div>
-            <div class="duration">~ 中午</div>
+        <!-- Plan 2: Imperial Palace -->
+        <div class="plan-card plan-2">
+          <div class="plan-card-header">
+            <span class="plan-badge">PLAN 2</span>
+            <div class="plan-card-title">皇居參觀</div>
+            <div class="plan-card-title-jp">皇居参観</div>
+            <div class="plan-card-time">⏰ 09:00 集合 ・ 場次 10:00 / 13:30</div>
           </div>
-          <div class="item-body">
-            <div class="item-header">
-              <div>
-                <div class="item-title">皇居參觀</div>
-                <div class="item-title-jp">皇居参観</div>
-              </div>
-              <span class="item-tag tag-attraction">景點</span>
+          <div class="plan-card-body">
+            <div class="plan-card-desc">
+              4/15-8/31 開放時間 9:00-18:00（最後入園 17:30）。當天上午試試現場申請，每天上午 9:00 在桔梗門前發放當日名額。
             </div>
-            <div class="item-desc">4/15-8/31 開放時間 9:00-18:00（最後入園 17:30）。當天上午試試現場申請，每天上午 9:00 在桔梗門前發放當日名額。</div>
-            <div class="item-note">⚠️ 通常約 100-200 個名額，採先到先得。建議至少提前 30 分鐘抵達排隊。週末和櫻花季可能需要提前 1 小時。平日每天兩場：上午 10:00 和下午
-              13:30。</div>
-            <div class="item-meta">
+            <div class="plan-card-note">
+              ⚠️ 通常約 100-200 個名額，採先到先得。建議至少提前 30 分鐘抵達排隊。週末和櫻花季可能需要提前 1 小時。平日每天兩場：上午 10:00 和下午 13:30。
+            </div>
+            <div class="plan-card-meta">
               <span class="meta-pill">免費</span>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=皇居桔梗門" target="_blank">地圖</a>
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=皇居桔梗門" target="_blank">桔梗門地圖</a>
+            </div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・淺草 → 皇居</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 480 110" xmlns="http://www.w3.org/2000/svg">
+                      <line class="station-line flow-line" x1="50" y1="55" x2="430" y2="55" stroke="#ff9500"/>
+                      <rect class="line-tag" x="190" y="35" width="100" height="20" fill="#ff9500"/>
+                      <text class="line-label" x="240" y="49">G 銀座線</text>
+                      <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#ff9500"/>
+                      <text class="station-label" x="50" y="82">淺草</text>
+                      <text class="station-label-jp" x="50" y="95">浅草 G19</text>
+                      <circle class="station-dot end pulse" cx="430" cy="55" r="9" stroke="#ff9500"/>
+                      <text class="station-label" x="430" y="82">大手町</text>
+                      <text class="station-label-jp" x="430" y="95">大手町 G11</text>
+                    </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step">
+                      <strong>淺草站<span class="station-name-jp">浅草駅 G19</span></strong> 出發
+                    </li>
+                    <li class="route-step">
+                      搭乘 <span class="line-badge" style="background:#ff9500;">G 銀座線</span>（往澀谷方向）
+                      <div class="step-detail">8 站・約 15 分鐘・¥210</div>
+                    </li>
+                    <li class="route-step is-end">
+                      於 <strong>大手町站<span class="station-name-jp">大手町駅 C-13 出口</span></strong> 下車，步行至桔梗門約 7 分鐘
+                    </li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 22 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥210</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>無</strong></span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
 
+      <!-- Shared Afternoon/Evening -->
+      <div class="shared-label">📍 下午與晚上 · 共用行程</div>
+
+      <div class="itinerary">
         <div class="item">
           <div class="item-time">
             <div class="time">中午</div>
@@ -1168,6 +1808,48 @@
               <span class="item-tag tag-attraction">祭典</span>
             </div>
             <div class="item-desc">可能可以看到例大祭，時間還不確定。</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・大手町 → 新宿（花園神社）</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 480 110" xmlns="http://www.w3.org/2000/svg">
+                      <line class="station-line flow-line" x1="50" y1="55" x2="430" y2="55" stroke="#e60012"/>
+                      <rect class="line-tag" x="180" y="35" width="120" height="20" fill="#e60012"/>
+                      <text class="line-label" x="240" y="49">M 丸之內線</text>
+                      <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#e60012"/>
+                      <text class="station-label" x="50" y="82">大手町</text>
+                      <text class="station-label-jp" x="50" y="95">大手町 M18</text>
+                      <circle class="station-dot end pulse" cx="430" cy="55" r="9" stroke="#e60012"/>
+                      <text class="station-label" x="430" y="82">新宿三丁目</text>
+                      <text class="station-label-jp" x="430" y="95">新宿三丁目 M09</text>
+                    </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step">
+                      <strong>大手町站<span class="station-name-jp">大手町駅 M18</span></strong> 出發
+                    </li>
+                    <li class="route-step">
+                      搭乘 <span class="line-badge" style="background:#e60012;">M 丸之內線</span>（往荻窪方向）
+                      <div class="step-detail">9 站・約 16 分鐘・¥210</div>
+                    </li>
+                    <li class="route-step is-end">
+                      於 <strong>新宿三丁目站<span class="station-name-jp">新宿三丁目駅 E2 出口</span></strong> 下車，步行至花園神社約 3 分鐘
+                    </li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 20 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥210</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>無</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="item-meta">
               <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=新宿花園神社" target="_blank">地圖</a>
             </div>
@@ -1209,10 +1891,6 @@
           </div>
         </div>
       </div>
-
-      <div class="tip-box">
-        <strong>備註：</strong>本日 outlet 與皇居路線可自行選擇 1 或 2。
-      </div>
     </div>
 
     <!-- ========== DAY 3: 5/31 ========== -->
@@ -1221,6 +1899,53 @@
         <h2>DAY 3 ・ 5月31日（日）</h2>
         <div class="day-jp">お台場 ・ 池袋 ・ 秋葉原 ・ 動漫朝聖之旅</div>
         <div class="day-summary">鋼彈基地 → 池袋寶可夢中心 → 秋葉原步行者天國（週日限定 13:00-18:00）→ 世界のラジオ会館</div>
+      </div>
+
+      <!-- Transit Summary -->
+      <div class="transit-summary">
+        <h3>交通搭乘資訊・本日主要路線（推薦方案 B）</h3>
+        <div class="transit-list">
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">淺草 → 台場</span>
+              <span class="tr-detail">都營淺草線淺草 → 新橋 → 百合海鷗號（ゆりかもめ）→ 台場・約 35 分鐘</span>
+            </div>
+            <div class="tr-cost">¥580</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">台場 → 池袋</span>
+              <span class="tr-detail">百合海鷗號 → 新橋 → JR 山手線 → 池袋・約 40 分鐘</span>
+            </div>
+            <div class="tr-cost">¥480</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">池袋 → 秋葉原</span>
+              <span class="tr-detail">JR 山手線（外回り）・約 18 分鐘</span>
+            </div>
+            <div class="tr-cost">¥210</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">秋葉原 → 淺草（回飯店）</span>
+              <span class="tr-detail">東京 Metro 銀座線・約 8 分鐘</span>
+            </div>
+            <div class="tr-cost">¥210</div>
+          </div>
+          <div class="transit-row transit-total">
+            <div class="tr-icon">💰</div>
+            <div class="tr-route">
+              <span class="tr-from-to">交通合計（單人・方案 B）</span>
+              <span class="tr-detail" style="color: rgba(255,255,255,0.7);">方案 C 約 ¥1,860</span>
+            </div>
+            <div class="tr-cost">¥1,480</div>
+          </div>
+        </div>
       </div>
 
       <!-- Lottery Alert -->
@@ -1307,6 +2032,49 @@
                 <span class="item-tag tag-transport">交通</span>
               </div>
               <div class="item-desc">都營淺草線（淺草站）→ 新橋站 → 百合海鷗號（ゆりかもめ）→ 台場站</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・淺草 → 台場 DiverCity</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 540 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="station-line flow-line" x1="50" y1="55" x2="280" y2="55" stroke="#e85298"/>
+          <line class="station-line flow-line" x1="280" y1="55" x2="490" y2="55" stroke="#00b2e5"/>
+          <rect class="line-tag" x="125" y="35" width="80" height="20" fill="#e85298"/>
+          <text class="line-label" x="165" y="49">A 淺草線</text>
+          <rect class="line-tag" x="335" y="35" width="100" height="20" fill="#00b2e5"/>
+          <text class="line-label" x="385" y="49">百合海鷗號</text>
+          <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#e85298"/>
+          <text class="station-label" x="50" y="82">淺草</text>
+          <text class="station-label-jp" x="50" y="95">浅草 A18</text>
+          <circle class="station-dot transfer" cx="280" cy="55" r="9" stroke="#666"/>
+          <text class="station-label" x="280" y="82">新橋</text>
+          <text class="station-label-jp" x="280" y="95">転乘 ⇄</text>
+          <circle class="station-dot end pulse" cx="490" cy="55" r="9" stroke="#00b2e5"/>
+          <text class="station-label" x="490" y="82">台場</text>
+          <text class="station-label-jp" x="490" y="95">お台場</text>
+        </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step"><strong>淺草站<span class="station-name-jp">浅草駅 A18</span></strong> 出發</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#e85298;">A 都營淺草線</span>（往西馬込方向）<div class="step-detail">10 站・約 17 分鐘・¥290</div></li>
+                    <li class="route-step is-transfer">於 <strong>新橋站<span class="station-name-jp">新橋駅</span></strong> 出站，步行 5 分鐘至 <strong>百合海鷗號 新橋站</strong>（跟著「ゆりかもめ」標示）</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#00b2e5;">百合海鷗號</span>（往豐洲方向）<div class="step-detail">4 站・約 13 分鐘・¥290</div></li>
+                    <li class="route-step is-end">於 <strong>台場站<span class="station-name-jp">お台場海浜公園駅</span></strong> 下車，步行至 DiverCity 約 5 分鐘</li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 40 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥580</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>1 次</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               <div class="item-meta">
                 <span class="meta-pill">車資 <strong>¥580</strong></span>
                 <span class="meta-pill">含 30 分緩衝</span>
@@ -1374,6 +2142,49 @@
                 <span class="item-tag tag-transport">交通</span>
               </div>
               <div class="item-desc">百合海鷗號 → 新橋 → JR 山手線 → 池袋（含 30 分緩衝）</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・台場 → 池袋寶可夢中心</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 540 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="station-line flow-line" x1="50" y1="55" x2="280" y2="55" stroke="#00b2e5"/>
+          <line class="station-line flow-line" x1="280" y1="55" x2="490" y2="55" stroke="#9acd32"/>
+          <rect class="line-tag" x="115" y="35" width="100" height="20" fill="#00b2e5"/>
+          <text class="line-label" x="165" y="49">百合海鷗號</text>
+          <rect class="line-tag" x="335" y="35" width="100" height="20" fill="#9acd32"/>
+          <text class="line-label" x="385" y="49">JR 山手線</text>
+          <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#00b2e5"/>
+          <text class="station-label" x="50" y="82">台場</text>
+          <text class="station-label-jp" x="50" y="95">お台場</text>
+          <circle class="station-dot transfer" cx="280" cy="55" r="9" stroke="#666"/>
+          <text class="station-label" x="280" y="82">新橋</text>
+          <text class="station-label-jp" x="280" y="95">転乘 ⇄</text>
+          <circle class="station-dot end pulse" cx="490" cy="55" r="9" stroke="#9acd32"/>
+          <text class="station-label" x="490" y="82">池袋</text>
+          <text class="station-label-jp" x="490" y="95">池袋</text>
+        </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step"><strong>台場站<span class="station-name-jp">お台場海浜公園駅</span></strong> 出發</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#00b2e5;">百合海鷗號</span>（往新橋方向）<div class="step-detail">4 站・約 13 分鐘・¥290</div></li>
+                    <li class="route-step is-transfer">於 <strong>新橋站<span class="station-name-jp">新橋駅</span></strong> 步行 3 分鐘轉乘 JR</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#9acd32;">JR 山手線</span>（外回り・往澀谷／新宿方向）<div class="step-detail">10 站・約 25 分鐘・¥190</div></li>
+                    <li class="route-step is-end">於 <strong>池袋站<span class="station-name-jp">池袋駅 東口</span></strong> 下車，步行至 Sunshine City 約 8 分鐘</li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 50 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥480</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>1 次</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               <div class="item-meta">
                 <span class="meta-pill">車資 <strong>¥480</strong></span>
               </div>
@@ -1416,6 +2227,41 @@
                 <span class="item-tag tag-transport">交通</span>
               </div>
               <div class="item-desc">JR 山手線（含緩衝時間）</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・池袋 → 秋葉原</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 480 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="station-line flow-line" x1="50" y1="55" x2="430" y2="55" stroke="#9acd32"/>
+          <rect class="line-tag" x="180" y="35" width="120" height="20" fill="#9acd32"/>
+          <text class="line-label" x="240" y="49">JR 山手線</text>
+          <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#9acd32"/>
+          <text class="station-label" x="50" y="82">池袋</text>
+          <text class="station-label-jp" x="50" y="95">池袋</text>
+          <circle class="station-dot end pulse" cx="430" cy="55" r="9" stroke="#9acd32"/>
+          <text class="station-label" x="430" y="82">秋葉原</text>
+          <text class="station-label-jp" x="430" y="95">秋葉原</text>
+        </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step"><strong>池袋站<span class="station-name-jp">池袋駅</span></strong> 出發</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#9acd32;">JR 山手線</span>（內回り・往上野方向）<div class="step-detail">7 站・約 18 分鐘・¥210</div></li>
+                    <li class="route-step is-end">於 <strong>秋葉原站<span class="station-name-jp">秋葉原駅 電気街口</span></strong> 下車</li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 18 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥210</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>無</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               <div class="item-meta">
                 <span class="meta-pill">車資 <strong>¥210</strong></span>
               </div>
@@ -1497,6 +2343,41 @@
                 <span class="item-tag tag-transport">交通</span>
               </div>
               <div class="item-desc">東京 Metro 銀座線</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・秋葉原 → 淺草（回飯店）</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 480 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="station-line flow-line" x1="50" y1="55" x2="430" y2="55" stroke="#ff9500"/>
+          <rect class="line-tag" x="190" y="35" width="100" height="20" fill="#ff9500"/>
+          <text class="line-label" x="240" y="49">G 銀座線</text>
+          <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#ff9500"/>
+          <text class="station-label" x="50" y="82">末廣町</text>
+          <text class="station-label-jp" x="50" y="95">末広町 G14</text>
+          <circle class="station-dot end pulse" cx="430" cy="55" r="9" stroke="#ff9500"/>
+          <text class="station-label" x="430" y="82">淺草</text>
+          <text class="station-label-jp" x="430" y="95">浅草 G19</text>
+        </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step">從秋葉原步行至 <strong>末廣町站<span class="station-name-jp">末広町駅 G14</span></strong>（約 5 分鐘）</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#ff9500;">G 銀座線</span>（往淺草方向）<div class="step-detail">5 站・約 8 分鐘・¥180</div></li>
+                    <li class="route-step is-end">於 <strong>淺草站<span class="station-name-jp">浅草駅 G19</span></strong> 下車，步行回飯店約 5 分鐘</li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 15 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥210</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>無</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               <div class="item-meta">
                 <span class="meta-pill">車資 <strong>¥210</strong></span>
               </div>
@@ -1548,6 +2429,49 @@
                 <span class="item-tag tag-transport">交通</span>
               </div>
               <div class="item-desc">都營淺草線（淺草站）→ 新橋站 → 百合海鷗號（ゆりかもめ）→ 台場站</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・淺草 → 台場 DiverCity</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 540 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="station-line flow-line" x1="50" y1="55" x2="280" y2="55" stroke="#e85298"/>
+          <line class="station-line flow-line" x1="280" y1="55" x2="490" y2="55" stroke="#00b2e5"/>
+          <rect class="line-tag" x="125" y="35" width="80" height="20" fill="#e85298"/>
+          <text class="line-label" x="165" y="49">A 淺草線</text>
+          <rect class="line-tag" x="335" y="35" width="100" height="20" fill="#00b2e5"/>
+          <text class="line-label" x="385" y="49">百合海鷗號</text>
+          <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#e85298"/>
+          <text class="station-label" x="50" y="82">淺草</text>
+          <text class="station-label-jp" x="50" y="95">浅草 A18</text>
+          <circle class="station-dot transfer" cx="280" cy="55" r="9" stroke="#666"/>
+          <text class="station-label" x="280" y="82">新橋</text>
+          <text class="station-label-jp" x="280" y="95">転乘 ⇄</text>
+          <circle class="station-dot end pulse" cx="490" cy="55" r="9" stroke="#00b2e5"/>
+          <text class="station-label" x="490" y="82">台場</text>
+          <text class="station-label-jp" x="490" y="95">お台場</text>
+        </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step"><strong>淺草站<span class="station-name-jp">浅草駅 A18</span></strong> 出發</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#e85298;">A 都營淺草線</span>（往西馬込方向）<div class="step-detail">10 站・約 17 分鐘・¥290</div></li>
+                    <li class="route-step is-transfer">於 <strong>新橋站<span class="station-name-jp">新橋駅</span></strong> 出站，步行 5 分鐘至 <strong>百合海鷗號 新橋站</strong>（跟著「ゆりかもめ」標示）</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#00b2e5;">百合海鷗號</span>（往豐洲方向）<div class="step-detail">4 站・約 13 分鐘・¥290</div></li>
+                    <li class="route-step is-end">於 <strong>台場站<span class="station-name-jp">お台場海浜公園駅</span></strong> 下車，步行至 DiverCity 約 5 分鐘</li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 40 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥580</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>1 次</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               <div class="item-meta">
                 <span class="meta-pill">車資 <strong>¥580</strong></span>
                 <span class="meta-pill">含 30 分緩衝</span>
@@ -1615,6 +2539,49 @@
                 <span class="item-tag tag-transport">交通</span>
               </div>
               <div class="item-desc">百合海鷗號 → 新橋 → JR 山手線 → 池袋（含 30 分緩衝）</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・台場 → 池袋寶可夢中心</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 540 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="station-line flow-line" x1="50" y1="55" x2="280" y2="55" stroke="#00b2e5"/>
+          <line class="station-line flow-line" x1="280" y1="55" x2="490" y2="55" stroke="#9acd32"/>
+          <rect class="line-tag" x="115" y="35" width="100" height="20" fill="#00b2e5"/>
+          <text class="line-label" x="165" y="49">百合海鷗號</text>
+          <rect class="line-tag" x="335" y="35" width="100" height="20" fill="#9acd32"/>
+          <text class="line-label" x="385" y="49">JR 山手線</text>
+          <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#00b2e5"/>
+          <text class="station-label" x="50" y="82">台場</text>
+          <text class="station-label-jp" x="50" y="95">お台場</text>
+          <circle class="station-dot transfer" cx="280" cy="55" r="9" stroke="#666"/>
+          <text class="station-label" x="280" y="82">新橋</text>
+          <text class="station-label-jp" x="280" y="95">転乘 ⇄</text>
+          <circle class="station-dot end pulse" cx="490" cy="55" r="9" stroke="#9acd32"/>
+          <text class="station-label" x="490" y="82">池袋</text>
+          <text class="station-label-jp" x="490" y="95">池袋</text>
+        </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step"><strong>台場站<span class="station-name-jp">お台場海浜公園駅</span></strong> 出發</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#00b2e5;">百合海鷗號</span>（往新橋方向）<div class="step-detail">4 站・約 13 分鐘・¥290</div></li>
+                    <li class="route-step is-transfer">於 <strong>新橋站<span class="station-name-jp">新橋駅</span></strong> 步行 3 分鐘轉乘 JR</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#9acd32;">JR 山手線</span>（外回り・往澀谷／新宿方向）<div class="step-detail">10 站・約 25 分鐘・¥190</div></li>
+                    <li class="route-step is-end">於 <strong>池袋站<span class="station-name-jp">池袋駅 東口</span></strong> 下車，步行至 Sunshine City 約 8 分鐘</li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 50 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥480</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>1 次</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               <div class="item-meta">
                 <span class="meta-pill">車資 <strong>¥480</strong></span>
               </div>
@@ -1657,6 +2624,41 @@
                 <span class="item-tag tag-transport">交通</span>
               </div>
               <div class="item-desc">JR 山手線（含緩衝時間）</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・池袋 → 秋葉原</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 480 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="station-line flow-line" x1="50" y1="55" x2="430" y2="55" stroke="#9acd32"/>
+          <rect class="line-tag" x="180" y="35" width="120" height="20" fill="#9acd32"/>
+          <text class="line-label" x="240" y="49">JR 山手線</text>
+          <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#9acd32"/>
+          <text class="station-label" x="50" y="82">池袋</text>
+          <text class="station-label-jp" x="50" y="95">池袋</text>
+          <circle class="station-dot end pulse" cx="430" cy="55" r="9" stroke="#9acd32"/>
+          <text class="station-label" x="430" y="82">秋葉原</text>
+          <text class="station-label-jp" x="430" y="95">秋葉原</text>
+        </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step"><strong>池袋站<span class="station-name-jp">池袋駅</span></strong> 出發</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#9acd32;">JR 山手線</span>（內回り・往上野方向）<div class="step-detail">7 站・約 18 分鐘・¥210</div></li>
+                    <li class="route-step is-end">於 <strong>秋葉原站<span class="station-name-jp">秋葉原駅 電気街口</span></strong> 下車</li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 18 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥210</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>無</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               <div class="item-meta">
                 <span class="meta-pill">車資 <strong>¥210</strong></span>
               </div>
@@ -1739,6 +2741,41 @@
                 <span class="item-tag tag-transport">交通</span>
               </div>
               <div class="item-desc">東京 Metro 銀座線</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・秋葉原 → 淺草（回飯店）</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 480 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="station-line flow-line" x1="50" y1="55" x2="430" y2="55" stroke="#ff9500"/>
+          <rect class="line-tag" x="190" y="35" width="100" height="20" fill="#ff9500"/>
+          <text class="line-label" x="240" y="49">G 銀座線</text>
+          <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#ff9500"/>
+          <text class="station-label" x="50" y="82">末廣町</text>
+          <text class="station-label-jp" x="50" y="95">末広町 G14</text>
+          <circle class="station-dot end pulse" cx="430" cy="55" r="9" stroke="#ff9500"/>
+          <text class="station-label" x="430" y="82">淺草</text>
+          <text class="station-label-jp" x="430" y="95">浅草 G19</text>
+        </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step">從秋葉原步行至 <strong>末廣町站<span class="station-name-jp">末広町駅 G14</span></strong>（約 5 分鐘）</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#ff9500;">G 銀座線</span>（往淺草方向）<div class="step-detail">5 站・約 8 分鐘・¥180</div></li>
+                    <li class="route-step is-end">於 <strong>淺草站<span class="station-name-jp">浅草駅 G19</span></strong> 下車，步行回飯店約 5 分鐘</li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 15 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥210</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>無</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               <div class="item-meta">
                 <span class="meta-pill">車資 <strong>¥210</strong></span>
               </div>
@@ -1790,6 +2827,49 @@
                 <span class="item-tag tag-transport">交通</span>
               </div>
               <div class="item-desc">銀座線 → 上野 → JR 山手線 → 池袋（含 30 分緩衝）</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・淺草 → 池袋</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 540 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="station-line flow-line" x1="50" y1="55" x2="280" y2="55" stroke="#ff9500"/>
+          <line class="station-line flow-line" x1="280" y1="55" x2="490" y2="55" stroke="#9acd32"/>
+          <rect class="line-tag" x="130" y="35" width="80" height="20" fill="#ff9500"/>
+          <text class="line-label" x="170" y="49">G 銀座線</text>
+          <rect class="line-tag" x="335" y="35" width="100" height="20" fill="#9acd32"/>
+          <text class="line-label" x="385" y="49">JR 山手線</text>
+          <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#ff9500"/>
+          <text class="station-label" x="50" y="82">淺草</text>
+          <text class="station-label-jp" x="50" y="95">浅草 G19</text>
+          <circle class="station-dot transfer" cx="280" cy="55" r="9" stroke="#666"/>
+          <text class="station-label" x="280" y="82">上野</text>
+          <text class="station-label-jp" x="280" y="95">転乘 ⇄</text>
+          <circle class="station-dot end pulse" cx="490" cy="55" r="9" stroke="#9acd32"/>
+          <text class="station-label" x="490" y="82">池袋</text>
+          <text class="station-label-jp" x="490" y="95">池袋</text>
+        </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step"><strong>淺草站<span class="station-name-jp">浅草駅 G19</span></strong> 出發</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#ff9500;">G 銀座線</span>（往澀谷方向）<div class="step-detail">3 站・約 5 分鐘・¥180</div></li>
+                    <li class="route-step is-transfer">於 <strong>上野站<span class="station-name-jp">上野駅</span></strong> 轉乘 JR（步行約 5 分鐘）</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#9acd32;">JR 山手線</span>（外回り・往池袋方向）<div class="step-detail">5 站・約 12 分鐘・¥210</div></li>
+                    <li class="route-step is-end">於 <strong>池袋站<span class="station-name-jp">池袋駅</span></strong> 下車</li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 25 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥390</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>1 次</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               <div class="item-meta">
                 <span class="meta-pill">車資 <strong>¥390</strong></span>
               </div>
@@ -1875,6 +2955,49 @@
                 <span class="item-tag tag-transport">交通</span>
               </div>
               <div class="item-desc">日比谷線 → 新橋 → 百合海鷗號 → 台場（含 30 分緩衝）</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・秋葉原 → 台場</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 540 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="station-line flow-line" x1="50" y1="55" x2="280" y2="55" stroke="#9acd32"/>
+          <line class="station-line flow-line" x1="280" y1="55" x2="490" y2="55" stroke="#00b2e5"/>
+          <rect class="line-tag" x="125" y="35" width="100" height="20" fill="#9acd32"/>
+          <text class="line-label" x="175" y="49">JR 山手線</text>
+          <rect class="line-tag" x="335" y="35" width="100" height="20" fill="#00b2e5"/>
+          <text class="line-label" x="385" y="49">百合海鷗號</text>
+          <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#9acd32"/>
+          <text class="station-label" x="50" y="82">秋葉原</text>
+          <text class="station-label-jp" x="50" y="95">秋葉原</text>
+          <circle class="station-dot transfer" cx="280" cy="55" r="9" stroke="#666"/>
+          <text class="station-label" x="280" y="82">新橋</text>
+          <text class="station-label-jp" x="280" y="95">転乘 ⇄</text>
+          <circle class="station-dot end pulse" cx="490" cy="55" r="9" stroke="#00b2e5"/>
+          <text class="station-label" x="490" y="82">台場</text>
+          <text class="station-label-jp" x="490" y="95">お台場</text>
+        </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step"><strong>秋葉原站<span class="station-name-jp">秋葉原駅</span></strong> 出發</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#9acd32;">JR 山手線</span>（內回り・往東京方向）<div class="step-detail">4 站・約 10 分鐘・¥170</div></li>
+                    <li class="route-step is-transfer">於 <strong>新橋站<span class="station-name-jp">新橋駅</span></strong> 轉乘百合海鷗號（步行 5 分鐘）</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#00b2e5;">百合海鷗號</span>（往豐洲方向）<div class="step-detail">4 站・約 13 分鐘・¥320</div></li>
+                    <li class="route-step is-end">於 <strong>台場站<span class="station-name-jp">お台場海浜公園駅</span></strong> 下車</li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 30 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥680</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>1 次</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               <div class="item-meta">
                 <span class="meta-pill">車資 <strong>¥680</strong></span>
               </div>
@@ -1960,6 +3083,49 @@
                 <span class="item-tag tag-transport">交通</span>
               </div>
               <div class="item-desc">百合海鷗號 → 新橋 → 都營淺草線</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・台場 → 淺草（回飯店）</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 540 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="station-line flow-line" x1="50" y1="55" x2="280" y2="55" stroke="#00b2e5"/>
+          <line class="station-line flow-line" x1="280" y1="55" x2="490" y2="55" stroke="#e85298"/>
+          <rect class="line-tag" x="115" y="35" width="100" height="20" fill="#00b2e5"/>
+          <text class="line-label" x="165" y="49">百合海鷗號</text>
+          <rect class="line-tag" x="335" y="35" width="100" height="20" fill="#e85298"/>
+          <text class="line-label" x="385" y="49">A 淺草線</text>
+          <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#00b2e5"/>
+          <text class="station-label" x="50" y="82">台場</text>
+          <text class="station-label-jp" x="50" y="95">お台場</text>
+          <circle class="station-dot transfer" cx="280" cy="55" r="9" stroke="#666"/>
+          <text class="station-label" x="280" y="82">新橋</text>
+          <text class="station-label-jp" x="280" y="95">転乘 ⇄</text>
+          <circle class="station-dot end pulse" cx="490" cy="55" r="9" stroke="#e85298"/>
+          <text class="station-label" x="490" y="82">淺草</text>
+          <text class="station-label-jp" x="490" y="95">浅草 A18</text>
+        </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step"><strong>台場站<span class="station-name-jp">お台場海浜公園駅</span></strong> 出發</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#00b2e5;">百合海鷗號</span>（往新橋方向）<div class="step-detail">4 站・約 13 分鐘・¥290</div></li>
+                    <li class="route-step is-transfer">於 <strong>新橋站<span class="station-name-jp">新橋駅</span></strong> 步行 5 分鐘轉乘都營淺草線</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#e85298;">A 都營淺草線</span>（往押上方向）<div class="step-detail">10 站・約 17 分鐘・¥290</div></li>
+                    <li class="route-step is-end">於 <strong>淺草站<span class="station-name-jp">浅草駅 A18</span></strong> 下車</li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 40 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥580</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>1 次</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               <div class="item-meta">
                 <span class="meta-pill">車資 <strong>¥580</strong></span>
               </div>
@@ -2086,6 +3252,49 @@
                 <span class="item-tag tag-transport">交通</span>
               </div>
               <div class="item-desc">百合海鷗號 → 新橋 → JR 山手線 → 池袋（含 30 分緩衝）</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・台場 → 池袋寶可夢中心</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 540 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="station-line flow-line" x1="50" y1="55" x2="280" y2="55" stroke="#00b2e5"/>
+          <line class="station-line flow-line" x1="280" y1="55" x2="490" y2="55" stroke="#9acd32"/>
+          <rect class="line-tag" x="115" y="35" width="100" height="20" fill="#00b2e5"/>
+          <text class="line-label" x="165" y="49">百合海鷗號</text>
+          <rect class="line-tag" x="335" y="35" width="100" height="20" fill="#9acd32"/>
+          <text class="line-label" x="385" y="49">JR 山手線</text>
+          <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#00b2e5"/>
+          <text class="station-label" x="50" y="82">台場</text>
+          <text class="station-label-jp" x="50" y="95">お台場</text>
+          <circle class="station-dot transfer" cx="280" cy="55" r="9" stroke="#666"/>
+          <text class="station-label" x="280" y="82">新橋</text>
+          <text class="station-label-jp" x="280" y="95">転乘 ⇄</text>
+          <circle class="station-dot end pulse" cx="490" cy="55" r="9" stroke="#9acd32"/>
+          <text class="station-label" x="490" y="82">池袋</text>
+          <text class="station-label-jp" x="490" y="95">池袋</text>
+        </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step"><strong>台場站<span class="station-name-jp">お台場海浜公園駅</span></strong> 出發</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#00b2e5;">百合海鷗號</span>（往新橋方向）<div class="step-detail">4 站・約 13 分鐘・¥290</div></li>
+                    <li class="route-step is-transfer">於 <strong>新橋站<span class="station-name-jp">新橋駅</span></strong> 步行 3 分鐘轉乘 JR</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#9acd32;">JR 山手線</span>（外回り・往澀谷／新宿方向）<div class="step-detail">10 站・約 25 分鐘・¥190</div></li>
+                    <li class="route-step is-end">於 <strong>池袋站<span class="station-name-jp">池袋駅 東口</span></strong> 下車，步行至 Sunshine City 約 8 分鐘</li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 50 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥480</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>1 次</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               <div class="item-meta">
                 <span class="meta-pill">車資 <strong>¥480</strong></span>
               </div>
@@ -2128,6 +3337,41 @@
                 <span class="item-tag tag-transport">交通</span>
               </div>
               <div class="item-desc">JR 山手線（含緩衝時間）</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・池袋 → 秋葉原</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 480 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="station-line flow-line" x1="50" y1="55" x2="430" y2="55" stroke="#9acd32"/>
+          <rect class="line-tag" x="180" y="35" width="120" height="20" fill="#9acd32"/>
+          <text class="line-label" x="240" y="49">JR 山手線</text>
+          <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#9acd32"/>
+          <text class="station-label" x="50" y="82">池袋</text>
+          <text class="station-label-jp" x="50" y="95">池袋</text>
+          <circle class="station-dot end pulse" cx="430" cy="55" r="9" stroke="#9acd32"/>
+          <text class="station-label" x="430" y="82">秋葉原</text>
+          <text class="station-label-jp" x="430" y="95">秋葉原</text>
+        </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step"><strong>池袋站<span class="station-name-jp">池袋駅</span></strong> 出發</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#9acd32;">JR 山手線</span>（內回り・往上野方向）<div class="step-detail">7 站・約 18 分鐘・¥210</div></li>
+                    <li class="route-step is-end">於 <strong>秋葉原站<span class="station-name-jp">秋葉原駅 電気街口</span></strong> 下車</li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 18 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥210</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>無</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               <div class="item-meta">
                 <span class="meta-pill">車資 <strong>¥210</strong></span>
               </div>
@@ -2210,6 +3454,41 @@
                 <span class="item-tag tag-transport">交通</span>
               </div>
               <div class="item-desc">東京 Metro 銀座線</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・秋葉原 → 淺草（回飯店）</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 480 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="station-line flow-line" x1="50" y1="55" x2="430" y2="55" stroke="#ff9500"/>
+          <rect class="line-tag" x="190" y="35" width="100" height="20" fill="#ff9500"/>
+          <text class="line-label" x="240" y="49">G 銀座線</text>
+          <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#ff9500"/>
+          <text class="station-label" x="50" y="82">末廣町</text>
+          <text class="station-label-jp" x="50" y="95">末広町 G14</text>
+          <circle class="station-dot end pulse" cx="430" cy="55" r="9" stroke="#ff9500"/>
+          <text class="station-label" x="430" y="82">淺草</text>
+          <text class="station-label-jp" x="430" y="95">浅草 G19</text>
+        </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step">從秋葉原步行至 <strong>末廣町站<span class="station-name-jp">末広町駅 G14</span></strong>（約 5 分鐘）</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#ff9500;">G 銀座線</span>（往淺草方向）<div class="step-detail">5 站・約 8 分鐘・¥180</div></li>
+                    <li class="route-step is-end">於 <strong>淺草站<span class="station-name-jp">浅草駅 G19</span></strong> 下車，步行回飯店約 5 分鐘</li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 15 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥210</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>無</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               <div class="item-meta">
                 <span class="meta-pill">車資 <strong>¥210</strong></span>
               </div>
@@ -2253,6 +3532,45 @@
         <div class="day-summary">明治神宮 → 竹下通 & 表參道 → 表參道吃壽喜燒</div>
       </div>
 
+      <!-- Transit Summary -->
+      <div class="transit-summary">
+        <h3>交通搭乘資訊・本日路線</h3>
+        <div class="transit-list">
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">淺草 → 原宿（明治神宮）</span>
+              <span class="tr-detail">銀座線淺草 → 表參道 → 千代田線 → 明治神宮前・約 35 分（或 銀座線 → 澀谷 → JR 山手線 → 原宿）</span>
+            </div>
+            <div class="tr-cost">¥260</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚶</div>
+            <div class="tr-route">
+              <span class="tr-from-to">明治神宮 → 竹下通 → 表參道</span>
+              <span class="tr-detail">步行・原宿站東出口直達竹下通；散步到表參道約 10 分鐘</span>
+            </div>
+            <div class="tr-cost">免費</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">表參道 → 淺草（回飯店）</span>
+              <span class="tr-detail">東京 Metro 銀座線・約 30 分鐘（無需轉乘）</span>
+            </div>
+            <div class="tr-cost">¥260</div>
+          </div>
+          <div class="transit-row transit-total">
+            <div class="tr-icon">💰</div>
+            <div class="tr-route">
+              <span class="tr-from-to">交通合計（單人）</span>
+              <span class="tr-detail" style="color: rgba(255,255,255,0.7);">本日多為步行</span>
+            </div>
+            <div class="tr-cost">¥520</div>
+          </div>
+        </div>
+      </div>
+
       <div class="itinerary">
         <div class="item">
           <div class="item-time">
@@ -2268,6 +3586,49 @@
               <span class="item-tag tag-attraction">景點</span>
             </div>
             <div class="item-desc">東京最大神社，原宿站旁，林蔭參道清幽。</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・淺草 → 明治神宮（原宿）</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 540 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="station-line flow-line" x1="50" y1="55" x2="280" y2="55" stroke="#ff9500"/>
+          <line class="station-line flow-line" x1="280" y1="55" x2="490" y2="55" stroke="#00bb85"/>
+          <rect class="line-tag" x="130" y="35" width="80" height="20" fill="#ff9500"/>
+          <text class="line-label" x="170" y="49">G 銀座線</text>
+          <rect class="line-tag" x="335" y="35" width="100" height="20" fill="#00bb85"/>
+          <text class="line-label" x="385" y="49">C 千代田線</text>
+          <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#ff9500"/>
+          <text class="station-label" x="50" y="82">淺草</text>
+          <text class="station-label-jp" x="50" y="95">浅草 G19</text>
+          <circle class="station-dot transfer" cx="280" cy="55" r="9" stroke="#666"/>
+          <text class="station-label" x="280" y="82">表參道</text>
+          <text class="station-label-jp" x="280" y="95">転乘 ⇄</text>
+          <circle class="station-dot end pulse" cx="490" cy="55" r="9" stroke="#00bb85"/>
+          <text class="station-label" x="490" y="82">明治神宮前</text>
+          <text class="station-label-jp" x="490" y="95">明治神宮前 C03</text>
+        </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step"><strong>淺草站<span class="station-name-jp">浅草駅 G19</span></strong> 出發</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#ff9500;">G 銀座線</span>（往澀谷方向）<div class="step-detail">17 站・約 30 分鐘・¥210</div></li>
+                    <li class="route-step is-transfer">於 <strong>表參道站<span class="station-name-jp">表参道駅</span></strong> 同月台對面轉乘（東京 Metro 最方便轉乘之一）</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#00bb85;">C 千代田線</span>（往代代木上原方向）<div class="step-detail">1 站・約 2 分鐘</div></li>
+                    <li class="route-step is-end">於 <strong>明治神宮前站<span class="station-name-jp">明治神宮前駅 C03</span></strong> 2 號出口，步行至明治神宮入口約 1 分鐘</li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 35 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥260</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>1 次（同月台）</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="item-meta">
               <span class="meta-pill">免費</span>
               <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=明治神宮" target="_blank">地圖</a>
@@ -2328,6 +3689,45 @@
         <div class="day-summary">最後一天淺草寺參拜 → 回程</div>
       </div>
 
+      <!-- Transit Summary -->
+      <div class="transit-summary">
+        <h3>交通搭乘資訊・本日路線</h3>
+        <div class="transit-list">
+          <div class="transit-row">
+            <div class="tr-icon">🚶</div>
+            <div class="tr-route">
+              <span class="tr-from-to">飯店 → 淺草寺</span>
+              <span class="tr-detail">步行・田原町站到雷門約 8 分鐘</span>
+            </div>
+            <div class="tr-cost">免費</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🚇</div>
+            <div class="tr-route">
+              <span class="tr-from-to">淺草 → 京成上野</span>
+              <span class="tr-detail">東京 Metro 銀座線・約 5 分鐘</span>
+            </div>
+            <div class="tr-cost">¥180</div>
+          </div>
+          <div class="transit-row">
+            <div class="tr-icon">🛬</div>
+            <div class="tr-route">
+              <span class="tr-from-to">京成上野 → 成田機場</span>
+              <span class="tr-detail">京成 Skyliner（特急）・約 41 分鐘・建議起飛前 3 小時抵達</span>
+            </div>
+            <div class="tr-cost">¥2,580</div>
+          </div>
+          <div class="transit-row transit-total">
+            <div class="tr-icon">💰</div>
+            <div class="tr-route">
+              <span class="tr-from-to">交通合計（單人）</span>
+              <span class="tr-detail" style="color: rgba(255,255,255,0.7);">含回程機場接送</span>
+            </div>
+            <div class="tr-cost">¥2,760</div>
+          </div>
+        </div>
+      </div>
+
       <div class="itinerary">
         <div class="item">
           <div class="item-time">
@@ -2343,6 +3743,50 @@
               <span class="item-tag tag-attraction">景點</span>
             </div>
             <div class="item-desc">東京最古老寺廟，雷門、仲見世通老街，可購買伴手禮。</div>
+
+            <div class="transit-details">
+              <button class="transit-toggle">
+                <span class="toggle-label">🚇 乘車資訊・淺草 → 成田機場</span>
+                <span class="toggle-arrow">▼</span>
+              </button>
+              <div class="transit-content">
+                <div class="transit-inner">
+                  <div class="route-diagram">
+                    <svg viewBox="0 0 540 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="station-line flow-line" x1="50" y1="55" x2="280" y2="55" stroke="#ff9500"/>
+          <line class="station-line flow-line" x1="280" y1="55" x2="490" y2="55" stroke="#1e7ed6"/>
+          <rect class="line-tag" x="130" y="35" width="80" height="20" fill="#ff9500"/>
+          <text class="line-label" x="170" y="49">G 銀座線</text>
+          <rect class="line-tag" x="335" y="35" width="100" height="20" fill="#1e7ed6"/>
+          <text class="line-label" x="385" y="49">京成 Skyliner</text>
+          <circle class="station-dot start pulse" cx="50" cy="55" r="9" stroke="#ff9500"/>
+          <text class="station-label" x="50" y="82">淺草</text>
+          <text class="station-label-jp" x="50" y="95">浅草 G19</text>
+          <circle class="station-dot transfer" cx="280" cy="55" r="9" stroke="#666"/>
+          <text class="station-label" x="280" y="82">京成上野</text>
+          <text class="station-label-jp" x="280" y="95">転乘 ⇄</text>
+          <circle class="station-dot end pulse" cx="490" cy="55" r="9" stroke="#1e7ed6"/>
+          <text class="station-label" x="490" y="82">成田機場</text>
+          <text class="station-label-jp" x="490" y="95">成田空港</text>
+        </svg>
+                  </div>
+                  <ol class="route-steps">
+                    <li class="route-step"><strong>淺草站<span class="station-name-jp">浅草駅 G19</span></strong> 出發</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#ff9500;">G 銀座線</span>（往澀谷方向）<div class="step-detail">3 站・約 5 分鐘・¥180</div></li>
+                    <li class="route-step is-transfer">於 <strong>上野站</strong> 出站，步行 5 分鐘至 <strong>京成上野站</strong>（指標跟著「京成」走）</li>
+                    <li class="route-step">搭乘 <span class="line-badge" style="background:#1e7ed6;">京成 Skyliner</span>（特急直達機場）<div class="step-detail">約 41 分鐘・¥2,580・全車對號座</div></li>
+                    <li class="route-step is-end">抵達 <strong>成田機場第 1/2/3 航廈站</strong>，依航廈下車</li>
+                  </ol>
+                  <div class="route-footer">
+                    <span class="rf-item">⏱️ 總時間 <strong>約 60 分鐘</strong></span>
+                    <span class="rf-item">💰 票價 <strong>¥2,760</strong></span>
+                    <span class="rf-item">🔄 轉乘 <strong>1 次</strong></span>
+                    <span class="rf-item">✈️ 建議起飛前 3 小時抵達</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="item-meta">
               <span class="meta-pill">免費</span>
               <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=浅草寺" target="_blank">地圖</a>
@@ -2380,14 +3824,22 @@
       });
     });
 
-    // Before printing, expand all panels
+    // Transit details toggle
+    document.querySelectorAll('.transit-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.closest('.transit-details').classList.toggle('open');
+      });
+    });
+
+    // Before printing, expand all panels and transit details
     window.addEventListener('beforeprint', () => {
       document.querySelectorAll('.day-panel, .plan-panel').forEach(p => p.classList.add('active'));
+      document.querySelectorAll('.transit-details').forEach(d => d.classList.add('open'));
     });
     window.addEventListener('afterprint', () => {
-      // Restore only active tab
       document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.plan-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.transit-details').forEach(d => d.classList.remove('open'));
       const activeDay = document.querySelector('.day-tab.active');
       const activePlan = document.querySelector('.plan-tab.active');
       if (activeDay) document.getElementById(activeDay.dataset.day).classList.add('active');
