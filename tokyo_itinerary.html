@@ -1,1742 +1,2252 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>東京行程表 2026/5/29 - 6/2</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #f5f6f8;
-    --card: #ffffff;
-    --ink: #1a1d24;
-    --ink-soft: #4a5060;
-    --ink-mute: #8b91a3;
-    --line: #e4e7ed;
-    --line-soft: #eef0f4;
-    --accent: #2c5f8d;
-    --accent-soft: #e8f0f7;
-    --accent-light: #4a85b8;
-    --warn: #c0392b;
-    --warn-soft: #fdf2f0;
-    --gold: #b8924a;
-    --gold-soft: #faf5ea;
-    --green: #4a7c59;
-    --green-soft: #eef5f0;
-    --shadow-sm: 0 1px 2px rgba(20, 30, 50, 0.04);
-    --shadow: 0 4px 16px rgba(20, 30, 50, 0.06);
-    --shadow-md: 0 8px 24px rgba(20, 30, 50, 0.08);
-    --radius: 12px;
-    --radius-sm: 8px;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Outfit', 'Noto Sans JP', 'Noto Serif TC', -apple-system, sans-serif;
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-    padding: 32px 16px 64px;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  /* Header */
-  .header {
-    text-align: center;
-    margin-bottom: 32px;
-    padding: 28px 20px;
-    background: var(--card);
-    border-radius: var(--radius);
-    border: 1px solid var(--line);
-    box-shadow: var(--shadow-sm);
-  }
-  .header .eyebrow {
-    font-size: 12px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--ink-mute);
-    margin-bottom: 12px;
-  }
-  .header h1 {
-    font-size: 32px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    margin-bottom: 6px;
-  }
-  .header .jp {
-    font-family: 'Noto Sans JP', sans-serif;
-    color: var(--ink-soft);
-    font-size: 15px;
-    font-weight: 400;
-  }
-  .header .meta {
-    margin-top: 14px;
-    font-size: 13px;
-    color: var(--ink-mute);
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-  .header .meta span::before {
-    content: '·';
-    margin-right: 8px;
-    color: var(--accent);
-  }
-  .header .route {
-    margin-top: 14px;
-    font-size: 13px;
-    color: var(--ink-soft);
-    padding: 10px 16px;
-    background: var(--accent-soft);
-    border-radius: var(--radius-sm);
-    display: inline-block;
-  }
-
-  /* Main Day Tabs */
-  .day-tabs {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 0;
-    background: var(--card);
-    padding: 6px;
-    border-radius: var(--radius);
-    border: 1px solid var(--line);
-    box-shadow: var(--shadow-sm);
-    overflow-x: auto;
-    position: sticky;
-    top: 12px;
-    z-index: 10;
-  }
-  .day-tab {
-    flex: 1;
-    min-width: 110px;
-    padding: 12px 8px;
-    border: none;
-    background: transparent;
-    color: var(--ink-soft);
-    cursor: pointer;
-    border-radius: var(--radius-sm);
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    text-align: center;
-  }
-  .day-tab .date-num {
-    font-size: 18px;
-    font-weight: 600;
-    display: block;
-    margin-bottom: 2px;
-  }
-  .day-tab .date-day {
-    font-size: 11px;
-    color: var(--ink-mute);
-    letter-spacing: 0.05em;
-  }
-  .day-tab:hover {
-    background: var(--line-soft);
-    color: var(--ink);
-  }
-  .day-tab.active {
-    background: var(--ink);
-    color: white;
-  }
-  .day-tab.active .date-day {
-    color: rgba(255,255,255,0.7);
-  }
-  .day-tab.has-options::after {
-    content: '⊕';
-    margin-left: 4px;
-    color: var(--warn);
-    font-weight: 700;
-  }
-  .day-tab.active.has-options::after {
-    color: #ffb84d;
-  }
-
-  /* Day Content */
-  .day-panel {
-    display: none;
-    margin-top: 24px;
-    animation: fadeIn 0.3s ease;
-  }
-  .day-panel.active { display: block; }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .day-header {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 24px 28px;
-    margin-bottom: 20px;
-    box-shadow: var(--shadow-sm);
-  }
-  .day-header h2 {
-    font-size: 24px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    margin-bottom: 6px;
-  }
-  .day-header .day-jp {
-    font-family: 'Noto Sans JP', sans-serif;
-    color: var(--ink-mute);
-    font-size: 14px;
-    font-weight: 400;
-  }
-  .day-header .day-summary {
-    margin-top: 12px;
-    font-size: 14px;
-    color: var(--ink-soft);
-    padding-top: 12px;
-    border-top: 1px solid var(--line-soft);
-  }
-
-  /* Plan sub-tabs (for 5/31) */
-  .plan-tabs {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-  .plan-tab {
-    flex: 1;
-    min-width: 200px;
-    padding: 14px 18px;
-    background: var(--card);
-    border: 1.5px solid var(--line);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-family: inherit;
-    text-align: left;
-    transition: all 0.2s ease;
-    position: relative;
-  }
-  .plan-tab:hover {
-    border-color: var(--accent-light);
-    transform: translateY(-1px);
-  }
-  .plan-tab.active {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-  }
-  .plan-tab .plan-letter {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-    margin-bottom: 4px;
-  }
-  .plan-tab .plan-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 2px;
-  }
-  .plan-tab .plan-desc {
-    font-size: 12px;
-    color: var(--ink-mute);
-  }
-  .plan-tab .recommend-badge {
-    position: absolute;
-    top: -8px;
-    right: 10px;
-    background: var(--gold);
-    color: white;
-    font-size: 10px;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 10px;
-    letter-spacing: 0.05em;
-  }
-
-  .plan-panel {
-    display: none;
-    animation: fadeIn 0.3s ease;
-  }
-  .plan-panel.active { display: block; }
-
-  /* Itinerary timeline */
-  .itinerary {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-  }
-  .item {
-    display: grid;
-    grid-template-columns: 130px 1fr;
-    border-bottom: 1px solid var(--line-soft);
-    transition: background 0.15s ease;
-  }
-  .item:last-child { border-bottom: none; }
-  .item:hover { background: #fafbfc; }
-
-  .item-time {
-    padding: 20px 16px 20px 24px;
-    border-right: 1px solid var(--line-soft);
-    background: #fafbfc;
-  }
-  .item-time .time {
-    font-family: 'Outfit', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--ink);
-    letter-spacing: 0.02em;
-  }
-  .item-time .duration {
-    font-size: 11px;
-    color: var(--ink-mute);
-    margin-top: 2px;
-  }
-
-  .item-body {
-    padding: 20px 24px;
-  }
-  .item-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 6px;
-  }
-  .item-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--ink);
-  }
-  .item-title-jp {
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--ink-mute);
-    margin-top: 2px;
-  }
-  .item-tag {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    background: var(--line-soft);
-    color: var(--ink-soft);
-    white-space: nowrap;
-  }
-  .item-tag.tag-attraction { background: var(--accent-soft); color: var(--accent); }
-  .item-tag.tag-transport { background: var(--gold-soft); color: var(--gold); }
-  .item-tag.tag-food { background: var(--green-soft); color: var(--green); }
-  .item-tag.tag-shopping { background: #f3edf7; color: #7b4a98; }
-  .item-tag.tag-key { background: var(--warn-soft); color: var(--warn); }
-
-  .item-desc {
-    font-size: 14px;
-    color: var(--ink-soft);
-    margin-top: 6px;
-  }
-  .item-note {
-    margin-top: 10px;
-    padding: 10px 12px;
-    background: var(--warn-soft);
-    border-left: 3px solid var(--warn);
-    border-radius: 4px;
-    font-size: 13px;
-    color: var(--warn);
-  }
-  .item-meta {
-    margin-top: 12px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .meta-pill {
-    font-size: 12px;
-    color: var(--ink-soft);
-    padding: 4px 10px;
-    background: #f5f6f8;
-    border-radius: 6px;
-    border: 1px solid var(--line-soft);
-  }
-  .meta-pill strong { color: var(--ink); font-weight: 600; }
-
-  .map-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 11px;
-    background: white;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    color: var(--accent);
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 500;
-    transition: all 0.15s ease;
-  }
-  .map-btn:hover {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-  }
-  .map-btn::before {
-    content: '📍';
-    font-size: 11px;
-  }
-
-  /* Cost summary */
-  .cost-summary {
-    margin-top: 20px;
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 20px 24px;
-    box-shadow: var(--shadow-sm);
-  }
-  .cost-summary h3 {
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--ink-mute);
-    margin-bottom: 14px;
-  }
-  .cost-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-  }
-  .cost-item {
-    padding: 12px 14px;
-    background: #fafbfc;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--line-soft);
-  }
-  .cost-item .label {
-    font-size: 12px;
-    color: var(--ink-mute);
-    margin-bottom: 4px;
-  }
-  .cost-item .value {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--ink);
-    font-family: 'Outfit', sans-serif;
-  }
-  .cost-item.total {
-    background: var(--ink);
-    color: white;
-    border-color: var(--ink);
-  }
-  .cost-item.total .label { color: rgba(255,255,255,0.65); }
-  .cost-item.total .value { color: white; }
-
-  /* Lottery alert box */
-  .lottery-alert {
-    background: linear-gradient(135deg, #fff8e1 0%, #fff3d6 100%);
-    border: 2px solid var(--gold);
-    border-radius: var(--radius);
-    padding: 20px 24px;
-    margin-bottom: 20px;
-    box-shadow: var(--shadow-sm);
-  }
-  .lottery-alert .alert-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 14px;
-    padding-bottom: 12px;
-    border-bottom: 1px dashed var(--gold);
-  }
-  .lottery-alert .alert-icon {
-    font-size: 22px;
-  }
-  .lottery-alert .alert-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 0.02em;
-  }
-  .lottery-alert .alert-title-jp {
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    color: var(--ink-mute);
-    margin-left: auto;
-  }
-  .lottery-alert .alert-body {
-    font-size: 14px;
-    color: var(--ink-soft);
-    line-height: 1.7;
-  }
-  .lottery-alert .alert-key {
-    display: inline-block;
-    background: var(--warn);
-    color: white;
-    padding: 4px 12px;
-    border-radius: 6px;
-    font-weight: 600;
-    font-family: 'Outfit', sans-serif;
-    letter-spacing: 0.02em;
-    margin: 2px 0;
-  }
-  .lottery-alert .alert-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 12px;
-    margin-top: 12px;
-  }
-  .lottery-alert .alert-card {
-    background: white;
-    border: 1px solid #e8d9a8;
-    border-radius: var(--radius-sm);
-    padding: 12px 14px;
-  }
-  .lottery-alert .alert-card .label {
-    font-size: 11px;
-    color: var(--ink-mute);
-    margin-bottom: 4px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-  .lottery-alert .alert-card .value {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--ink);
-  }
-  .lottery-alert .alert-actions {
-    margin-top: 14px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  .lottery-alert .alert-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 14px;
-    background: var(--gold);
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 0.15s ease;
-  }
-  .lottery-alert .alert-btn:hover {
-    background: #a07f3a;
-    transform: translateY(-1px);
-  }
-
-  /* Tip box */
-  .tip-box {
-    margin-top: 16px;
-    padding: 16px 20px;
-    background: var(--accent-soft);
-    border-radius: var(--radius-sm);
-    border-left: 4px solid var(--accent);
-    font-size: 13px;
-    color: var(--ink-soft);
-    line-height: 1.7;
-  }
-  .tip-box strong { color: var(--accent); font-weight: 600; }
-
-  /* Footer */
-  .footer {
-    text-align: center;
-    margin-top: 40px;
-    padding: 20px;
-    font-size: 12px;
-    color: var(--ink-mute);
-  }
-
-  /* Print Styles */
-  @media print {
-    @page { margin: 12mm; size: A4; }
-    body { background: white; padding: 0; font-size: 11pt; }
-    .day-tabs, .plan-tabs { display: none !important; }
-    .day-panel, .plan-panel { display: block !important; page-break-after: always; }
-    .day-panel:last-child, .plan-panel:last-child { page-break-after: auto; }
-    .header, .day-header, .itinerary, .cost-summary {
-      box-shadow: none;
-      border: 1px solid #ccc;
-      break-inside: avoid;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>東京行程表 2026/5/29 - 6/2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f6f8;
+      --card: #ffffff;
+      --ink: #1a1d24;
+      --ink-soft: #4a5060;
+      --ink-mute: #8b91a3;
+      --line: #e4e7ed;
+      --line-soft: #eef0f4;
+      --accent: #2c5f8d;
+      --accent-soft: #e8f0f7;
+      --accent-light: #4a85b8;
+      --warn: #c0392b;
+      --warn-soft: #fdf2f0;
+      --gold: #b8924a;
+      --gold-soft: #faf5ea;
+      --green: #4a7c59;
+      --green-soft: #eef5f0;
+      --shadow-sm: 0 1px 2px rgba(20, 30, 50, 0.04);
+      --shadow: 0 4px 16px rgba(20, 30, 50, 0.06);
+      --shadow-md: 0 8px 24px rgba(20, 30, 50, 0.08);
+      --radius: 12px;
+      --radius-sm: 8px;
     }
-    .item { break-inside: avoid; }
-    .map-btn { display: none; }
-    .item-meta .map-btn { display: none; }
-    .print-only { display: block !important; }
-    .print-divider {
-      display: block !important;
-      margin: 20px 0;
-      padding: 8px 0;
-      border-top: 2px solid var(--ink);
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', 'Noto Sans JP', 'Noto Serif TC', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      padding: 32px 16px 64px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+      padding: 28px 20px;
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 32px;
       font-weight: 600;
-      font-size: 13pt;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
     }
-  }
-  .print-only { display: none; }
-  .print-divider { display: none; }
 
-  /* Print button */
-  .print-btn {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    padding: 12px 18px;
-    background: var(--ink);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 500;
-    box-shadow: var(--shadow-md);
-    z-index: 100;
-    transition: transform 0.15s ease;
-  }
-  .print-btn:hover { transform: translateY(-2px); }
+    .header .jp {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--ink-soft);
+      font-size: 15px;
+      font-weight: 400;
+    }
 
-  /* Responsive */
-  @media (max-width: 640px) {
-    body { padding: 16px 8px 48px; }
-    .header h1 { font-size: 24px; }
-    .header .meta { gap: 10px; font-size: 12px; }
-    .item { grid-template-columns: 1fr; }
-    .item-time {
-      border-right: none;
-      border-bottom: 1px solid var(--line-soft);
-      padding: 12px 16px;
+    .header .meta {
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--ink-mute);
       display: flex;
-      gap: 12px;
-      align-items: baseline;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
     }
-    .item-body { padding: 16px; }
-    .day-tab { font-size: 13px; min-width: 90px; }
-    .day-tab .date-num { font-size: 16px; }
-    .plan-tab { min-width: 100%; }
-    .day-header { padding: 18px 20px; }
-    .day-header h2 { font-size: 20px; }
-  }
-</style>
+
+    .header .meta span::before {
+      content: '·';
+      margin-right: 8px;
+      color: var(--accent);
+    }
+
+    .header .route {
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--ink-soft);
+      padding: 10px 16px;
+      background: var(--accent-soft);
+      border-radius: var(--radius-sm);
+      display: inline-block;
+    }
+
+    /* Main Day Tabs */
+    .day-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 0;
+      background: var(--card);
+      padding: 6px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-sm);
+      overflow-x: auto;
+      position: sticky;
+      top: 12px;
+      z-index: 10;
+    }
+
+    .day-tab {
+      flex: 1;
+      min-width: 110px;
+      padding: 12px 8px;
+      border: none;
+      background: transparent;
+      color: var(--ink-soft);
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .day-tab .date-num {
+      font-size: 18px;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .day-tab .date-day {
+      font-size: 11px;
+      color: var(--ink-mute);
+      letter-spacing: 0.05em;
+    }
+
+    .day-tab:hover {
+      background: var(--line-soft);
+      color: var(--ink);
+    }
+
+    .day-tab.active {
+      background: var(--ink);
+      color: white;
+    }
+
+    .day-tab.active .date-day {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .day-tab.has-options::after {
+      content: '⊕';
+      margin-left: 4px;
+      color: var(--warn);
+      font-weight: 700;
+    }
+
+    .day-tab.active.has-options::after {
+      color: #ffb84d;
+    }
+
+    /* Day Content */
+    .day-panel {
+      display: none;
+      margin-top: 24px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .day-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .day-header {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .day-header h2 {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+
+    .day-header .day-jp {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--ink-mute);
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .day-header .day-summary {
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--ink-soft);
+      padding-top: 12px;
+      border-top: 1px solid var(--line-soft);
+    }
+
+    /* Plan sub-tabs (for 5/31) */
+    .plan-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .plan-tab {
+      flex: 1;
+      min-width: 200px;
+      padding: 14px 18px;
+      background: var(--card);
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .plan-tab:hover {
+      border-color: var(--accent-light);
+      transform: translateY(-1px);
+    }
+
+    .plan-tab.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .plan-tab .plan-letter {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .plan-tab .plan-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .plan-tab .plan-desc {
+      font-size: 12px;
+      color: var(--ink-mute);
+    }
+
+    .plan-tab .recommend-badge {
+      position: absolute;
+      top: -8px;
+      right: 10px;
+      background: var(--gold);
+      color: white;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .plan-panel {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .plan-panel.active {
+      display: block;
+    }
+
+    /* Itinerary timeline */
+    .itinerary {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      border-bottom: 1px solid var(--line-soft);
+      transition: background 0.15s ease;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
+    .item:hover {
+      background: #fafbfc;
+    }
+
+    .item-time {
+      padding: 20px 16px 20px 24px;
+      border-right: 1px solid var(--line-soft);
+      background: #fafbfc;
+    }
+
+    .item-time .time {
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+
+    .item-time .duration {
+      font-size: 11px;
+      color: var(--ink-mute);
+      margin-top: 2px;
+    }
+
+    .item-body {
+      padding: 20px 24px;
+    }
+
+    .item-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .item-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .item-title-jp {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--ink-mute);
+      margin-top: 2px;
+    }
+
+    .item-tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      background: var(--line-soft);
+      color: var(--ink-soft);
+      white-space: nowrap;
+    }
+
+    .item-tag.tag-attraction {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .item-tag.tag-transport {
+      background: var(--gold-soft);
+      color: var(--gold);
+    }
+
+    .item-tag.tag-food {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .item-tag.tag-shopping {
+      background: #f3edf7;
+      color: #7b4a98;
+    }
+
+    .item-tag.tag-key {
+      background: var(--warn-soft);
+      color: var(--warn);
+    }
+
+    .item-desc {
+      font-size: 14px;
+      color: var(--ink-soft);
+      margin-top: 6px;
+    }
+
+    .item-note {
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: var(--warn-soft);
+      border-left: 3px solid var(--warn);
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--warn);
+    }
+
+    .item-meta {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .meta-pill {
+      font-size: 12px;
+      color: var(--ink-soft);
+      padding: 4px 10px;
+      background: #f5f6f8;
+      border-radius: 6px;
+      border: 1px solid var(--line-soft);
+    }
+
+    .meta-pill strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 11px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+    }
+
+    .map-btn:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .map-btn::before {
+      content: '📍';
+      font-size: 11px;
+    }
+
+    /* Cost summary */
+    .cost-summary {
+      margin-top: 20px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .cost-summary h3 {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-bottom: 14px;
+    }
+
+    .cost-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .cost-item {
+      padding: 12px 14px;
+      background: #fafbfc;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line-soft);
+    }
+
+    .cost-item .label {
+      font-size: 12px;
+      color: var(--ink-mute);
+      margin-bottom: 4px;
+    }
+
+    .cost-item .value {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--ink);
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .cost-item.total {
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+    }
+
+    .cost-item.total .label {
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .cost-item.total .value {
+      color: white;
+    }
+
+    /* Lottery alert box */
+    .lottery-alert {
+      background: linear-gradient(135deg, #fff8e1 0%, #fff3d6 100%);
+      border: 2px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .lottery-alert .alert-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--gold);
+    }
+
+    .lottery-alert .alert-icon {
+      font-size: 22px;
+    }
+
+    .lottery-alert .alert-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.02em;
+    }
+
+    .lottery-alert .alert-title-jp {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--ink-mute);
+      margin-left: auto;
+    }
+
+    .lottery-alert .alert-body {
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    .lottery-alert .alert-key {
+      display: inline-block;
+      background: var(--warn);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-family: 'Outfit', sans-serif;
+      letter-spacing: 0.02em;
+      margin: 2px 0;
+    }
+
+    .lottery-alert .alert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .lottery-alert .alert-card {
+      background: white;
+      border: 1px solid #e8d9a8;
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+    }
+
+    .lottery-alert .alert-card .label {
+      font-size: 11px;
+      color: var(--ink-mute);
+      margin-bottom: 4px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .lottery-alert .alert-card .value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .lottery-alert .alert-actions {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .lottery-alert .alert-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: var(--gold);
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+    }
+
+    .lottery-alert .alert-btn:hover {
+      background: #a07f3a;
+      transform: translateY(-1px);
+    }
+
+    /* Tip box */
+    .tip-box {
+      margin-top: 16px;
+      padding: 16px 20px;
+      background: var(--accent-soft);
+      border-radius: var(--radius-sm);
+      border-left: 4px solid var(--accent);
+      font-size: 13px;
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    .tip-box strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      font-size: 12px;
+      color: var(--ink-mute);
+    }
+
+    /* Print Styles */
+    @media print {
+      @page {
+        margin: 12mm;
+        size: A4;
+      }
+
+      body {
+        background: white;
+        padding: 0;
+        font-size: 11pt;
+      }
+
+      .day-tabs,
+      .plan-tabs {
+        display: none !important;
+      }
+
+      .day-panel,
+      .plan-panel {
+        display: block !important;
+        page-break-after: always;
+      }
+
+      .day-panel:last-child,
+      .plan-panel:last-child {
+        page-break-after: auto;
+      }
+
+      .header,
+      .day-header,
+      .itinerary,
+      .cost-summary {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        break-inside: avoid;
+      }
+
+      .item {
+        break-inside: avoid;
+      }
+
+      .map-btn {
+        display: none;
+      }
+
+      .item-meta .map-btn {
+        display: none;
+      }
+
+      .print-only {
+        display: block !important;
+      }
+
+      .print-divider {
+        display: block !important;
+        margin: 20px 0;
+        padding: 8px 0;
+        border-top: 2px solid var(--ink);
+        font-weight: 600;
+        font-size: 13pt;
+      }
+    }
+
+    .print-only {
+      display: none;
+    }
+
+    .print-divider {
+      display: none;
+    }
+
+    /* Print button */
+    .print-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 12px 18px;
+      background: var(--ink);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: var(--shadow-md);
+      z-index: 100;
+      transition: transform 0.15s ease;
+    }
+
+    .print-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 8px 48px;
+      }
+
+      .header h1 {
+        font-size: 24px;
+      }
+
+      .header .meta {
+        gap: 10px;
+        font-size: 12px;
+      }
+
+      .item {
+        grid-template-columns: 1fr;
+      }
+
+      .item-time {
+        border-right: none;
+        border-bottom: 1px solid var(--line-soft);
+        padding: 12px 16px;
+        display: flex;
+        gap: 12px;
+        align-items: baseline;
+      }
+
+      .item-body {
+        padding: 16px;
+      }
+
+      .day-tab {
+        font-size: 13px;
+        min-width: 90px;
+      }
+
+      .day-tab .date-num {
+        font-size: 16px;
+      }
+
+      .plan-tab {
+        min-width: 100%;
+      }
+
+      .day-header {
+        padding: 18px 20px;
+      }
+
+      .day-header h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="container">
+  <div class="container">
 
-  <!-- Header -->
-  <div class="header">
-    <div class="eyebrow">TOKYO TRAVEL ITINERARY</div>
-    <h1>東京自由行 行程表</h1>
-    <div class="jp">東京旅行 ・ 5日間の旅</div>
-    <div class="meta">
-      <span>2026年 5月29日 - 6月2日</span>
-      <span>共 5 日</span>
-      <span>住宿：淺草</span>
-    </div>
-    <div class="route">機場 → 京成上野 → G 銀座線 → 淺草</div>
-  </div>
-
-  <!-- Day Tabs -->
-  <div class="day-tabs">
-    <button class="day-tab active" data-day="d1">
-      <span class="date-num">5/29</span>
-      <span class="date-day">DAY 1 · 木</span>
-    </button>
-    <button class="day-tab" data-day="d2">
-      <span class="date-num">5/30</span>
-      <span class="date-day">DAY 2 · 金</span>
-    </button>
-    <button class="day-tab has-options" data-day="d3">
-      <span class="date-num">5/31</span>
-      <span class="date-day">DAY 3 · 日</span>
-    </button>
-    <button class="day-tab" data-day="d4">
-      <span class="date-num">6/1</span>
-      <span class="date-day">DAY 4 · 月</span>
-    </button>
-    <button class="day-tab" data-day="d5">
-      <span class="date-num">6/2</span>
-      <span class="date-day">DAY 5 · 火</span>
-    </button>
-  </div>
-
-  <!-- ========== DAY 1: 5/29 ========== -->
-  <div class="day-panel active" id="d1">
-    <div class="day-header">
-      <h2>DAY 1 ・ 5月29日（木）</h2>
-      <div class="day-jp">抵達東京 ・ 晴空塔燒肉與夜景</div>
-      <div class="day-summary">機場 → 京成上野 → 銀座線抵達淺草 → 晴空塔吃燒肉（敘敘苑）享受夜景</div>
+    <!-- Header -->
+    <div class="header">
+      <div class="eyebrow">TOKYO TRAVEL ITINERARY</div>
+      <h1>東京自由行 行程表</h1>
+      <div class="jp">東京旅行 ・ 5日間の旅</div>
+      <div class="meta">
+        <span>2026年 5月29日 - 6月2日</span>
+        <span>共 5 日</span>
+        <span>住宿：淺草</span>
+      </div>
+      <div class="route">機場 → 京成上野 → G 銀座線 → 淺草</div>
     </div>
 
-    <div class="itinerary">
-      <div class="item">
-        <div class="item-time">
-          <div class="time">下午抵達</div>
-          <div class="duration">機場 → 飯店</div>
-        </div>
-        <div class="item-body">
-          <div class="item-header">
-            <div>
-              <div class="item-title">機場 → 淺草</div>
-              <div class="item-title-jp">空港から浅草へ</div>
-            </div>
-            <span class="item-tag tag-transport">交通</span>
-          </div>
-          <div class="item-desc">機場 → 京成上野（京成 Skyliner）→ 銀座線 → 淺草站</div>
-          <div class="item-meta">
-            <span class="meta-pill">京成 Skyliner <strong>¥2,580</strong></span>
-            <span class="meta-pill">銀座線 <strong>¥180</strong></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="item-time">
-          <div class="time">傍晚</div>
-          <div class="duration">夜景晚餐</div>
-        </div>
-        <div class="item-body">
-          <div class="item-header">
-            <div>
-              <div class="item-title">東京晴空塔・敘敘苑燒肉 & 夜景</div>
-              <div class="item-title-jp">東京スカイツリー ・ 叙々苑（夜景）</div>
-            </div>
-            <span class="item-tag tag-food">晚餐</span>
-          </div>
-          <div class="item-desc">在敘敘苑享用高級燒肉，邊俯瞰東京夜景。建議事先預約。</div>
-          <div class="item-meta">
-            <span class="meta-pill">人均 <strong>¥8,000〜12,000</strong></span>
-            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=東京スカイツリー+叙々苑" target="_blank">地圖</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="cost-summary">
-      <h3>單日預估費用（單人）</h3>
-      <div class="cost-grid">
-        <div class="cost-item"><div class="label">交通</div><div class="value">¥2,760</div></div>
-        <div class="cost-item"><div class="label">晚餐</div><div class="value">¥10,000</div></div>
-        <div class="cost-item total"><div class="label">合計</div><div class="value">¥12,760</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ========== DAY 2: 5/30 ========== -->
-  <div class="day-panel" id="d2">
-    <div class="day-header">
-      <h2>DAY 2 ・ 5月30日（金）</h2>
-      <div class="day-jp">皇居・新宿コース（選択 1 or 2）</div>
-      <div class="day-summary">上午皇居參觀（需排隊）→ 下午新宿花園神社例大祭 → 晚上新宿屋台 & 歌舞伎町</div>
-    </div>
-
-    <div class="itinerary">
-      <div class="item">
-        <div class="item-time">
-          <div class="time">上午</div>
-          <div class="duration">Option 1</div>
-        </div>
-        <div class="item-body">
-          <div class="item-header">
-            <div>
-              <div class="item-title">Outlet 購物</div>
-              <div class="item-title-jp">アウトレット</div>
-            </div>
-            <span class="item-tag tag-shopping">購物</span>
-          </div>
-          <div class="item-desc">可選擇御殿場 Premium Outlets 或三井 Outlet。</div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="item-time">
-          <div class="time">09:00</div>
-          <div class="duration">~ 中午</div>
-        </div>
-        <div class="item-body">
-          <div class="item-header">
-            <div>
-              <div class="item-title">皇居參觀</div>
-              <div class="item-title-jp">皇居参観</div>
-            </div>
-            <span class="item-tag tag-attraction">景點</span>
-          </div>
-          <div class="item-desc">4/15-8/31 開放時間 9:00-18:00（最後入園 17:30）。當天上午試試現場申請，每天上午 9:00 在桔梗門前發放當日名額。</div>
-          <div class="item-note">⚠️ 通常約 100-200 個名額，採先到先得。建議至少提前 30 分鐘抵達排隊。週末和櫻花季可能需要提前 1 小時。平日每天兩場：上午 10:00 和下午 13:30。</div>
-          <div class="item-meta">
-            <span class="meta-pill">免費</span>
-            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=皇居桔梗門" target="_blank">地圖</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="item-time">
-          <div class="time">中午</div>
-          <div class="duration">彈性</div>
-        </div>
-        <div class="item-body">
-          <div class="item-header">
-            <div>
-              <div class="item-title">午餐（當天決定）</div>
-              <div class="item-title-jp">昼食</div>
-            </div>
-            <span class="item-tag tag-food">午餐</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="item-time">
-          <div class="time">下午</div>
-          <div class="duration">參拜</div>
-        </div>
-        <div class="item-body">
-          <div class="item-header">
-            <div>
-              <div class="item-title">新宿・花園神社例大祭</div>
-              <div class="item-title-jp">新宿 ・ 花園神社例大祭</div>
-            </div>
-            <span class="item-tag tag-attraction">祭典</span>
-          </div>
-          <div class="item-desc">可能可以看到例大祭，時間還不確定。</div>
-          <div class="item-meta">
-            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=新宿花園神社" target="_blank">地圖</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="item-time">
-          <div class="time">傍晚</div>
-          <div class="duration">屋台美食</div>
-        </div>
-        <div class="item-body">
-          <div class="item-header">
-            <div>
-              <div class="item-title">新宿屋台</div>
-              <div class="item-title-jp">新宿屋台</div>
-            </div>
-            <span class="item-tag tag-food">晚餐</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="item-time">
-          <div class="time">晚上</div>
-          <div class="duration">夜遊</div>
-        </div>
-        <div class="item-body">
-          <div class="item-header">
-            <div>
-              <div class="item-title">新宿・歌舞伎町逛街</div>
-              <div class="item-title-jp">新宿 ・ 歌舞伎町</div>
-            </div>
-            <span class="item-tag tag-shopping">夜遊</span>
-          </div>
-          <div class="item-meta">
-            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=新宿歌舞伎町" target="_blank">地圖</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="tip-box">
-      <strong>備註：</strong>本日 outlet 與皇居路線可自行選擇 1 或 2。
-    </div>
-  </div>
-
-  <!-- ========== DAY 3: 5/31 ========== -->
-  <div class="day-panel" id="d3">
-    <div class="day-header">
-      <h2>DAY 3 ・ 5月31日（日）</h2>
-      <div class="day-jp">お台場 ・ 池袋 ・ 秋葉原 ・ 動漫朝聖之旅</div>
-      <div class="day-summary">鋼彈基地 → 池袋寶可夢中心 → 秋葉原步行者天國（週日限定 13:00-18:00）→ 世界のラジオ会館</div>
-    </div>
-
-    <!-- Lottery Alert -->
-    <div class="lottery-alert">
-      <div class="alert-header">
-        <span class="alert-icon">🎫</span>
-        <span class="alert-title">鋼彈基地・事前抽選必讀</span>
-        <span class="alert-title-jp">THE GUNDAM BASE TOKYO ・ 事前入店抽選</span>
-      </div>
-      <div class="alert-body">
-        5/31 為 <strong>事前抽選日</strong>（非當日整理券），必須在出發前完成線上抽籤申請，<strong>中籤才能入店</strong>。當週<strong>沒有設置「通常入店エリア」</strong>（自由入場區），未中籤者無法入店。
-        <div class="alert-grid">
-          <div class="alert-card">
-            <div class="label">申請開放</div>
-            <div class="value">5/18（一）18:00</div>
-          </div>
-          <div class="alert-card">
-            <div class="label">申請截止</div>
-            <div class="value">5/24（日）23:59</div>
-          </div>
-          <div class="alert-card">
-            <div class="label">建議行動</div>
-            <div class="value">5/18 一開放就申請</div>
-          </div>
-          <div class="alert-card">
-            <div class="label">未中籤備案</div>
-            <div class="value">切換至「方案 D」</div>
-          </div>
-        </div>
-        <div style="margin-top: 14px; font-size: 13px;">
-          ⏰ 申請時可選擇<strong>入店時段</strong>，對應下方 ABC 三方案；中籤後再切換到對應方案查看詳細行程。
-        </div>
-        <div class="alert-actions">
-          <a class="alert-btn" href="https://www.gundam-base.net/" target="_blank">
-            🔗 鋼彈基地官網（申請入口）
-          </a>
-          <a class="alert-btn" href="https://www.gundam-base.net/news/" target="_blank" style="background:#666;">
-            📋 最新公告
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Plan sub-tabs -->
-    <div class="plan-tabs">
-      <button class="plan-tab" data-plan="planA">
-        <div class="plan-letter">PLAN A</div>
-        <div class="plan-title">早場方案</div>
-        <div class="plan-desc">鋼彈抽籤 10:00-12:00</div>
+    <!-- Day Tabs -->
+    <div class="day-tabs">
+      <button class="day-tab active" data-day="d1">
+        <span class="date-num">5/29</span>
+        <span class="date-day">DAY 1 · 木</span>
       </button>
-      <button class="plan-tab active" data-plan="planB">
-        <span class="recommend-badge">⭐ 推薦</span>
-        <div class="plan-letter">PLAN B</div>
-        <div class="plan-title">中午場方案</div>
-        <div class="plan-desc">鋼彈抽籤 12:00-14:00</div>
+      <button class="day-tab" data-day="d2">
+        <span class="date-num">5/30</span>
+        <span class="date-day">DAY 2 · 金</span>
       </button>
-      <button class="plan-tab" data-plan="planC">
-        <div class="plan-letter">PLAN C</div>
-        <div class="plan-title">晚場方案</div>
-        <div class="plan-desc">鋼彈抽籤 15:00-17:00</div>
+      <button class="day-tab has-options" data-day="d3">
+        <span class="date-num">5/31</span>
+        <span class="date-day">DAY 3 · 日</span>
       </button>
-      <button class="plan-tab" data-plan="planD" style="border-color: var(--warn);">
-        <div class="plan-letter" style="color: var(--warn);">PLAN D</div>
-        <div class="plan-title">未中籤備案</div>
-        <div class="plan-desc">只看外圍實物大鋼彈</div>
+      <button class="day-tab" data-day="d4">
+        <span class="date-num">6/1</span>
+        <span class="date-day">DAY 4 · 月</span>
+      </button>
+      <button class="day-tab" data-day="d5">
+        <span class="date-num">6/2</span>
+        <span class="date-day">DAY 5 · 火</span>
       </button>
     </div>
 
-    <!-- Plan A -->
-    <div class="plan-panel" id="planA">
+    <!-- ========== DAY 1: 5/29 ========== -->
+    <div class="day-panel active" id="d1">
+      <div class="day-header">
+        <h2>DAY 1 ・ 5月29日（木）</h2>
+        <div class="day-jp">抵達東京 ・ 晴空塔燒肉與夜景</div>
+        <div class="day-summary">機場 → 京成上野 → 銀座線抵達淺草 → 晴空塔吃燒肉（敘敘苑）享受夜景</div>
+      </div>
+
       <div class="itinerary">
         <div class="item">
-          <div class="item-time"><div class="time">08:30-09:30</div><div class="duration">60 min</div></div>
+          <div class="item-time">
+            <div class="time">下午抵達</div>
+            <div class="duration">機場 → 飯店</div>
+          </div>
           <div class="item-body">
             <div class="item-header">
-              <div><div class="item-title">淺草 → 台場</div><div class="item-title-jp">浅草 → お台場</div></div>
+              <div>
+                <div class="item-title">機場 → 淺草</div>
+                <div class="item-title-jp">空港から浅草へ</div>
+              </div>
               <span class="item-tag tag-transport">交通</span>
             </div>
-            <div class="item-desc">都營淺草線（淺草站）→ 新橋站 → 百合海鷗號（ゆりかもめ）→ 台場站</div>
+            <div class="item-desc">機場 → 京成上野（京成 Skyliner）→ 銀座線 → 淺草站</div>
             <div class="item-meta">
-              <span class="meta-pill">車資 <strong>¥580</strong></span>
-              <span class="meta-pill">含 30 分緩衝</span>
+              <span class="meta-pill">京成 Skyliner <strong>¥2,580</strong></span>
+              <span class="meta-pill">銀座線 <strong>¥180</strong></span>
             </div>
           </div>
         </div>
 
         <div class="item">
-          <div class="item-time"><div class="time">09:30-10:00</div><div class="duration">30 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">DiverCity・實物大獨角獸鋼彈</div><div class="item-title-jp">ダイバーシティ東京プラザ ・ ユニコーンガンダム立像</div></div>
-              <span class="item-tag tag-attraction">景點</span>
-            </div>
-            <div class="item-desc">先看戶外實物大獨角獸鋼彈像（免費），等待抽籤入店時段。</div>
-            <div class="item-meta">
-              <span class="meta-pill">免費</span>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=DiverCity+Tokyo+Plaza" target="_blank">地圖</a>
-            </div>
+          <div class="item-time">
+            <div class="time">傍晚</div>
+            <div class="duration">夜景晚餐</div>
           </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">10:00-12:00</div><div class="duration">120 min</div></div>
           <div class="item-body">
             <div class="item-header">
-              <div><div class="item-title">🎫 THE GUNDAM BASE TOKYO</div><div class="item-title-jp">THE GUNDAM BASE TOKYO（DiverCity 7F）</div></div>
-              <span class="item-tag tag-key">事前抽籤</span>
-            </div>
-            <div class="item-desc">DiverCity 7F，全球最大鋼彈專賣店，限定模型、組裝體驗區。</div>
-            <div class="item-note">⚠️ 須事前抽籤中籤（早場 10:00-12:00）<br>申請期間：5/18 18:00 ～ 5/24 23:59</div>
-            <div class="item-meta">
-              <span class="meta-pill">入場免費</span>
-              <span class="meta-pill">購物自費</span>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=THE+GUNDAM+BASE+TOKYO" target="_blank">地圖</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">12:00-13:30</div><div class="duration">90 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">台場 → 池袋</div><div class="item-title-jp">お台場 → 池袋</div></div>
-              <span class="item-tag tag-transport">交通</span>
-            </div>
-            <div class="item-desc">百合海鷗號 → 新橋 → JR 山手線 → 池袋（含 30 分緩衝）</div>
-            <div class="item-meta">
-              <span class="meta-pill">車資 <strong>¥480</strong></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">13:30-15:30</div><div class="duration">120 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">池袋寶可夢中心 Mega Tokyo</div><div class="item-title-jp">ポケモンセンターメガトウキョー（サンシャインシティ 2F）</div></div>
-              <span class="item-tag tag-shopping">購物</span>
-            </div>
-            <div class="item-desc">全東京最大寶可夢中心，位於 Sunshine City 2F，可順遊 Sunshine 60 周邊。</div>
-            <div class="item-meta">
-              <span class="meta-pill">入場免費</span>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=ポケモンセンターメガトウキョー" target="_blank">地圖</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">15:30-16:00</div><div class="duration">30 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">池袋 → 秋葉原</div><div class="item-title-jp">池袋 → 秋葉原</div></div>
-              <span class="item-tag tag-transport">交通</span>
-            </div>
-            <div class="item-desc">JR 山手線（含緩衝時間）</div>
-            <div class="item-meta">
-              <span class="meta-pill">車資 <strong>¥210</strong></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">16:00-18:00</div><div class="duration">120 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">秋葉原・步行者天國 + 世界のラジオ会館</div><div class="item-title-jp">秋葉原 歩行者天国 ・ 世界のラジオ会館</div></div>
-              <span class="item-tag tag-attraction">封街</span>
-            </div>
-            <div class="item-desc">中央通り週日 13:00-18:00 封街徒步。世界のラジオ会館在秋葉原站電氣街口正對面（10 層樓老牌電器/模型/扭蛋大樓）。</div>
-            <div class="item-meta">
-              <span class="meta-pill">免費</span>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原中央通り" target="_blank">封街地圖</a>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原ラジオ会館" target="_blank">ラジオ会館</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">18:00-20:00</div><div class="duration">120 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">秋葉原自由逛街</div><div class="item-title-jp">秋葉原 散策</div></div>
-              <span class="item-tag tag-shopping">逛街</span>
-            </div>
-            <div class="item-desc">電器街、扭蛋專賣店、動漫店（如 AKIBA カルチャーズZONE、駿河屋等）</div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">20:00-21:30</div><div class="duration">90 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">晚餐（秋葉原）</div><div class="item-title-jp">夕食</div></div>
+              <div>
+                <div class="item-title">東京晴空塔・敘敘苑燒肉 & 夜景</div>
+                <div class="item-title-jp">東京スカイツリー ・ 叙々苑（夜景）</div>
+              </div>
               <span class="item-tag tag-food">晚餐</span>
             </div>
-            <div class="item-desc">拉麵、迴轉壽司、牛丼或女僕咖啡廳擇一</div>
+            <div class="item-desc">在敘敘苑享用高級燒肉，邊俯瞰東京夜景。建議事先預約。</div>
             <div class="item-meta">
-              <span class="meta-pill">人均 <strong>¥1,200〜2,000</strong></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">21:30</div><div class="duration">回程</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">秋葉原 → 淺草</div><div class="item-title-jp">秋葉原 → 浅草</div></div>
-              <span class="item-tag tag-transport">交通</span>
-            </div>
-            <div class="item-desc">東京 Metro 銀座線</div>
-            <div class="item-meta">
-              <span class="meta-pill">車資 <strong>¥210</strong></span>
+              <span class="meta-pill">人均 <strong>¥8,000〜12,000</strong></span>
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=東京スカイツリー+叙々苑"
+                target="_blank">地圖</a>
             </div>
           </div>
         </div>
       </div>
 
       <div class="cost-summary">
-        <h3>方案 A · 單日預估費用</h3>
+        <h3>單日預估費用（單人）</h3>
         <div class="cost-grid">
-          <div class="cost-item"><div class="label">交通</div><div class="value">¥1,480</div></div>
-          <div class="cost-item"><div class="label">午餐</div><div class="value">¥1,500</div></div>
-          <div class="cost-item"><div class="label">晚餐</div><div class="value">¥1,500</div></div>
-          <div class="cost-item total"><div class="label">合計（不含購物）</div><div class="value">¥4,480</div></div>
+          <div class="cost-item">
+            <div class="label">交通</div>
+            <div class="value">¥2,760</div>
+          </div>
+          <div class="cost-item">
+            <div class="label">晚餐</div>
+            <div class="value">¥10,000</div>
+          </div>
+          <div class="cost-item total">
+            <div class="label">合計</div>
+            <div class="value">¥12,760</div>
+          </div>
         </div>
-      </div>
-
-      <div class="tip-box">
-        <strong>方案 A 特色：</strong>最早到台場可避開大量人潮，下午池袋與秋葉原時間充裕，可完整體驗封街全程（16:00-18:00）。
       </div>
     </div>
 
-    <!-- Plan B (Recommended) -->
-    <div class="plan-panel active" id="planB">
+    <!-- ========== DAY 2: 5/30 ========== -->
+    <div class="day-panel" id="d2">
+      <div class="day-header">
+        <h2>DAY 2 ・ 5月30日（金）</h2>
+        <div class="day-jp">皇居・新宿コース（選択 1 or 2）</div>
+        <div class="day-summary">上午皇居參觀（需排隊）→ 下午新宿花園神社例大祭 → 晚上新宿屋台 & 歌舞伎町</div>
+      </div>
+
       <div class="itinerary">
         <div class="item">
-          <div class="item-time"><div class="time">09:30-10:30</div><div class="duration">60 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">淺草 → 台場</div><div class="item-title-jp">浅草 → お台場</div></div>
-              <span class="item-tag tag-transport">交通</span>
-            </div>
-            <div class="item-desc">都營淺草線（淺草站）→ 新橋站 → 百合海鷗號（ゆりかもめ）→ 台場站</div>
-            <div class="item-meta">
-              <span class="meta-pill">車資 <strong>¥580</strong></span>
-              <span class="meta-pill">含 30 分緩衝</span>
-            </div>
+          <div class="item-time">
+            <div class="time">上午</div>
+            <div class="duration">Option 1</div>
           </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">10:30-12:00</div><div class="duration">90 min</div></div>
           <div class="item-body">
             <div class="item-header">
-              <div><div class="item-title">DiverCity・實物大獨角獸鋼彈像 + 7F GUNDAM BASE 預逛</div><div class="item-title-jp">ダイバーシティ ・ ユニコーンガンダム立像</div></div>
-              <span class="item-tag tag-attraction">景點</span>
-            </div>
-            <div class="item-desc">先看戶外實物大獨角獸鋼彈（每整點有變身演出），逛 DiverCity 商場。</div>
-            <div class="item-meta">
-              <span class="meta-pill">免費</span>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=DiverCity+Tokyo+Plaza" target="_blank">地圖</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">12:00-14:00</div><div class="duration">120 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">🎫 THE GUNDAM BASE TOKYO + 午餐</div><div class="item-title-jp">THE GUNDAM BASE TOKYO（DiverCity 7F）</div></div>
-              <span class="item-tag tag-key">事前抽籤</span>
-            </div>
-            <div class="item-desc">DiverCity 7F，全球最大鋼彈專賣店。可在 DiverCity 美食街順便用餐。</div>
-            <div class="item-note">⚠️ 須事前抽籤中籤（中午場 12:00-14:00）<br>申請期間：5/18 18:00 ～ 5/24 23:59</div>
-            <div class="item-meta">
-              <span class="meta-pill">入場免費</span>
-              <span class="meta-pill">午餐 <strong>¥1,500</strong></span>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=THE+GUNDAM+BASE+TOKYO" target="_blank">地圖</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">14:00-15:00</div><div class="duration">60 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">台場 → 池袋</div><div class="item-title-jp">お台場 → 池袋</div></div>
-              <span class="item-tag tag-transport">交通</span>
-            </div>
-            <div class="item-desc">百合海鷗號 → 新橋 → JR 山手線 → 池袋（含 30 分緩衝）</div>
-            <div class="item-meta">
-              <span class="meta-pill">車資 <strong>¥480</strong></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">15:00-16:30</div><div class="duration">90 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">池袋寶可夢中心 Mega Tokyo</div><div class="item-title-jp">ポケモンセンターメガトウキョー（サンシャインシティ 2F）</div></div>
+              <div>
+                <div class="item-title">Outlet 購物</div>
+                <div class="item-title-jp">アウトレット</div>
+              </div>
               <span class="item-tag tag-shopping">購物</span>
             </div>
-            <div class="item-desc">全東京最大寶可夢中心，位於 Sunshine City 2F，可順遊周邊。</div>
-            <div class="item-meta">
-              <span class="meta-pill">入場免費</span>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=ポケモンセンターメガトウキョー" target="_blank">地圖</a>
-            </div>
+            <div class="item-desc">可選擇御殿場 Premium Outlets 或三井 Outlet。</div>
           </div>
         </div>
 
         <div class="item">
-          <div class="item-time"><div class="time">16:30-17:00</div><div class="duration">30 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">池袋 → 秋葉原</div><div class="item-title-jp">池袋 → 秋葉原</div></div>
-              <span class="item-tag tag-transport">交通</span>
-            </div>
-            <div class="item-desc">JR 山手線（含緩衝時間）</div>
-            <div class="item-meta">
-              <span class="meta-pill">車資 <strong>¥210</strong></span>
-            </div>
+          <div class="item-time">
+            <div class="time">09:00</div>
+            <div class="duration">~ 中午</div>
           </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">17:00-18:00</div><div class="duration">60 min</div></div>
           <div class="item-body">
             <div class="item-header">
-              <div><div class="item-title">秋葉原・步行者天國黃金時段</div><div class="item-title-jp">秋葉原 歩行者天国（中央通り）</div></div>
-              <span class="item-tag tag-attraction">封街</span>
-            </div>
-            <div class="item-desc">週日 13:00-18:00 封街徒步，中央通り傍晚最熱鬧。</div>
-            <div class="item-meta">
-              <span class="meta-pill">免費</span>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原中央通り" target="_blank">地圖</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">18:00-19:30</div><div class="duration">90 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">世界のラジオ会館 + 秋葉原逛街</div><div class="item-title-jp">秋葉原ラジオ会館</div></div>
-              <span class="item-tag tag-shopping">逛街</span>
-            </div>
-            <div class="item-desc">10 層樓老牌電器/模型/扭蛋大樓，就在秋葉原站電氣街口正對面，內含海洋堂、K-Books、Yellow Submarine 等。</div>
-            <div class="item-meta">
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原ラジオ会館" target="_blank">ラジオ会館</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">19:30-21:00</div><div class="duration">90 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">晚餐（秋葉原）</div><div class="item-title-jp">夕食</div></div>
-              <span class="item-tag tag-food">晚餐</span>
-            </div>
-            <div class="item-desc">拉麵、迴轉壽司、牛丼或女僕咖啡廳擇一</div>
-            <div class="item-meta">
-              <span class="meta-pill">人均 <strong>¥1,200〜2,000</strong></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">21:00</div><div class="duration">回程</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">秋葉原 → 淺草</div><div class="item-title-jp">秋葉原 → 浅草</div></div>
-              <span class="item-tag tag-transport">交通</span>
-            </div>
-            <div class="item-desc">東京 Metro 銀座線</div>
-            <div class="item-meta">
-              <span class="meta-pill">車資 <strong>¥210</strong></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="cost-summary">
-        <h3>方案 B · 單日預估費用</h3>
-        <div class="cost-grid">
-          <div class="cost-item"><div class="label">交通</div><div class="value">¥1,480</div></div>
-          <div class="cost-item"><div class="label">午餐</div><div class="value">¥1,500</div></div>
-          <div class="cost-item"><div class="label">晚餐</div><div class="value">¥1,500</div></div>
-          <div class="cost-item total"><div class="label">合計（不含購物）</div><div class="value">¥4,480</div></div>
-        </div>
-      </div>
-
-      <div class="tip-box">
-        <strong>⭐ 推薦理由：</strong>動線最順、節奏最不趕。台場午後人潮分散、池袋寶可夢中心剛好下午逛、傍晚 17:00-18:00 抓住秋葉原封街最熱鬧黃金時段，散場後接著逛ラジオ会館（不會錯過封街體驗）。
-      </div>
-    </div>
-
-    <!-- Plan C -->
-    <div class="plan-panel" id="planC">
-      <div class="itinerary">
-        <div class="item">
-          <div class="item-time"><div class="time">10:00-11:00</div><div class="duration">60 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">淺草 → 池袋</div><div class="item-title-jp">浅草 → 池袋</div></div>
-              <span class="item-tag tag-transport">交通</span>
-            </div>
-            <div class="item-desc">銀座線 → 上野 → JR 山手線 → 池袋（含 30 分緩衝）</div>
-            <div class="item-meta">
-              <span class="meta-pill">車資 <strong>¥390</strong></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">11:00-13:00</div><div class="duration">120 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">池袋寶可夢中心 Mega Tokyo</div><div class="item-title-jp">ポケモンセンターメガトウキョー</div></div>
-              <span class="item-tag tag-shopping">購物</span>
-            </div>
-            <div class="item-desc">全東京最大寶可夢中心，悠閒逛 Sunshine City 商場。</div>
-            <div class="item-meta">
-              <span class="meta-pill">入場免費</span>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=ポケモンセンターメガトウキョー" target="_blank">地圖</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">13:00-14:00</div><div class="duration">60 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">池袋 → 秋葉原</div><div class="item-title-jp">池袋 → 秋葉原</div></div>
-              <span class="item-tag tag-transport">交通</span>
-            </div>
-            <div class="item-desc">JR 山手線（含 30 分緩衝）</div>
-            <div class="item-meta">
-              <span class="meta-pill">車資 <strong>¥210</strong></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">14:00-15:30</div><div class="duration">90 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">秋葉原・步行者天國 + 世界のラジオ会館</div><div class="item-title-jp">秋葉原 歩行者天国 ・ ラジオ会館</div></div>
-              <span class="item-tag tag-attraction">封街</span>
-            </div>
-            <div class="item-desc">中央通り週日 13:00-18:00 封街徒步，先逛封街與ラジオ会館。</div>
-            <div class="item-meta">
-              <span class="meta-pill">免費</span>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原中央通り" target="_blank">封街</a>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原ラジオ会館" target="_blank">ラジオ会館</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">15:30-16:30</div><div class="duration">60 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">秋葉原 → 台場</div><div class="item-title-jp">秋葉原 → お台場</div></div>
-              <span class="item-tag tag-transport">交通</span>
-            </div>
-            <div class="item-desc">日比谷線 → 新橋 → 百合海鷗號 → 台場（含 30 分緩衝）</div>
-            <div class="item-meta">
-              <span class="meta-pill">車資 <strong>¥680</strong></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">15:00-17:00</div><div class="duration">120 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">🎫 THE GUNDAM BASE TOKYO</div><div class="item-title-jp">THE GUNDAM BASE TOKYO（DiverCity 7F）</div></div>
-              <span class="item-tag tag-key">事前抽籤</span>
-            </div>
-            <div class="item-desc">DiverCity 7F，全球最大鋼彈專賣店。（注意：方案 C 因動線關係，秋葉原體驗較濃縮）</div>
-            <div class="item-note">⚠️ 須事前抽籤中籤（晚場 15:00-17:00）<br>申請期間：5/18 18:00 ～ 5/24 23:59</div>
-            <div class="item-meta">
-              <span class="meta-pill">入場免費</span>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=THE+GUNDAM+BASE+TOKYO" target="_blank">地圖</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">17:00-19:00</div><div class="duration">120 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">實物大獨角獸鋼彈・夜間點燈 + 變身演出</div><div class="item-title-jp">ユニコーンガンダム立像 ・ ライトアップ</div></div>
-              <span class="item-tag tag-attraction">夜景</span>
-            </div>
-            <div class="item-desc">獨角獸鋼彈每整點變身演出，日落後燈光秀（19:00、19:30、20:00、21:00）</div>
-            <div class="item-meta">
-              <span class="meta-pill">免費</span>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=DiverCity+Tokyo+Plaza" target="_blank">地圖</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">19:00-20:30</div><div class="duration">90 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">晚餐（台場）</div><div class="item-title-jp">夕食</div></div>
-              <span class="item-tag tag-food">晚餐</span>
-            </div>
-            <div class="item-desc">DiverCity 美食街、AQUA CITY、台場 Decks 等選擇。</div>
-            <div class="item-meta">
-              <span class="meta-pill">人均 <strong>¥1,500〜2,500</strong></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">20:30</div><div class="duration">回程</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">台場 → 淺草</div><div class="item-title-jp">お台場 → 浅草</div></div>
-              <span class="item-tag tag-transport">交通</span>
-            </div>
-            <div class="item-desc">百合海鷗號 → 新橋 → 都營淺草線</div>
-            <div class="item-meta">
-              <span class="meta-pill">車資 <strong>¥580</strong></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="cost-summary">
-        <h3>方案 C · 單日預估費用</h3>
-        <div class="cost-grid">
-          <div class="cost-item"><div class="label">交通</div><div class="value">¥1,860</div></div>
-          <div class="cost-item"><div class="label">午餐</div><div class="value">¥1,500</div></div>
-          <div class="cost-item"><div class="label">晚餐</div><div class="value">¥2,000</div></div>
-          <div class="cost-item total"><div class="label">合計（不含購物）</div><div class="value">¥5,360</div></div>
-        </div>
-      </div>
-
-      <div class="tip-box">
-        <strong>方案 C 特色：</strong>適合想看實物大鋼彈夜間點燈 + 燈光秀演出的人。晚場可以悠閒在台場欣賞夜景。代價：秋葉原體驗時間較壓縮（僅 90 分鐘），且交通費略高。
-      </div>
-    </div>
-
-    <!-- Plan D: 未中籤備案 -->
-    <div class="plan-panel" id="planD">
-      <div class="lottery-alert" style="background: linear-gradient(135deg, #fdf2f0 0%, #fae5e1 100%); border-color: var(--warn);">
-        <div class="alert-header" style="border-bottom-color: var(--warn);">
-          <span class="alert-icon">😢</span>
-          <span class="alert-title" style="color: var(--warn);">未中籤備案行程</span>
-          <span class="alert-title-jp">抽選に外れた場合のプラン</span>
-        </div>
-        <div class="alert-body">
-          若鋼彈基地抽籤未中籤，<strong>無法進入店內</strong>，但仍可在 DiverCity 戶外欣賞 <strong>實物大獨角獸鋼彈</strong>（每整點變身演出，免費）。建議把省下來的時間轉移到池袋寶可夢中心或秋葉原。
-        </div>
-      </div>
-
-      <div class="itinerary">
-        <div class="item">
-          <div class="item-time"><div class="time">10:00-11:00</div><div class="duration">60 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">淺草 → 台場</div><div class="item-title-jp">浅草 → お台場</div></div>
-              <span class="item-tag tag-transport">交通</span>
-            </div>
-            <div class="item-desc">都營淺草線 → 新橋 → 百合海鷗號 → 台場（含 30 分緩衝）</div>
-            <div class="item-meta">
-              <span class="meta-pill">車資 <strong>¥580</strong></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">11:00-12:00</div><div class="duration">60 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">實物大獨角獸鋼彈像（戶外）+ DiverCity 7F 外圍</div><div class="item-title-jp">ユニコーンガンダム立像 ・ ダイバーシティ</div></div>
+              <div>
+                <div class="item-title">皇居參觀</div>
+                <div class="item-title-jp">皇居参観</div>
+              </div>
               <span class="item-tag tag-attraction">景點</span>
             </div>
-            <div class="item-desc">看戶外實物大獨角獸鋼彈（11:00、12:00 整點有變身演出），DiverCity 7F 鋼彈基地店外可拍照、看櫥窗展示。</div>
+            <div class="item-desc">4/15-8/31 開放時間 9:00-18:00（最後入園 17:30）。當天上午試試現場申請，每天上午 9:00 在桔梗門前發放當日名額。</div>
+            <div class="item-note">⚠️ 通常約 100-200 個名額，採先到先得。建議至少提前 30 分鐘抵達排隊。週末和櫻花季可能需要提前 1 小時。平日每天兩場：上午 10:00 和下午
+              13:30。</div>
             <div class="item-meta">
               <span class="meta-pill">免費</span>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=DiverCity+Tokyo+Plaza" target="_blank">地圖</a>
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=皇居桔梗門" target="_blank">地圖</a>
             </div>
           </div>
         </div>
 
         <div class="item">
-          <div class="item-time"><div class="time">12:00-13:30</div><div class="duration">90 min</div></div>
+          <div class="item-time">
+            <div class="time">中午</div>
+            <div class="duration">彈性</div>
+          </div>
           <div class="item-body">
             <div class="item-header">
-              <div><div class="item-title">台場午餐 + AQUA CITY 逛街</div><div class="item-title-jp">アクアシティお台場 ・ 昼食</div></div>
+              <div>
+                <div class="item-title">午餐（當天決定）</div>
+                <div class="item-title-jp">昼食</div>
+              </div>
               <span class="item-tag tag-food">午餐</span>
             </div>
-            <div class="item-desc">DiverCity 美食街、AQUA CITY 商場或台場海濱公園散步。</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-time">
+            <div class="time">下午</div>
+            <div class="duration">參拜</div>
+          </div>
+          <div class="item-body">
+            <div class="item-header">
+              <div>
+                <div class="item-title">新宿・花園神社例大祭</div>
+                <div class="item-title-jp">新宿 ・ 花園神社例大祭</div>
+              </div>
+              <span class="item-tag tag-attraction">祭典</span>
+            </div>
+            <div class="item-desc">可能可以看到例大祭，時間還不確定。</div>
             <div class="item-meta">
-              <span class="meta-pill">人均 <strong>¥1,500</strong></span>
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=新宿花園神社" target="_blank">地圖</a>
             </div>
           </div>
         </div>
 
         <div class="item">
-          <div class="item-time"><div class="time">13:30-14:30</div><div class="duration">60 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">台場 → 池袋</div><div class="item-title-jp">お台場 → 池袋</div></div>
-              <span class="item-tag tag-transport">交通</span>
-            </div>
-            <div class="item-desc">百合海鷗號 → 新橋 → JR 山手線 → 池袋（含 30 分緩衝）</div>
-            <div class="item-meta">
-              <span class="meta-pill">車資 <strong>¥480</strong></span>
-            </div>
+          <div class="item-time">
+            <div class="time">傍晚</div>
+            <div class="duration">屋台美食</div>
           </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">14:30-16:30</div><div class="duration">120 min</div></div>
           <div class="item-body">
             <div class="item-header">
-              <div><div class="item-title">池袋寶可夢中心 Mega Tokyo + Sunshine City</div><div class="item-title-jp">ポケモンセンターメガトウキョー ・ サンシャインシティ</div></div>
-              <span class="item-tag tag-shopping">購物</span>
-            </div>
-            <div class="item-desc">未中籤多出的時間用來慢慢逛 Sunshine City（含寶可夢中心、Namja Town、水族館、扭蛋專區等）。</div>
-            <div class="item-meta">
-              <span class="meta-pill">入場免費</span>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=ポケモンセンターメガトウキョー" target="_blank">地圖</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">16:30-17:00</div><div class="duration">30 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">池袋 → 秋葉原</div><div class="item-title-jp">池袋 → 秋葉原</div></div>
-              <span class="item-tag tag-transport">交通</span>
-            </div>
-            <div class="item-desc">JR 山手線（含緩衝時間）</div>
-            <div class="item-meta">
-              <span class="meta-pill">車資 <strong>¥210</strong></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">17:00-18:00</div><div class="duration">60 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">秋葉原・步行者天國黃金時段</div><div class="item-title-jp">秋葉原 歩行者天国（中央通り）</div></div>
-              <span class="item-tag tag-attraction">封街</span>
-            </div>
-            <div class="item-desc">週日 13:00-18:00 封街徒步，傍晚最熱鬧。</div>
-            <div class="item-meta">
-              <span class="meta-pill">免費</span>
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原中央通り" target="_blank">地圖</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">18:00-20:00</div><div class="duration">120 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">世界のラジオ会館 + 秋葉原延伸逛街</div><div class="item-title-jp">秋葉原ラジオ会館 ・ 散策</div></div>
-              <span class="item-tag tag-shopping">逛街</span>
-            </div>
-            <div class="item-desc">未中籤多出的時間可延伸逛 AKIBA カルチャーズZONE、駿河屋、海洋堂、扭蛋會館等。</div>
-            <div class="item-meta">
-              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原ラジオ会館" target="_blank">ラジオ会館</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="item-time"><div class="time">20:00-21:30</div><div class="duration">90 min</div></div>
-          <div class="item-body">
-            <div class="item-header">
-              <div><div class="item-title">晚餐（秋葉原）</div><div class="item-title-jp">夕食</div></div>
+              <div>
+                <div class="item-title">新宿屋台</div>
+                <div class="item-title-jp">新宿屋台</div>
+              </div>
               <span class="item-tag tag-food">晚餐</span>
             </div>
-            <div class="item-desc">拉麵、迴轉壽司、牛丼或女僕咖啡廳擇一</div>
-            <div class="item-meta">
-              <span class="meta-pill">人均 <strong>¥1,200〜2,000</strong></span>
-            </div>
           </div>
         </div>
 
         <div class="item">
-          <div class="item-time"><div class="time">21:30</div><div class="duration">回程</div></div>
+          <div class="item-time">
+            <div class="time">晚上</div>
+            <div class="duration">夜遊</div>
+          </div>
           <div class="item-body">
             <div class="item-header">
-              <div><div class="item-title">秋葉原 → 淺草</div><div class="item-title-jp">秋葉原 → 浅草</div></div>
-              <span class="item-tag tag-transport">交通</span>
+              <div>
+                <div class="item-title">新宿・歌舞伎町逛街</div>
+                <div class="item-title-jp">新宿 ・ 歌舞伎町</div>
+              </div>
+              <span class="item-tag tag-shopping">夜遊</span>
             </div>
-            <div class="item-desc">東京 Metro 銀座線</div>
             <div class="item-meta">
-              <span class="meta-pill">車資 <strong>¥210</strong></span>
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=新宿歌舞伎町" target="_blank">地圖</a>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="cost-summary">
-        <h3>方案 D · 單日預估費用</h3>
-        <div class="cost-grid">
-          <div class="cost-item"><div class="label">交通</div><div class="value">¥1,480</div></div>
-          <div class="cost-item"><div class="label">午餐</div><div class="value">¥1,500</div></div>
-          <div class="cost-item"><div class="label">晚餐</div><div class="value">¥1,500</div></div>
-          <div class="cost-item total"><div class="label">合計（不含購物）</div><div class="value">¥4,480</div></div>
         </div>
       </div>
 
       <div class="tip-box">
-        <strong>方案 D 特色：</strong>未中籤備案 — 仍能看到戶外實物大獨角獸鋼彈（每整點變身演出，免費，無需抽籤），把店內的時間轉移到池袋與秋葉原延伸逛街。整體節奏比 ABC 更悠閒。
+        <strong>備註：</strong>本日 outlet 與皇居路線可自行選擇 1 或 2。
       </div>
+    </div>
+
+    <!-- ========== DAY 3: 5/31 ========== -->
+    <div class="day-panel" id="d3">
+      <div class="day-header">
+        <h2>DAY 3 ・ 5月31日（日）</h2>
+        <div class="day-jp">お台場 ・ 池袋 ・ 秋葉原 ・ 動漫朝聖之旅</div>
+        <div class="day-summary">鋼彈基地 → 池袋寶可夢中心 → 秋葉原步行者天國（週日限定 13:00-18:00）→ 世界のラジオ会館</div>
+      </div>
+
+      <!-- Lottery Alert -->
+      <div class="lottery-alert">
+        <div class="alert-header">
+          <span class="alert-icon">🎫</span>
+          <span class="alert-title">鋼彈基地・事前抽選必讀</span>
+          <span class="alert-title-jp">THE GUNDAM BASE TOKYO ・ 事前入店抽選</span>
+        </div>
+        <div class="alert-body">
+          5/31 為
+          <strong>事前抽選日</strong>（非當日整理券），必須在出發前完成線上抽籤申請，<strong>中籤才能入店</strong>。當週<strong>沒有設置「通常入店エリア」</strong>（自由入場區），未中籤者無法入店。
+          <div class="alert-grid">
+            <div class="alert-card">
+              <div class="label">申請開放</div>
+              <div class="value">5/18（一）18:00</div>
+            </div>
+            <div class="alert-card">
+              <div class="label">申請截止</div>
+              <div class="value">5/24（日）23:59</div>
+            </div>
+            <div class="alert-card">
+              <div class="label">建議行動</div>
+              <div class="value">5/18 一開放就申請</div>
+            </div>
+            <div class="alert-card">
+              <div class="label">未中籤備案</div>
+              <div class="value">切換至「方案 D」</div>
+            </div>
+          </div>
+          <div style="margin-top: 14px; font-size: 13px;">
+            ⏰ 申請時可選擇<strong>入店時段</strong>，對應下方 ABC 三方案；中籤後再切換到對應方案查看詳細行程。
+          </div>
+          <div class="alert-actions">
+            <a class="alert-btn" href="https://www.gundam-base.net/news/55669.html/" target="_blank">
+              🔗 鋼彈基地官網（申請入口）
+            </a>
+            <a class="alert-btn" href="https://www.gundam-base.net/news/" target="_blank" style="background:#666;">
+              📋 最新公告
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plan sub-tabs -->
+      <div class="plan-tabs">
+        <button class="plan-tab" data-plan="planA">
+          <div class="plan-letter">PLAN A</div>
+          <div class="plan-title">早場方案</div>
+          <div class="plan-desc">鋼彈抽籤 10:00-12:00</div>
+        </button>
+        <button class="plan-tab active" data-plan="planB">
+          <span class="recommend-badge">⭐ 推薦</span>
+          <div class="plan-letter">PLAN B</div>
+          <div class="plan-title">中午場方案</div>
+          <div class="plan-desc">鋼彈抽籤 12:00-14:00</div>
+        </button>
+        <button class="plan-tab" data-plan="planC">
+          <div class="plan-letter">PLAN C</div>
+          <div class="plan-title">晚場方案</div>
+          <div class="plan-desc">鋼彈抽籤 15:00-17:00</div>
+        </button>
+        <button class="plan-tab" data-plan="planD" style="border-color: var(--warn);">
+          <div class="plan-letter" style="color: var(--warn);">PLAN D</div>
+          <div class="plan-title">未中籤備案</div>
+          <div class="plan-desc">只看外圍實物大鋼彈</div>
+        </button>
+      </div>
+
+      <!-- Plan A -->
+      <div class="plan-panel" id="planA">
+        <div class="itinerary">
+          <div class="item">
+            <div class="item-time">
+              <div class="time">08:30-09:30</div>
+              <div class="duration">60 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">淺草 → 台場</div>
+                  <div class="item-title-jp">浅草 → お台場</div>
+                </div>
+                <span class="item-tag tag-transport">交通</span>
+              </div>
+              <div class="item-desc">都營淺草線（淺草站）→ 新橋站 → 百合海鷗號（ゆりかもめ）→ 台場站</div>
+              <div class="item-meta">
+                <span class="meta-pill">車資 <strong>¥580</strong></span>
+                <span class="meta-pill">含 30 分緩衝</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">09:30-10:00</div>
+              <div class="duration">30 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">DiverCity・實物大獨角獸鋼彈</div>
+                  <div class="item-title-jp">ダイバーシティ東京プラザ ・ ユニコーンガンダム立像</div>
+                </div>
+                <span class="item-tag tag-attraction">景點</span>
+              </div>
+              <div class="item-desc">先看戶外實物大獨角獸鋼彈像（免費），等待抽籤入店時段。</div>
+              <div class="item-meta">
+                <span class="meta-pill">免費</span>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=DiverCity+Tokyo+Plaza"
+                  target="_blank">地圖</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">10:00-12:00</div>
+              <div class="duration">120 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">🎫 THE GUNDAM BASE TOKYO</div>
+                  <div class="item-title-jp">THE GUNDAM BASE TOKYO（DiverCity 7F）</div>
+                </div>
+                <span class="item-tag tag-key">事前抽籤</span>
+              </div>
+              <div class="item-desc">DiverCity 7F，全球最大鋼彈專賣店，限定模型、組裝體驗區。</div>
+              <div class="item-note">⚠️ 須事前抽籤中籤（早場 10:00-12:00）<br>申請期間：5/18 18:00 ～ 5/24 23:59</div>
+              <div class="item-meta">
+                <span class="meta-pill">入場免費</span>
+                <span class="meta-pill">購物自費</span>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=THE+GUNDAM+BASE+TOKYO"
+                  target="_blank">地圖</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">12:00-13:30</div>
+              <div class="duration">90 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">台場 → 池袋</div>
+                  <div class="item-title-jp">お台場 → 池袋</div>
+                </div>
+                <span class="item-tag tag-transport">交通</span>
+              </div>
+              <div class="item-desc">百合海鷗號 → 新橋 → JR 山手線 → 池袋（含 30 分緩衝）</div>
+              <div class="item-meta">
+                <span class="meta-pill">車資 <strong>¥480</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">13:30-15:30</div>
+              <div class="duration">120 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">池袋寶可夢中心 Mega Tokyo</div>
+                  <div class="item-title-jp">ポケモンセンターメガトウキョー（サンシャインシティ 2F）</div>
+                </div>
+                <span class="item-tag tag-shopping">購物</span>
+              </div>
+              <div class="item-desc">全東京最大寶可夢中心，位於 Sunshine City 2F，可順遊 Sunshine 60 周邊。</div>
+              <div class="item-meta">
+                <span class="meta-pill">入場免費</span>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=ポケモンセンターメガトウキョー"
+                  target="_blank">地圖</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">15:30-16:00</div>
+              <div class="duration">30 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">池袋 → 秋葉原</div>
+                  <div class="item-title-jp">池袋 → 秋葉原</div>
+                </div>
+                <span class="item-tag tag-transport">交通</span>
+              </div>
+              <div class="item-desc">JR 山手線（含緩衝時間）</div>
+              <div class="item-meta">
+                <span class="meta-pill">車資 <strong>¥210</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">16:00-18:00</div>
+              <div class="duration">120 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">秋葉原・步行者天國 + 世界のラジオ会館</div>
+                  <div class="item-title-jp">秋葉原 歩行者天国 ・ 世界のラジオ会館</div>
+                </div>
+                <span class="item-tag tag-attraction">封街</span>
+              </div>
+              <div class="item-desc">中央通り週日 13:00-18:00 封街徒步。世界のラジオ会館在秋葉原站電氣街口正對面（10 層樓老牌電器/模型/扭蛋大樓）。</div>
+              <div class="item-meta">
+                <span class="meta-pill">免費</span>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原中央通り"
+                  target="_blank">封街地圖</a>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原ラジオ会館"
+                  target="_blank">ラジオ会館</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">18:00-20:00</div>
+              <div class="duration">120 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">秋葉原自由逛街</div>
+                  <div class="item-title-jp">秋葉原 散策</div>
+                </div>
+                <span class="item-tag tag-shopping">逛街</span>
+              </div>
+              <div class="item-desc">電器街、扭蛋專賣店、動漫店（如 AKIBA カルチャーズZONE、駿河屋等）</div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">20:00-21:30</div>
+              <div class="duration">90 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">晚餐（秋葉原）</div>
+                  <div class="item-title-jp">夕食</div>
+                </div>
+                <span class="item-tag tag-food">晚餐</span>
+              </div>
+              <div class="item-desc">拉麵、迴轉壽司、牛丼或女僕咖啡廳擇一</div>
+              <div class="item-meta">
+                <span class="meta-pill">人均 <strong>¥1,200〜2,000</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">21:30</div>
+              <div class="duration">回程</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">秋葉原 → 淺草</div>
+                  <div class="item-title-jp">秋葉原 → 浅草</div>
+                </div>
+                <span class="item-tag tag-transport">交通</span>
+              </div>
+              <div class="item-desc">東京 Metro 銀座線</div>
+              <div class="item-meta">
+                <span class="meta-pill">車資 <strong>¥210</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cost-summary">
+          <h3>方案 A · 單日預估費用</h3>
+          <div class="cost-grid">
+            <div class="cost-item">
+              <div class="label">交通</div>
+              <div class="value">¥1,480</div>
+            </div>
+            <div class="cost-item">
+              <div class="label">午餐</div>
+              <div class="value">¥1,500</div>
+            </div>
+            <div class="cost-item">
+              <div class="label">晚餐</div>
+              <div class="value">¥1,500</div>
+            </div>
+            <div class="cost-item total">
+              <div class="label">合計（不含購物）</div>
+              <div class="value">¥4,480</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-box">
+          <strong>方案 A 特色：</strong>最早到台場可避開大量人潮，下午池袋與秋葉原時間充裕，可完整體驗封街全程（16:00-18:00）。
+        </div>
+      </div>
+
+      <!-- Plan B (Recommended) -->
+      <div class="plan-panel active" id="planB">
+        <div class="itinerary">
+          <div class="item">
+            <div class="item-time">
+              <div class="time">09:30-10:30</div>
+              <div class="duration">60 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">淺草 → 台場</div>
+                  <div class="item-title-jp">浅草 → お台場</div>
+                </div>
+                <span class="item-tag tag-transport">交通</span>
+              </div>
+              <div class="item-desc">都營淺草線（淺草站）→ 新橋站 → 百合海鷗號（ゆりかもめ）→ 台場站</div>
+              <div class="item-meta">
+                <span class="meta-pill">車資 <strong>¥580</strong></span>
+                <span class="meta-pill">含 30 分緩衝</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">10:30-12:00</div>
+              <div class="duration">90 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">DiverCity・實物大獨角獸鋼彈像 + 7F GUNDAM BASE 預逛</div>
+                  <div class="item-title-jp">ダイバーシティ ・ ユニコーンガンダム立像</div>
+                </div>
+                <span class="item-tag tag-attraction">景點</span>
+              </div>
+              <div class="item-desc">先看戶外實物大獨角獸鋼彈（每整點有變身演出），逛 DiverCity 商場。</div>
+              <div class="item-meta">
+                <span class="meta-pill">免費</span>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=DiverCity+Tokyo+Plaza"
+                  target="_blank">地圖</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">12:00-14:00</div>
+              <div class="duration">120 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">🎫 THE GUNDAM BASE TOKYO + 午餐</div>
+                  <div class="item-title-jp">THE GUNDAM BASE TOKYO（DiverCity 7F）</div>
+                </div>
+                <span class="item-tag tag-key">事前抽籤</span>
+              </div>
+              <div class="item-desc">DiverCity 7F，全球最大鋼彈專賣店。可在 DiverCity 美食街順便用餐。</div>
+              <div class="item-note">⚠️ 須事前抽籤中籤（中午場 12:00-14:00）<br>申請期間：5/18 18:00 ～ 5/24 23:59</div>
+              <div class="item-meta">
+                <span class="meta-pill">入場免費</span>
+                <span class="meta-pill">午餐 <strong>¥1,500</strong></span>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=THE+GUNDAM+BASE+TOKYO"
+                  target="_blank">地圖</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">14:00-15:00</div>
+              <div class="duration">60 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">台場 → 池袋</div>
+                  <div class="item-title-jp">お台場 → 池袋</div>
+                </div>
+                <span class="item-tag tag-transport">交通</span>
+              </div>
+              <div class="item-desc">百合海鷗號 → 新橋 → JR 山手線 → 池袋（含 30 分緩衝）</div>
+              <div class="item-meta">
+                <span class="meta-pill">車資 <strong>¥480</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">15:00-16:30</div>
+              <div class="duration">90 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">池袋寶可夢中心 Mega Tokyo</div>
+                  <div class="item-title-jp">ポケモンセンターメガトウキョー（サンシャインシティ 2F）</div>
+                </div>
+                <span class="item-tag tag-shopping">購物</span>
+              </div>
+              <div class="item-desc">全東京最大寶可夢中心，位於 Sunshine City 2F，可順遊周邊。</div>
+              <div class="item-meta">
+                <span class="meta-pill">入場免費</span>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=ポケモンセンターメガトウキョー"
+                  target="_blank">地圖</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">16:30-17:00</div>
+              <div class="duration">30 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">池袋 → 秋葉原</div>
+                  <div class="item-title-jp">池袋 → 秋葉原</div>
+                </div>
+                <span class="item-tag tag-transport">交通</span>
+              </div>
+              <div class="item-desc">JR 山手線（含緩衝時間）</div>
+              <div class="item-meta">
+                <span class="meta-pill">車資 <strong>¥210</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">17:00-18:00</div>
+              <div class="duration">60 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">秋葉原・步行者天國黃金時段</div>
+                  <div class="item-title-jp">秋葉原 歩行者天国（中央通り）</div>
+                </div>
+                <span class="item-tag tag-attraction">封街</span>
+              </div>
+              <div class="item-desc">週日 13:00-18:00 封街徒步，中央通り傍晚最熱鬧。</div>
+              <div class="item-meta">
+                <span class="meta-pill">免費</span>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原中央通り" target="_blank">地圖</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">18:00-19:30</div>
+              <div class="duration">90 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">世界のラジオ会館 + 秋葉原逛街</div>
+                  <div class="item-title-jp">秋葉原ラジオ会館</div>
+                </div>
+                <span class="item-tag tag-shopping">逛街</span>
+              </div>
+              <div class="item-desc">10 層樓老牌電器/模型/扭蛋大樓，就在秋葉原站電氣街口正對面，內含海洋堂、K-Books、Yellow Submarine 等。</div>
+              <div class="item-meta">
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原ラジオ会館"
+                  target="_blank">ラジオ会館</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">19:30-21:00</div>
+              <div class="duration">90 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">晚餐（秋葉原）</div>
+                  <div class="item-title-jp">夕食</div>
+                </div>
+                <span class="item-tag tag-food">晚餐</span>
+              </div>
+              <div class="item-desc">拉麵、迴轉壽司、牛丼或女僕咖啡廳擇一</div>
+              <div class="item-meta">
+                <span class="meta-pill">人均 <strong>¥1,200〜2,000</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">21:00</div>
+              <div class="duration">回程</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">秋葉原 → 淺草</div>
+                  <div class="item-title-jp">秋葉原 → 浅草</div>
+                </div>
+                <span class="item-tag tag-transport">交通</span>
+              </div>
+              <div class="item-desc">東京 Metro 銀座線</div>
+              <div class="item-meta">
+                <span class="meta-pill">車資 <strong>¥210</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cost-summary">
+          <h3>方案 B · 單日預估費用</h3>
+          <div class="cost-grid">
+            <div class="cost-item">
+              <div class="label">交通</div>
+              <div class="value">¥1,480</div>
+            </div>
+            <div class="cost-item">
+              <div class="label">午餐</div>
+              <div class="value">¥1,500</div>
+            </div>
+            <div class="cost-item">
+              <div class="label">晚餐</div>
+              <div class="value">¥1,500</div>
+            </div>
+            <div class="cost-item total">
+              <div class="label">合計（不含購物）</div>
+              <div class="value">¥4,480</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-box">
+          <strong>⭐ 推薦理由：</strong>動線最順、節奏最不趕。台場午後人潮分散、池袋寶可夢中心剛好下午逛、傍晚 17:00-18:00 抓住秋葉原封街最熱鬧黃金時段，散場後接著逛ラジオ会館（不會錯過封街體驗）。
+        </div>
+      </div>
+
+      <!-- Plan C -->
+      <div class="plan-panel" id="planC">
+        <div class="itinerary">
+          <div class="item">
+            <div class="item-time">
+              <div class="time">10:00-11:00</div>
+              <div class="duration">60 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">淺草 → 池袋</div>
+                  <div class="item-title-jp">浅草 → 池袋</div>
+                </div>
+                <span class="item-tag tag-transport">交通</span>
+              </div>
+              <div class="item-desc">銀座線 → 上野 → JR 山手線 → 池袋（含 30 分緩衝）</div>
+              <div class="item-meta">
+                <span class="meta-pill">車資 <strong>¥390</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">11:00-13:00</div>
+              <div class="duration">120 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">池袋寶可夢中心 Mega Tokyo</div>
+                  <div class="item-title-jp">ポケモンセンターメガトウキョー</div>
+                </div>
+                <span class="item-tag tag-shopping">購物</span>
+              </div>
+              <div class="item-desc">全東京最大寶可夢中心，悠閒逛 Sunshine City 商場。</div>
+              <div class="item-meta">
+                <span class="meta-pill">入場免費</span>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=ポケモンセンターメガトウキョー"
+                  target="_blank">地圖</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">13:00-14:00</div>
+              <div class="duration">60 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">池袋 → 秋葉原</div>
+                  <div class="item-title-jp">池袋 → 秋葉原</div>
+                </div>
+                <span class="item-tag tag-transport">交通</span>
+              </div>
+              <div class="item-desc">JR 山手線（含 30 分緩衝）</div>
+              <div class="item-meta">
+                <span class="meta-pill">車資 <strong>¥210</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">14:00-15:30</div>
+              <div class="duration">90 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">秋葉原・步行者天國 + 世界のラジオ会館</div>
+                  <div class="item-title-jp">秋葉原 歩行者天国 ・ ラジオ会館</div>
+                </div>
+                <span class="item-tag tag-attraction">封街</span>
+              </div>
+              <div class="item-desc">中央通り週日 13:00-18:00 封街徒步，先逛封街與ラジオ会館。</div>
+              <div class="item-meta">
+                <span class="meta-pill">免費</span>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原中央通り" target="_blank">封街</a>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原ラジオ会館"
+                  target="_blank">ラジオ会館</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">15:30-16:30</div>
+              <div class="duration">60 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">秋葉原 → 台場</div>
+                  <div class="item-title-jp">秋葉原 → お台場</div>
+                </div>
+                <span class="item-tag tag-transport">交通</span>
+              </div>
+              <div class="item-desc">日比谷線 → 新橋 → 百合海鷗號 → 台場（含 30 分緩衝）</div>
+              <div class="item-meta">
+                <span class="meta-pill">車資 <strong>¥680</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">15:00-17:00</div>
+              <div class="duration">120 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">🎫 THE GUNDAM BASE TOKYO</div>
+                  <div class="item-title-jp">THE GUNDAM BASE TOKYO（DiverCity 7F）</div>
+                </div>
+                <span class="item-tag tag-key">事前抽籤</span>
+              </div>
+              <div class="item-desc">DiverCity 7F，全球最大鋼彈專賣店。（注意：方案 C 因動線關係，秋葉原體驗較濃縮）</div>
+              <div class="item-note">⚠️ 須事前抽籤中籤（晚場 15:00-17:00）<br>申請期間：5/18 18:00 ～ 5/24 23:59</div>
+              <div class="item-meta">
+                <span class="meta-pill">入場免費</span>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=THE+GUNDAM+BASE+TOKYO"
+                  target="_blank">地圖</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">17:00-19:00</div>
+              <div class="duration">120 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">實物大獨角獸鋼彈・夜間點燈 + 變身演出</div>
+                  <div class="item-title-jp">ユニコーンガンダム立像 ・ ライトアップ</div>
+                </div>
+                <span class="item-tag tag-attraction">夜景</span>
+              </div>
+              <div class="item-desc">獨角獸鋼彈每整點變身演出，日落後燈光秀（19:00、19:30、20:00、21:00）</div>
+              <div class="item-meta">
+                <span class="meta-pill">免費</span>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=DiverCity+Tokyo+Plaza"
+                  target="_blank">地圖</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">19:00-20:30</div>
+              <div class="duration">90 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">晚餐（台場）</div>
+                  <div class="item-title-jp">夕食</div>
+                </div>
+                <span class="item-tag tag-food">晚餐</span>
+              </div>
+              <div class="item-desc">DiverCity 美食街、AQUA CITY、台場 Decks 等選擇。</div>
+              <div class="item-meta">
+                <span class="meta-pill">人均 <strong>¥1,500〜2,500</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">20:30</div>
+              <div class="duration">回程</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">台場 → 淺草</div>
+                  <div class="item-title-jp">お台場 → 浅草</div>
+                </div>
+                <span class="item-tag tag-transport">交通</span>
+              </div>
+              <div class="item-desc">百合海鷗號 → 新橋 → 都營淺草線</div>
+              <div class="item-meta">
+                <span class="meta-pill">車資 <strong>¥580</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cost-summary">
+          <h3>方案 C · 單日預估費用</h3>
+          <div class="cost-grid">
+            <div class="cost-item">
+              <div class="label">交通</div>
+              <div class="value">¥1,860</div>
+            </div>
+            <div class="cost-item">
+              <div class="label">午餐</div>
+              <div class="value">¥1,500</div>
+            </div>
+            <div class="cost-item">
+              <div class="label">晚餐</div>
+              <div class="value">¥2,000</div>
+            </div>
+            <div class="cost-item total">
+              <div class="label">合計（不含購物）</div>
+              <div class="value">¥5,360</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-box">
+          <strong>方案 C 特色：</strong>適合想看實物大鋼彈夜間點燈 + 燈光秀演出的人。晚場可以悠閒在台場欣賞夜景。代價：秋葉原體驗時間較壓縮（僅 90 分鐘），且交通費略高。
+        </div>
+      </div>
+
+      <!-- Plan D: 未中籤備案 -->
+      <div class="plan-panel" id="planD">
+        <div class="lottery-alert"
+          style="background: linear-gradient(135deg, #fdf2f0 0%, #fae5e1 100%); border-color: var(--warn);">
+          <div class="alert-header" style="border-bottom-color: var(--warn);">
+            <span class="alert-icon">😢</span>
+            <span class="alert-title" style="color: var(--warn);">未中籤備案行程</span>
+            <span class="alert-title-jp">抽選に外れた場合のプラン</span>
+          </div>
+          <div class="alert-body">
+            若鋼彈基地抽籤未中籤，<strong>無法進入店內</strong>，但仍可在 DiverCity 戶外欣賞
+            <strong>實物大獨角獸鋼彈</strong>（每整點變身演出，免費）。建議把省下來的時間轉移到池袋寶可夢中心或秋葉原。
+          </div>
+        </div>
+
+        <div class="itinerary">
+          <div class="item">
+            <div class="item-time">
+              <div class="time">10:00-11:00</div>
+              <div class="duration">60 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">淺草 → 台場</div>
+                  <div class="item-title-jp">浅草 → お台場</div>
+                </div>
+                <span class="item-tag tag-transport">交通</span>
+              </div>
+              <div class="item-desc">都營淺草線 → 新橋 → 百合海鷗號 → 台場（含 30 分緩衝）</div>
+              <div class="item-meta">
+                <span class="meta-pill">車資 <strong>¥580</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">11:00-12:00</div>
+              <div class="duration">60 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">實物大獨角獸鋼彈像（戶外）+ DiverCity 7F 外圍</div>
+                  <div class="item-title-jp">ユニコーンガンダム立像 ・ ダイバーシティ</div>
+                </div>
+                <span class="item-tag tag-attraction">景點</span>
+              </div>
+              <div class="item-desc">看戶外實物大獨角獸鋼彈（11:00、12:00 整點有變身演出），DiverCity 7F 鋼彈基地店外可拍照、看櫥窗展示。</div>
+              <div class="item-meta">
+                <span class="meta-pill">免費</span>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=DiverCity+Tokyo+Plaza"
+                  target="_blank">地圖</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">12:00-13:30</div>
+              <div class="duration">90 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">台場午餐 + AQUA CITY 逛街</div>
+                  <div class="item-title-jp">アクアシティお台場 ・ 昼食</div>
+                </div>
+                <span class="item-tag tag-food">午餐</span>
+              </div>
+              <div class="item-desc">DiverCity 美食街、AQUA CITY 商場或台場海濱公園散步。</div>
+              <div class="item-meta">
+                <span class="meta-pill">人均 <strong>¥1,500</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">13:30-14:30</div>
+              <div class="duration">60 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">台場 → 池袋</div>
+                  <div class="item-title-jp">お台場 → 池袋</div>
+                </div>
+                <span class="item-tag tag-transport">交通</span>
+              </div>
+              <div class="item-desc">百合海鷗號 → 新橋 → JR 山手線 → 池袋（含 30 分緩衝）</div>
+              <div class="item-meta">
+                <span class="meta-pill">車資 <strong>¥480</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">14:30-16:30</div>
+              <div class="duration">120 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">池袋寶可夢中心 Mega Tokyo + Sunshine City</div>
+                  <div class="item-title-jp">ポケモンセンターメガトウキョー ・ サンシャインシティ</div>
+                </div>
+                <span class="item-tag tag-shopping">購物</span>
+              </div>
+              <div class="item-desc">未中籤多出的時間用來慢慢逛 Sunshine City（含寶可夢中心、Namja Town、水族館、扭蛋專區等）。</div>
+              <div class="item-meta">
+                <span class="meta-pill">入場免費</span>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=ポケモンセンターメガトウキョー"
+                  target="_blank">地圖</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">16:30-17:00</div>
+              <div class="duration">30 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">池袋 → 秋葉原</div>
+                  <div class="item-title-jp">池袋 → 秋葉原</div>
+                </div>
+                <span class="item-tag tag-transport">交通</span>
+              </div>
+              <div class="item-desc">JR 山手線（含緩衝時間）</div>
+              <div class="item-meta">
+                <span class="meta-pill">車資 <strong>¥210</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">17:00-18:00</div>
+              <div class="duration">60 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">秋葉原・步行者天國黃金時段</div>
+                  <div class="item-title-jp">秋葉原 歩行者天国（中央通り）</div>
+                </div>
+                <span class="item-tag tag-attraction">封街</span>
+              </div>
+              <div class="item-desc">週日 13:00-18:00 封街徒步，傍晚最熱鬧。</div>
+              <div class="item-meta">
+                <span class="meta-pill">免費</span>
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原中央通り" target="_blank">地圖</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">18:00-20:00</div>
+              <div class="duration">120 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">世界のラジオ会館 + 秋葉原延伸逛街</div>
+                  <div class="item-title-jp">秋葉原ラジオ会館 ・ 散策</div>
+                </div>
+                <span class="item-tag tag-shopping">逛街</span>
+              </div>
+              <div class="item-desc">未中籤多出的時間可延伸逛 AKIBA カルチャーズZONE、駿河屋、海洋堂、扭蛋會館等。</div>
+              <div class="item-meta">
+                <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=秋葉原ラジオ会館"
+                  target="_blank">ラジオ会館</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">20:00-21:30</div>
+              <div class="duration">90 min</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">晚餐（秋葉原）</div>
+                  <div class="item-title-jp">夕食</div>
+                </div>
+                <span class="item-tag tag-food">晚餐</span>
+              </div>
+              <div class="item-desc">拉麵、迴轉壽司、牛丼或女僕咖啡廳擇一</div>
+              <div class="item-meta">
+                <span class="meta-pill">人均 <strong>¥1,200〜2,000</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-time">
+              <div class="time">21:30</div>
+              <div class="duration">回程</div>
+            </div>
+            <div class="item-body">
+              <div class="item-header">
+                <div>
+                  <div class="item-title">秋葉原 → 淺草</div>
+                  <div class="item-title-jp">秋葉原 → 浅草</div>
+                </div>
+                <span class="item-tag tag-transport">交通</span>
+              </div>
+              <div class="item-desc">東京 Metro 銀座線</div>
+              <div class="item-meta">
+                <span class="meta-pill">車資 <strong>¥210</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cost-summary">
+          <h3>方案 D · 單日預估費用</h3>
+          <div class="cost-grid">
+            <div class="cost-item">
+              <div class="label">交通</div>
+              <div class="value">¥1,480</div>
+            </div>
+            <div class="cost-item">
+              <div class="label">午餐</div>
+              <div class="value">¥1,500</div>
+            </div>
+            <div class="cost-item">
+              <div class="label">晚餐</div>
+              <div class="value">¥1,500</div>
+            </div>
+            <div class="cost-item total">
+              <div class="label">合計（不含購物）</div>
+              <div class="value">¥4,480</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-box">
+          <strong>方案 D 特色：</strong>未中籤備案 — 仍能看到戶外實物大獨角獸鋼彈（每整點變身演出，免費，無需抽籤），把店內的時間轉移到池袋與秋葉原延伸逛街。整體節奏比 ABC 更悠閒。
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== DAY 4: 6/1 ========== -->
+    <div class="day-panel" id="d4">
+      <div class="day-header">
+        <h2>DAY 4 ・ 6月1日（月）</h2>
+        <div class="day-jp">明治神宮 ・ 表参道コース</div>
+        <div class="day-summary">明治神宮 → 竹下通 & 表參道 → 表參道吃壽喜燒</div>
+      </div>
+
+      <div class="itinerary">
+        <div class="item">
+          <div class="item-time">
+            <div class="time">上午</div>
+            <div class="duration">參拜</div>
+          </div>
+          <div class="item-body">
+            <div class="item-header">
+              <div>
+                <div class="item-title">明治神宮</div>
+                <div class="item-title-jp">明治神宮</div>
+              </div>
+              <span class="item-tag tag-attraction">景點</span>
+            </div>
+            <div class="item-desc">東京最大神社，原宿站旁，林蔭參道清幽。</div>
+            <div class="item-meta">
+              <span class="meta-pill">免費</span>
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=明治神宮" target="_blank">地圖</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-time">
+            <div class="time">中午</div>
+            <div class="duration">逛街</div>
+          </div>
+          <div class="item-body">
+            <div class="item-header">
+              <div>
+                <div class="item-title">竹下通 & 表參道</div>
+                <div class="item-title-jp">竹下通り & 表参道</div>
+              </div>
+              <span class="item-tag tag-shopping">購物</span>
+            </div>
+            <div class="item-desc">竹下通年輕街頭文化、表參道高端時尚，可吃可麗餅、彩虹棉花糖。</div>
+            <div class="item-meta">
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=竹下通り" target="_blank">竹下通</a>
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=表参道" target="_blank">表參道</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-time">
+            <div class="time">晚餐</div>
+            <div class="duration">壽喜燒</div>
+          </div>
+          <div class="item-body">
+            <div class="item-header">
+              <div>
+                <div class="item-title">壽喜燒・Shabu Shabu KINTAN 表參道店</div>
+                <div class="item-title-jp">しゃぶしゃぶ・すきやき KINTAN 表参道店</div>
+              </div>
+              <span class="item-tag tag-food">晚餐</span>
+            </div>
+            <div class="item-desc">高品質和牛涮涮鍋 / 壽喜燒，建議事先預約。</div>
+            <div class="item-meta">
+              <span class="meta-pill">人均 <strong>¥5,000〜8,000</strong></span>
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Shabu+Shabu+KINTAN+表参道"
+                target="_blank">地圖</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== DAY 5: 6/2 ========== -->
+    <div class="day-panel" id="d5">
+      <div class="day-header">
+        <h2>DAY 5 ・ 6月2日（火）</h2>
+        <div class="day-jp">浅草寺 ・ 帰国</div>
+        <div class="day-summary">最後一天淺草寺參拜 → 回程</div>
+      </div>
+
+      <div class="itinerary">
+        <div class="item">
+          <div class="item-time">
+            <div class="time">上午</div>
+            <div class="duration">參拜</div>
+          </div>
+          <div class="item-body">
+            <div class="item-header">
+              <div>
+                <div class="item-title">淺草寺</div>
+                <div class="item-title-jp">浅草寺・雷門・仲見世通り</div>
+              </div>
+              <span class="item-tag tag-attraction">景點</span>
+            </div>
+            <div class="item-desc">東京最古老寺廟，雷門、仲見世通老街，可購買伴手禮。</div>
+            <div class="item-meta">
+              <span class="meta-pill">免費</span>
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=浅草寺" target="_blank">地圖</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Tokyo Trip · 2026.5.29 – 6.2 · ⌘P / Ctrl+P 列印此頁
     </div>
   </div>
 
-  <!-- ========== DAY 4: 6/1 ========== -->
-  <div class="day-panel" id="d4">
-    <div class="day-header">
-      <h2>DAY 4 ・ 6月1日（月）</h2>
-      <div class="day-jp">明治神宮 ・ 表参道コース</div>
-      <div class="day-summary">明治神宮 → 竹下通 & 表參道 → 表參道吃壽喜燒</div>
-    </div>
+  <button class="print-btn" onclick="window.print()">🖨️ 列印 / 儲存 PDF</button>
 
-    <div class="itinerary">
-      <div class="item">
-        <div class="item-time">
-          <div class="time">上午</div>
-          <div class="duration">參拜</div>
-        </div>
-        <div class="item-body">
-          <div class="item-header">
-            <div>
-              <div class="item-title">明治神宮</div>
-              <div class="item-title-jp">明治神宮</div>
-            </div>
-            <span class="item-tag tag-attraction">景點</span>
-          </div>
-          <div class="item-desc">東京最大神社，原宿站旁，林蔭參道清幽。</div>
-          <div class="item-meta">
-            <span class="meta-pill">免費</span>
-            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=明治神宮" target="_blank">地圖</a>
-          </div>
-        </div>
-      </div>
+  <script>
+    // Day tabs
+    document.querySelectorAll('.day-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.day).classList.add('active');
+      });
+    });
 
-      <div class="item">
-        <div class="item-time">
-          <div class="time">中午</div>
-          <div class="duration">逛街</div>
-        </div>
-        <div class="item-body">
-          <div class="item-header">
-            <div>
-              <div class="item-title">竹下通 & 表參道</div>
-              <div class="item-title-jp">竹下通り & 表参道</div>
-            </div>
-            <span class="item-tag tag-shopping">購物</span>
-          </div>
-          <div class="item-desc">竹下通年輕街頭文化、表參道高端時尚，可吃可麗餅、彩虹棉花糖。</div>
-          <div class="item-meta">
-            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=竹下通り" target="_blank">竹下通</a>
-            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=表参道" target="_blank">表參道</a>
-          </div>
-        </div>
-      </div>
+    // Plan sub-tabs
+    document.querySelectorAll('.plan-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.plan-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.plan-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.plan).classList.add('active');
+      });
+    });
 
-      <div class="item">
-        <div class="item-time">
-          <div class="time">晚餐</div>
-          <div class="duration">壽喜燒</div>
-        </div>
-        <div class="item-body">
-          <div class="item-header">
-            <div>
-              <div class="item-title">壽喜燒・Shabu Shabu KINTAN 表參道店</div>
-              <div class="item-title-jp">しゃぶしゃぶ・すきやき KINTAN 表参道店</div>
-            </div>
-            <span class="item-tag tag-food">晚餐</span>
-          </div>
-          <div class="item-desc">高品質和牛涮涮鍋 / 壽喜燒，建議事先預約。</div>
-          <div class="item-meta">
-            <span class="meta-pill">人均 <strong>¥5,000〜8,000</strong></span>
-            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Shabu+Shabu+KINTAN+表参道" target="_blank">地圖</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ========== DAY 5: 6/2 ========== -->
-  <div class="day-panel" id="d5">
-    <div class="day-header">
-      <h2>DAY 5 ・ 6月2日（火）</h2>
-      <div class="day-jp">浅草寺 ・ 帰国</div>
-      <div class="day-summary">最後一天淺草寺參拜 → 回程</div>
-    </div>
-
-    <div class="itinerary">
-      <div class="item">
-        <div class="item-time">
-          <div class="time">上午</div>
-          <div class="duration">參拜</div>
-        </div>
-        <div class="item-body">
-          <div class="item-header">
-            <div>
-              <div class="item-title">淺草寺</div>
-              <div class="item-title-jp">浅草寺・雷門・仲見世通り</div>
-            </div>
-            <span class="item-tag tag-attraction">景點</span>
-          </div>
-          <div class="item-desc">東京最古老寺廟，雷門、仲見世通老街，可購買伴手禮。</div>
-          <div class="item-meta">
-            <span class="meta-pill">免費</span>
-            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=浅草寺" target="_blank">地圖</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer">
-    Tokyo Trip · 2026.5.29 – 6.2 · ⌘P / Ctrl+P 列印此頁
-  </div>
-</div>
-
-<button class="print-btn" onclick="window.print()">🖨️ 列印 / 儲存 PDF</button>
-
-<script>
-  // Day tabs
-  document.querySelectorAll('.day-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+    // Before printing, expand all panels
+    window.addEventListener('beforeprint', () => {
+      document.querySelectorAll('.day-panel, .plan-panel').forEach(p => p.classList.add('active'));
+    });
+    window.addEventListener('afterprint', () => {
+      // Restore only active tab
       document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById(tab.dataset.day).classList.add('active');
-    });
-  });
-
-  // Plan sub-tabs
-  document.querySelectorAll('.plan-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.plan-tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.plan-panel').forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById(tab.dataset.plan).classList.add('active');
+      const activeDay = document.querySelector('.day-tab.active');
+      const activePlan = document.querySelector('.plan-tab.active');
+      if (activeDay) document.getElementById(activeDay.dataset.day).classList.add('active');
+      if (activePlan) document.getElementById(activePlan.dataset.plan).classList.add('active');
     });
-  });
-
-  // Before printing, expand all panels
-  window.addEventListener('beforeprint', () => {
-    document.querySelectorAll('.day-panel, .plan-panel').forEach(p => p.classList.add('active'));
-  });
-  window.addEventListener('afterprint', () => {
-    // Restore only active tab
-    document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.plan-panel').forEach(p => p.classList.remove('active'));
-    const activeDay = document.querySelector('.day-tab.active');
-    const activePlan = document.querySelector('.plan-tab.active');
-    if (activeDay) document.getElementById(activeDay.dataset.day).classList.add('active');
-    if (activePlan) document.getElementById(activePlan.dataset.plan).classList.add('active');
-  });
-</script>
+  </script>
 </body>
+
 </html>
