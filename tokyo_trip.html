@@ -1520,18 +1520,18 @@
         font-size: 20px;
       }
 
-      /* Mobile: enlarge day-flow SVG via fixed height + horizontal scroll */
+      /* Mobile: day-flow overview — moderate height + horizontal scroll with visible hint */
       .day-flow svg {
         width: auto !important;
         max-width: none !important;
-        height: 280px;
+        height: 180px;
       }
       .day-flow svg text {
-        font-size: 18px;
+        font-size: 17px;
       }
       .day-flow svg text[font-size="10"],
       .day-flow svg text[font-size="11"] {
-        font-size: 16px;
+        font-size: 15px;
       }
       .day-flow .flow-node {
         stroke-width: 4;
@@ -1539,12 +1539,34 @@
       .day-flow .flow-line {
         stroke-width: 4;
       }
+      .day-flow .flow-svg-wrap {
+        -webkit-overflow-scrolling: touch;
+        position: relative;
+      }
+      .day-flow .flow-svg-wrap::-webkit-scrollbar {
+        height: 8px;
+      }
+      .day-flow .flow-svg-wrap::-webkit-scrollbar-thumb {
+        background: var(--accent-light);
+        border-radius: 4px;
+      }
+      .day-flow::after {
+        content: '← 左右滑動查看完整路線 →';
+        display: block;
+        text-align: center;
+        font-size: 11px;
+        color: var(--ink-mute);
+        padding: 6px 0 4px;
+        letter-spacing: 0.05em;
+      }
 
-      /* route-diagram: also enlarge for readability */
-      .route-diagram svg { height: 160px; }
-      .route-diagram .station-label { font-size: 15px; }
-      .route-diagram .station-label-jp { font-size: 12px; }
-      .route-diagram .line-label { font-size: 13px; }
+      /* Mobile: hide per-item route-diagram SVG — the text steps below convey the same info clearly */
+      .route-diagram {
+        display: none;
+      }
+      .route-steps {
+        margin-top: 4px;
+      }
     }
   </style>
 </head>
