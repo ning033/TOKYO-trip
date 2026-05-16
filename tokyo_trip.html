@@ -548,18 +548,49 @@
       background: linear-gradient(135deg, #fff8e1 0%, #fff3d6 100%);
       border: 2px solid var(--gold);
       border-radius: var(--radius);
-      padding: 20px 24px;
       margin-bottom: 20px;
       box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: all 0.3s ease;
     }
+
+    .lottery-alert .alert-toggle {
+      width: 100%;
+      padding: 16px 22px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: inherit;
+      text-align: left;
+      transition: background 0.15s ease;
+    }
+    .lottery-alert .alert-toggle:hover { background: rgba(184, 146, 74, 0.08); }
+    .lottery-alert .alert-toggle .at-hint {
+      font-size: 11px;
+      color: var(--ink-mute);
+      margin-right: 8px;
+    }
+    .lottery-alert .alert-toggle .at-arrow {
+      transition: transform 0.3s ease;
+      font-size: 11px;
+      color: var(--gold);
+    }
+    .lottery-alert.open .alert-toggle .at-arrow { transform: rotate(180deg); }
+    .lottery-alert .alert-collapse {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .lottery-alert.open .alert-collapse { max-height: 800px; }
 
     .lottery-alert .alert-header {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 14px;
-      padding-bottom: 12px;
-      border-bottom: 1px dashed var(--gold);
+      flex: 1;
     }
 
     .lottery-alert .alert-icon {
@@ -582,6 +613,9 @@
     }
 
     .lottery-alert .alert-body {
+      padding: 0 22px 20px 22px;
+      border-top: 1px dashed var(--gold);
+      padding-top: 14px;
       font-size: 14px;
       color: var(--ink-soft);
       line-height: 1.7;
@@ -1486,13 +1520,18 @@
         font-size: 20px;
       }
 
-      /* Enlarge inline SVG diagrams on mobile for readability */
+      /* Mobile: enlarge day-flow SVG via fixed height + horizontal scroll */
+      .day-flow svg {
+        width: auto !important;
+        max-width: none !important;
+        height: 280px;
+      }
       .day-flow svg text {
         font-size: 18px;
       }
       .day-flow svg text[font-size="10"],
       .day-flow svg text[font-size="11"] {
-        font-size: 15px;
+        font-size: 16px;
       }
       .day-flow .flow-node {
         stroke-width: 4;
@@ -1501,9 +1540,11 @@
         stroke-width: 4;
       }
 
-      .route-diagram .station-label { font-size: 13px; }
-      .route-diagram .station-label-jp { font-size: 11px; }
-      .route-diagram .line-label { font-size: 12px; }
+      /* route-diagram: also enlarge for readability */
+      .route-diagram svg { height: 160px; }
+      .route-diagram .station-label { font-size: 15px; }
+      .route-diagram .station-label-jp { font-size: 12px; }
+      .route-diagram .line-label { font-size: 13px; }
     }
   </style>
 </head>
@@ -2233,12 +2274,17 @@
       </div>
 
       <!-- Lottery Alert -->
-      <div class="lottery-alert">
-        <div class="alert-header">
-          <span class="alert-icon">🎫</span>
-          <span class="alert-title">鋼彈基地・事前抽選必讀</span>
-          <span class="alert-title-jp">THE GUNDAM BASE TOKYO ・ 事前入店抽選</span>
-        </div>
+      <div class="lottery-alert" id="lotteryAlert">
+        <button class="alert-toggle" onclick="document.getElementById('lotteryAlert').classList.toggle('open')">
+          <div class="alert-header">
+            <span class="alert-icon">🎫</span>
+            <span class="alert-title">鋼彈基地・事前抽選必讀</span>
+            <span class="alert-title-jp">THE GUNDAM BASE TOKYO ・ 事前入店抽選</span>
+          </div>
+          <span class="at-hint">點擊展開</span>
+          <span class="at-arrow">▼</span>
+        </button>
+        <div class="alert-collapse">
         <div class="alert-body">
           5/31 為
           <strong>事前抽選日</strong>（非當日整理券），必須在出發前完成線上抽籤申請，<strong>中籤才能入店</strong>。當週<strong>沒有設置「通常入店エリア」</strong>（自由入場區），未中籤者無法入店。
@@ -2271,6 +2317,7 @@
               📋 最新公告
             </a>
           </div>
+        </div>
         </div>
       </div>
 
@@ -4777,6 +4824,7 @@
       document.querySelectorAll('.transit-details').forEach(d => d.classList.add('open'));
       document.querySelectorAll('.transit-summary').forEach(d => d.classList.add('list-open'));
       document.querySelectorAll('.hotel-card').forEach(d => d.classList.add('open'));
+      document.querySelectorAll('.lottery-alert').forEach(d => d.classList.add('open'));
     });
     window.addEventListener('afterprint', () => {
       document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
